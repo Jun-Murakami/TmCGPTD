@@ -1,7 +1,8 @@
 ![Screenshot](./docs/images/screenshot_v01.jpg)
+
 ------------------------
 
-TmCGPT Editor ver1.2
+TmCGPT Debugger
 
 ------------------------
 
