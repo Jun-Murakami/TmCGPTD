@@ -1,0 +1,112 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <StartupObject>Sub Main</StartupObject>
+    <UseWindowsForms>true</UseWindowsForms>
+    <MyType>WindowsForms</MyType>
+    <OptionStrict>On</OptionStrict>
+    <Authors>Jun Murakami</Authors>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>Resources\TmCGPT.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="iconCal.png" />
+    <None Remove="iconChat.png" />
+    <None Remove="iconReturn.png" />
+    <None Remove="iconTag.png" />
+    <None Remove="iconWrite.png" />
+    <None Remove="Resources\iconChat.png" />
+    <None Remove="Resources\iconChatBlack.png" />
+    <None Remove="Resources\iconChatO6.png" />
+    <None Remove="Resources\iconLoading.png" />
+    <None Remove="Resources\iconOK.png" />
+    <None Remove="Resources\iconTagBlack.png" />
+    <None Remove="Resources\iconWriteBlack.png" />
+    <None Remove="Resources\iconWriteO6.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\TmCGPT.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconCal.png" />
+    <EmbeddedResource Include="Resources\iconChat.png" />
+    <EmbeddedResource Include="Resources\iconChatBlack.png" />
+    <EmbeddedResource Include="Resources\iconChatO6.png" />
+    <EmbeddedResource Include="Resources\iconLoading.png" />
+    <EmbeddedResource Include="Resources\iconOK.png" />
+    <EmbeddedResource Include="Resources\iconReturn.png" />
+    <EmbeddedResource Include="Resources\iconTag.png" />
+    <EmbeddedResource Include="Resources\iconTagBlack.png" />
+    <EmbeddedResource Include="Resources\iconWrite.png" />
+    <EmbeddedResource Include="Resources\iconWriteBlack.png" />
+    <EmbeddedResource Include="Resources\iconWriteO6.png" />
+    <EmbeddedResource Include="Syntax_Setting.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DockPanelSuite" Version="3.1.0" />
+    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Scintilla.NET" Version="5.3.2.7" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+    <PackageReference Include="VPKSoft.ScintillaLexers.NET" Version="1.1.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="My Project\Application.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Resources.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Settings.Designer.vb">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Update="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
