@@ -8,6 +8,7 @@
 
 This application is a developer-oriented Chat GPT API client designed to assist with program debugging. To use it, you must enter your API key in the appsettings.json file.
 
+
 // Features:
 
 - Consists of a vertically split main editor, preview screen, chat screen, and chat list screen
