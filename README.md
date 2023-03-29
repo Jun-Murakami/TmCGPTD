@@ -10,12 +10,12 @@ This application is a developer-oriented Chat GPT API client designed to assist 
 
 // Features:
 
--Consists of a vertically split main editor, preview screen, chat screen, and chat list screen
--Supports syntax highlighting for various programming languages
--20 preset phrase buttons & presets (saved in text files)
--Automatic logging of input documents and chat
--Full-text search using a database
--API parameter configuration
+- Consists of a vertically split main editor, preview screen, chat screen, and chat list screen
+- Supports syntax highlighting for various programming languages
+- 20 preset phrase buttons & presets (saved in text files)
+- Automatic logging of input documents and chat
+- Full-text search using a database
+- API parameter configuration
 
 
 // How to use:
@@ -23,11 +23,11 @@ This application is a developer-oriented Chat GPT API client designed to assist 
 No installation is required. Please launch TmCGPTE.exe.
 It's a simple software, so there should be no confusion, but we'll provide a brief explanation of keyboard shortcuts.
 
--Ctrl + numeric keypad 1-9, 0 correspond to preset phrases 1-10,
--Alt + numeric keypad 1-9, 0 correspond to preset phrases 11-20.
--Ctrl + Enter key to send text.
--Ctrl + S to save the document only.
--Also, you can zoom in and out the font with Ctrl + mouse wheel rotation.
+- Ctrl + numeric keypad 1-9, 0 correspond to preset phrases 1-10,
+- Alt + numeric keypad 1-9, 0 correspond to preset phrases 11-20.
+- Ctrl + Enter key to send text.
+- Ctrl + S to save the document only.
+- Also, you can zoom in and out the font with Ctrl + mouse wheel rotation.
 
 
 https://note.com/junmurakami/
