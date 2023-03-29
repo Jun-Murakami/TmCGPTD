@@ -344,7 +344,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Nothing")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property [stop]() As String
             Get
                 Return CType(Me("stop"),String)
@@ -356,13 +356,37 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Nothing")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property logit_bias() As String
             Get
                 Return CType(Me("logit_bias"),String)
             End Get
             Set
                 Me("logit_bias") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("gpt-3.5-turbo")>  _
+        Public Property model() As String
+            Get
+                Return CType(Me("model"),String)
+            End Get
+            Set
+                Me("model") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("https://api.openai.com/v1/chat/completions")>  _
+        Public Property url() As String
+            Get
+                Return CType(Me("url"),String)
+            End Get
+            Set
+                Me("url") = value
             End Set
         End Property
     End Class
