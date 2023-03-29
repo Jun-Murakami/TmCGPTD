@@ -9,7 +9,7 @@ Imports VPKSoft.ScintillaLexers.LexerEnumerations
 
 Partial Public Class Form1
     ' シンティラ表示初期化
-    Private Sub ScintillaInitialize(fontFamily As String, Optional ByVal fontSize As Integer = 0, Optional ByVal selectedLang As String = "Default", Optional ByVal fontFamily2 As String = "Default", Optional ByVal fontSize2 As Integer = 10)
+    Public Sub ScintillaInitialize(fontFamily As String, Optional ByVal fontSize As Integer = 0, Optional ByVal selectedLang As String = "Default", Optional ByVal fontFamily2 As String = "Default", Optional ByVal fontSize2 As Integer = 10)
         For i As Integer = 1 To 6
             Dim inputBox As Scintilla
             Dim spacing As Integer

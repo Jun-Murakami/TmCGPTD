@@ -5,6 +5,9 @@ Public Class Form_Preview
     Inherits DockContent
 
     Public Property MainFormInst As Form1
+    Private Sub Form_Preview_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        TextOut.Font = My.Settings.OutputFont
+    End Sub
     Private Sub PreviewForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim mainForm As Form1 = CType(Application.OpenForms.OfType(Of Form1).FirstOrDefault(), Form1)
         If Not mainForm.cts.Token.IsCancellationRequested Then
@@ -24,6 +27,19 @@ Public Class Form_Preview
                 ' フォントサイズを変更する
                 TextOut.Font = New Font(TextOut.Font.FontFamily, TextOut.Font.Size + fontSizeChange)
             End If
+        End If
+    End Sub
+
+    Private dockedSize As Size
+    Private Sub MyForm_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        If Me.DockState <> WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            dockedSize = Me.Size
+        End If
+    End Sub
+    Private Sub MyForm_DockStateChanged(sender As Object, e As EventArgs) Handles MyBase.DockStateChanged
+        If Me.DockState = WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            ' ここで DefaultFloatWindowSize を変更する
+            Me.Size = dockedSize
         End If
     End Sub
 

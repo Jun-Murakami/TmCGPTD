@@ -329,4 +329,17 @@ Public Class Form_ChatLog
 
     End Sub
 
+    Private dockedSize As Size
+    Private Sub MyForm_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        If Me.DockState <> WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            dockedSize = Me.Size
+        End If
+    End Sub
+    Private Sub MyForm_DockStateChanged(sender As Object, e As EventArgs) Handles MyBase.DockStateChanged
+        If Me.DockState = WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            ' ここで DefaultFloatWindowSize を変更する
+            Me.Size = dockedSize
+        End If
+    End Sub
+
 End Class

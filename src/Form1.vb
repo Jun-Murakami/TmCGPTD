@@ -29,15 +29,18 @@ Public Class Form1
     Public previewForm As New Form_Preview()
     Public chatLogForm As New Form_ChatLog()
     Public phraseForm As New Form_Phrase()
-    Public Shared max_tokens As Nullable(Of Integer)
-    Public Shared temperature As Nullable(Of Double)
-    Public Shared top_p As Nullable(Of Double)
-    Public Shared n As Nullable(Of Integer)
-    Public Shared logprobs As Nullable(Of Integer)
-    Public Shared presence_penalty As Nullable(Of Double)
-    Public Shared frequency_penalty As Nullable(Of Double)
-    Public Shared best_of As Nullable(Of Integer)
-    Public Shared logit_bias As Nullable(Of Integer)
+    Public Shared api_max_tokens As Nullable(Of Integer) = If(My.Settings.max_tokens = "Nothing", Nothing, CType(My.Settings.max_tokens, Integer))
+    Public Shared api_temperature As Nullable(Of Double) = If(My.Settings.temperature = "Nothing", Nothing, CType(My.Settings.temperature, Double))
+    Public Shared api_top_p As Nullable(Of Double) = If(My.Settings.top_p = "Nothing", Nothing, CType(My.Settings.top_p, Double))
+    Public Shared api_n As Nullable(Of Integer) = If(My.Settings.n = "Nothing", Nothing, CType(My.Settings.n, Integer))
+    Public Shared api_logprobs As Nullable(Of Integer) = If(My.Settings.logprobs = "Nothing", Nothing, CType(My.Settings.logprobs, Integer))
+    Public Shared api_presence_penalty As Nullable(Of Double) = If(My.Settings.presence_penalty = "Nothing", Nothing, CType(My.Settings.presence_penalty, Double))
+    Public Shared api_frequency_penalty As Nullable(Of Double) = If(My.Settings.frequency_penalty = "Nothing", Nothing, CType(My.Settings.frequency_penalty, Double))
+    Public Shared api_best_of As Nullable(Of Integer) = If(My.Settings.best_of = "Nothing", Nothing, CType(My.Settings.best_of, Integer))
+    Public Shared api_stop As String = My.Settings.stop
+    Public Shared api_logit_bias As String = My.Settings.logit_bias
+    Public Shared api_model As String = My.Settings.model
+    Public Shared api_url As String = My.Settings.url
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -154,38 +157,6 @@ Public Class Form1
             Me.Location = My.Settings.WindowPosition
             Me.Size = My.Settings.WindowSize
         End If
-
-        previewForm.TextOut.Font = My.Settings.OutputFont
-
-        ' テキストエリアを初期化
-        ScintillaInitialize(My.Settings.InputFontName, My.Settings.InputFontSize, nowLangueage, My.Settings.ChatFontName, My.Settings.ChatFontSize)
-
-        ' 定型句再現
-        Dim lastSelectedMenuItem As String = My.Settings.DefaultPresets
-        For Each item As ToolStripItem In PhrasePresetsToolStripMenuItem.DropDownItems
-            If TypeOf item Is ToolStripMenuItem AndAlso CType(item, ToolStripMenuItem).Text = lastSelectedMenuItem Then
-                Dim selectedItem As ToolStripMenuItem = CType(item, ToolStripMenuItem)
-                SelectionItem_Click(selectedItem, EventArgs.Empty)
-                Exit For
-            End If
-        Next
-        ' シンタックスハイライト再現
-        lastSelectedMenuItem = My.Settings.Language
-        For Each item As ToolStripItem In LanguageToolStripMenuItem.DropDownItems
-            Dim selectedItem As ToolStripMenuItem = FindMenuItemByText(item, lastSelectedMenuItem)
-            If selectedItem IsNot Nothing Then
-                selectedItem.Checked = False
-                SelectionItemLang_Click(selectedItem, EventArgs.Empty)
-                Exit For
-            End If
-        Next
-
-        inputForm.TextInput1.Zoom = My.Settings.Zoom1
-        inputForm.TextInput2.Zoom = My.Settings.Zoom2
-        inputForm.TextInput3.Zoom = My.Settings.Zoom3
-        inputForm.TextInput4.Zoom = My.Settings.Zoom4
-        inputForm.TextInput5.Zoom = My.Settings.Zoom5
-        chatForm.ChatBox.Zoom = My.Settings.ZoomChat
 
         Me.KeyPreview = True ' KeyPreview プロパティを True に設定
 

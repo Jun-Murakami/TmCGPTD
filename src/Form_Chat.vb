@@ -10,6 +10,19 @@ Imports System.Runtime.CompilerServices
 Public Class Form_Chat
     Inherits DockContent
     Public Property MainFormInst As Form1
+    Private Sub Form_Chat_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        ChatBox.Zoom = My.Settings.ZoomChat
+    End Sub
+    ' Form2は閉じれないようにする。--------------------------------------------------------------
+    Private Sub PreviewForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Dim mainForm As Form1 = CType(Application.OpenForms.OfType(Of Form1).FirstOrDefault(), Form1)
+        If Not mainForm.cts.Token.IsCancellationRequested Then
+            Me.Hide() ' フォームを閉じるのではなく、非表示にする
+            e.Cancel = True ' イベントをキャンセルし、フォームが閉じないようにする
+        Else
+            e.Cancel = False
+        End If
+    End Sub
 
     Private _lastSearchPos As Integer = 0 ' 検索ボックス用
 
@@ -90,17 +103,6 @@ Public Class Form_Chat
             ChatBox.ScrollCaret()
         Else
             MessageBox.Show("No matching results.")
-        End If
-    End Sub
-
-    ' Form2は閉じれないようにする。--------------------------------------------------------------
-    Private Sub PreviewForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Dim mainForm As Form1 = CType(Application.OpenForms.OfType(Of Form1).FirstOrDefault(), Form1)
-        If Not mainForm.cts.Token.IsCancellationRequested Then
-            Me.Hide() ' フォームを閉じるのではなく、非表示にする
-            e.Cancel = True ' イベントをキャンセルし、フォームが閉じないようにする
-        Else
-            e.Cancel = False
         End If
     End Sub
 
@@ -272,6 +274,19 @@ Public Class Form_Chat
     Private Async Sub ButtonNewChat_ClickAsync(sender As Object, e As EventArgs) Handles ButtonNewChat.Click
         Await MainFormInst.InitializeChatAsync()
 
+    End Sub
+
+    Private dockedSize As Size
+    Private Sub MyForm_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        If Me.DockState <> WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            dockedSize = Me.Size
+        End If
+    End Sub
+    Private Sub MyForm_DockStateChanged(sender As Object, e As EventArgs) Handles MyBase.DockStateChanged
+        If Me.DockState = WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            ' ここで DefaultFloatWindowSize を変更する
+            Me.Size = dockedSize
+        End If
     End Sub
 
 End Class

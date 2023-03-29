@@ -18,6 +18,7 @@ Public Class Form_Phrase
         End If
     End Sub
 
+
     ' 定型句ボタンクリック--------------------------------------------------------------
     Private Sub Button_Click(sender As Object, e As EventArgs) Handles Button1.Click, Button2.Click, Button3.Click, Button4.Click, Button5.Click, Button6.Click, Button7.Click, Button8.Click, Button9.Click, Button10.Click, Button11.Click, Button12.Click, Button13.Click, Button14.Click, Button15.Click, Button16.Click, Button17.Click, Button18.Click, Button19.Click, Button20.Click
 
@@ -42,6 +43,19 @@ Public Class Form_Phrase
                 scintillaPick = True
                 'targetScintilla.Focus()
             End If
+        End If
+    End Sub
+
+    Private dockedSize As Size
+    Private Sub MyForm_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        If Me.DockState <> WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            dockedSize = Me.Size
+        End If
+    End Sub
+    Private Sub MyForm_DockStateChanged(sender As Object, e As EventArgs) Handles MyBase.DockStateChanged
+        If Me.DockState = WeifenLuo.WinFormsUI.Docking.DockState.Float Then
+            ' ここで DefaultFloatWindowSize を変更する
+            Me.Size = dockedSize
         End If
     End Sub
 

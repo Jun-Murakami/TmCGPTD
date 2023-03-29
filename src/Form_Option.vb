@@ -9,23 +9,25 @@ Public Class Form_Option
     Private value6 As Double
     Private value7 As Double
     Private value8 As Integer
-    Private value9 As Integer
+    Private value9 As String
+    Private value10 As String
+    Private value11 As String
     Private Sub Form_Option_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         If Not My.Settings.max_tokens = "Nothing" Then
             CheckBox1.Checked = True
             TrackBar1.Value = CType(My.Settings.max_tokens, Integer)
         Else
-            TrackBar1.Value = 16
+            TrackBar1.Value = 2048
         End If
         If Not My.Settings.temperature = "Nothing" Then
             CheckBox2.Checked = True
-            TrackBar2.Value = CType(My.Settings.temperature, Integer) * 10
+            TrackBar2.Value = CType(CType(My.Settings.temperature, Double) * 10, Integer)
         Else
             TrackBar2.Value = 10
         End If
         If Not My.Settings.top_p = "Nothing" Then
             CheckBox3.Checked = True
-            TrackBar3.Value = CType(My.Settings.top_p, Integer) * 100
+            TrackBar3.Value = CType(CType(My.Settings.top_p, Double) * 100, Integer)
         Else
             TrackBar3.Value = 100
         End If
@@ -43,13 +45,13 @@ Public Class Form_Option
         End If
         If Not My.Settings.presence_penalty = "Nothing" Then
             CheckBox6.Checked = True
-            TrackBar6.Value = CType(My.Settings.presence_penalty, Integer)
+            TrackBar6.Value = CType(CType(My.Settings.presence_penalty, Double) * 10, Integer)
         Else
             TrackBar6.Value = 0
         End If
         If Not My.Settings.frequency_penalty = "Nothing" Then
             CheckBox7.Checked = True
-            TrackBar7.Value = CType(My.Settings.frequency_penalty, Integer)
+            TrackBar7.Value = CType(CType(My.Settings.frequency_penalty, Double) * 10, Integer)
         Else
             TrackBar7.Value = 0
         End If
@@ -59,12 +61,35 @@ Public Class Form_Option
         Else
             TrackBar8.Value = 1
         End If
-        If Not My.Settings.logit_bias = "Nothing" Then
+
+        If Not My.Settings.stop = "" Then
             CheckBox9.Checked = True
-            TrackBar9.Value = CType(My.Settings.logit_bias, Integer)
+            TextBox1.Text = My.Settings.stop
+            TextBox1.ForeColor = SystemColors.ControlText
         Else
-            TrackBar9.Value = 0
+
         End If
+
+        If Not My.Settings.logit_bias = "" Then
+            CheckBox10.Checked = True
+            TextBox2.Text = My.Settings.logit_bias
+            TextBox2.ForeColor = SystemColors.ControlText
+        Else
+
+        End If
+
+        If Not My.Settings.model = "" Then
+            ComboBox1.Text = My.Settings.model
+        Else
+            ComboBox1.Text = "gpt-3.5-turbo"
+        End If
+
+        If Not My.Settings.url = "" Then
+            TextBox3.Text = My.Settings.url
+        Else
+            TextBox3.Text = "https://api.openai.com/v1/chat/completions"
+        End If
+
 
         TrackBar1_ValueChanged(TrackBar1, EventArgs.Empty)
         TrackBar2_ValueChanged(TrackBar2, EventArgs.Empty)
@@ -74,7 +99,6 @@ Public Class Form_Option
         TrackBar6_ValueChanged(TrackBar6, EventArgs.Empty)
         TrackBar7_ValueChanged(TrackBar7, EventArgs.Empty)
         TrackBar8_ValueChanged(TrackBar8, EventArgs.Empty)
-        TrackBar9_ValueChanged(TrackBar9, EventArgs.Empty)
     End Sub
     Private Sub TrackBar1_ValueChanged(sender As Object, e As EventArgs) Handles TrackBar1.ValueChanged
         value1 = TrackBar1.Value
@@ -108,10 +132,6 @@ Public Class Form_Option
         value8 = TrackBar8.Value
         LabelN8.Text = value8.ToString()
     End Sub
-    Private Sub TrackBar9_ValueChanged(sender As Object, e As EventArgs) Handles TrackBar9.ValueChanged
-        value9 = TrackBar9.Value
-        LabelN9.Text = value9.ToString()
-    End Sub
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
         Me.Close()
@@ -119,78 +139,113 @@ Public Class Form_Option
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
         If CheckBox1.Checked = True Then
-            max_tokens = value1
+            api_max_tokens = value1
             My.Settings.max_tokens = value1.ToString
         Else
-            max_tokens = Nothing
+            api_max_tokens = Nothing
             My.Settings.max_tokens = "Nothing"
         End If
 
         If CheckBox2.Checked = True Then
-            temperature = value2
+            api_temperature = value2
             My.Settings.temperature = value2.ToString
         Else
-            temperature = Nothing
+            api_temperature = Nothing
             My.Settings.temperature = "Nothing"
         End If
 
         If CheckBox3.Checked = True Then
-            top_p = value3
+            api_top_p = value3
             My.Settings.top_p = value3.ToString
         Else
-            top_p = Nothing
+            api_top_p = Nothing
             My.Settings.top_p = "Nothing"
         End If
 
         If CheckBox4.Checked = True Then
-            n = value4
+            api_n = value4
             My.Settings.n = value4.ToString
         Else
-            n = Nothing
+            api_n = Nothing
             My.Settings.n = "Nothing"
         End If
 
         If CheckBox5.Checked = True Then
-            logprobs = value5
+            api_logprobs = value5
             My.Settings.logprobs = value5.ToString
         Else
-            logprobs = Nothing
+            api_logprobs = Nothing
             My.Settings.logprobs = "Nothing"
         End If
 
         If CheckBox6.Checked = True Then
-            presence_penalty = value6
+            api_presence_penalty = value6
             My.Settings.presence_penalty = value6.ToString
         Else
-            presence_penalty = Nothing
+            api_presence_penalty = Nothing
             My.Settings.presence_penalty = "Nothing"
         End If
 
         If CheckBox7.Checked = True Then
-            frequency_penalty = value7
+            api_frequency_penalty = value7
             My.Settings.frequency_penalty = value7.ToString
         Else
-            frequency_penalty = Nothing
+            api_frequency_penalty = Nothing
             My.Settings.frequency_penalty = "Nothing"
         End If
 
         If CheckBox8.Checked = True Then
-            best_of = value8
+            api_best_of = value8
             My.Settings.best_of = value8.ToString
         Else
-            best_of = Nothing
+            api_best_of = Nothing
             My.Settings.best_of = "Nothing"
         End If
 
-        If CheckBox9.Checked = True Then
-            logit_bias = value9
-            My.Settings.logit_bias = value9.ToString
+        If CheckBox9.Checked = True AndAlso Not TextBox1.Text.StartsWith("ex") AndAlso Not String.IsNullOrWhiteSpace(TextBox1.Text) Then
+            api_stop = TextBox1.Text
+            My.Settings.stop = TextBox1.Text
         Else
-            logit_bias = Nothing
-            My.Settings.logit_bias = "Nothing"
+            api_stop = Nothing
+            My.Settings.stop = ""
+        End If
+
+        If CheckBox10.Checked = True AndAlso Not TextBox2.Text.StartsWith("ex") AndAlso Not String.IsNullOrWhiteSpace(TextBox2.Text) Then
+            api_logit_bias = TextBox2.Text
+            My.Settings.logit_bias = TextBox2.Text
+        Else
+            api_logit_bias = Nothing
+            My.Settings.logit_bias = ""
+        End If
+
+        If Not String.IsNullOrWhiteSpace(ComboBox1.Text) Then
+            api_model = ComboBox1.Text
+            My.Settings.model = ComboBox1.Text
+        Else
+            api_model = "gpt-3.5-turbo"
+            My.Settings.model = "gpt-3.5-turbo"
+        End If
+
+        If Not String.IsNullOrWhiteSpace(TextBox3.Text) Then
+            api_url = TextBox3.Text
+            My.Settings.url = TextBox3.Text
+        Else
+            api_model = "https://api.openai.com/v1/chat/completions"
+            My.Settings.model = "https://api.openai.com/v1/chat/completions"
         End If
 
         My.Settings.Save()
         Me.Close()
     End Sub
+
+    Private Sub TextBox1_GotFocus(sender As Object, e As EventArgs) Handles TextBox1.GotFocus
+        If Not TextBox1.ForeColor = SystemColors.ControlText Then TextBox1.ForeColor = SystemColors.ControlText
+        If TextBox1.Text.StartsWith("ex", StringComparison.OrdinalIgnoreCase) Then TextBox1.Text = ""
+    End Sub
+
+    Private Sub TextBox2_GotFocus(sender As Object, e As EventArgs) Handles TextBox2.GotFocus
+        If Not TextBox2.ForeColor = SystemColors.ControlText Then TextBox2.ForeColor = SystemColors.ControlText
+        If TextBox2.Text.StartsWith("ex", StringComparison.OrdinalIgnoreCase) Then TextBox2.Text = ""
+    End Sub
+
 End Class

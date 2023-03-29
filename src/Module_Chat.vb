@@ -37,16 +37,22 @@ Partial Public Class Form1
                                                    End Sub)
                        End Sub)
 
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() AddLogAsync($"[{postDate.ToString}] by You{Environment.NewLine}")))
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() AddLogAsync(String.Join(Environment.NewLine, recentText).Trim() & Environment.NewLine)))
+        Await Task.Run(Sub() chatForm.ChatBox.Invoke(
+                                    Sub()
+                                        AddLogAsync($"[{postDate.ToString}] by You{Environment.NewLine}{Environment.NewLine}{String.Join(Environment.NewLine, recentText).Trim() & Environment.NewLine}")
+                                        'AddLogAsync(String.Join(Environment.NewLine, recentText).Trim() & Environment.NewLine)
+                                    End Sub))
         Await InsertDatabaseAsync()
 
         Await StartThinkingAnimationAsync()
         Dim resultMes As String = Await PostChatAsync(recentText)
         Await StopThinkingAnimationAsync()
         Dim resDate As Date = Now
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() AddLogAsync($"[{resDate.ToString}] by ChatGPT", False)))
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() AddLogAsync(resultMes, True)))
+        Await Task.Run(Sub() chatForm.ChatBox.Invoke(
+                           Sub()
+                               AddLogAsync($"[{resDate.ToString}] by ChatGPT{Environment.NewLine}{resultMes}")
+                               'AddLogAsync(resultMes, True)
+                           End Sub))
 
         Await InsertDatabaseChatAsync(postDate, resDate, resultMes)
 
@@ -187,13 +193,7 @@ Partial Public Class Form1
     ' APIに接続してレスポンス取得--------------------------------------------------------------
     Public conversationHistory As New List(Of Dictionary(Of String, Object)) ' 履歴
 
-    Public Async Function PostChatAsync(chatTextPost As String,
-                                    Optional max_tokens As Nullable(Of Integer) = Nothing,
-                                    Optional temperature As Nullable(Of Double) = Nothing,
-                                    Optional top_p As Nullable(Of Double) = Nothing,
-                                    Optional presence_penalty As Nullable(Of Double) = Nothing,
-                                    Optional frequency_penalty As Nullable(Of Double) = Nothing,
-                                    Optional n As Nullable(Of Integer) = Nothing) As Task(Of String)
+    Public Async Function PostChatAsync(chatTextPost As String) As Task(Of String)
 
         Try
             Dim chatTextRes As String
@@ -213,17 +213,31 @@ Partial Public Class Form1
                 conversationHistory.Add(userInput)
 
                 Dim options As New Dictionary(Of String, Object) From {
-                    {"model", "gpt-3.5-turbo"},
+                    {"model", api_model},
                     {"messages", conversationHistory}
                 }
 
                 ' オプションパラメータを追加
-                If temperature.HasValue Then options.Add("temperature", temperature.Value)
-                If max_tokens.HasValue Then options.Add("max_tokens", max_tokens.Value)
-                If top_p.HasValue Then options.Add("top_p", top_p.Value)
-                If presence_penalty.HasValue Then options.Add("presence_penalty", presence_penalty.Value)
-                If frequency_penalty.HasValue Then options.Add("frequency_penalty", frequency_penalty.Value)
-                If n.HasValue Then options.Add("n", n.Value)
+                If api_max_tokens.HasValue Then options.Add("max_tokens", api_max_tokens.Value)
+                If api_temperature.HasValue Then options.Add("temperature", api_temperature.Value)
+                If api_top_p.HasValue Then options.Add("top_p", api_top_p.Value)
+                If api_n.HasValue Then options.Add("n", api_n.Value)
+                If api_logprobs.HasValue Then options.Add("logprobs", api_logprobs.Value)
+                If api_presence_penalty.HasValue Then options.Add("presence_penalty", api_presence_penalty.Value)
+                If api_frequency_penalty.HasValue Then options.Add("frequency_penalty", api_frequency_penalty.Value)
+                If api_best_of.HasValue Then options.Add("best_of", api_best_of.Value)
+
+                ' api_stop パラメータの処理
+                If Not String.IsNullOrEmpty(api_stop) Then
+                    Dim stopSequence() As String = api_stop.Split(","c)
+                    options.Add("stop", stopSequence)
+                End If
+
+                ' api_logit_bias パラメータの処理
+                If Not String.IsNullOrEmpty(api_logit_bias) Then
+                    Dim logitBias As Dictionary(Of String, Double) = JsonSerializer.Deserialize(Of Dictionary(Of String, Double))(api_logit_bias)
+                    options.Add("logit_bias", logitBias)
+                End If
 
                 Dim jsonContent As String = JsonSerializer.Serialize(options)
 
@@ -231,7 +245,7 @@ Partial Public Class Form1
 
                 'form2.AddLog($"JSON : {jsonContent}") 'Json生データ出力
 
-                Dim response As HttpResponseMessage = Await httpClientStr.PostAsync("https://api.openai.com/v1/chat/completions", content)
+                Dim response As HttpResponseMessage = Await httpClientStr.PostAsync(api_url, content)
 
                 If response.IsSuccessStatusCode Then
                     Dim responseBody As String = Await response.Content.ReadAsStringAsync()

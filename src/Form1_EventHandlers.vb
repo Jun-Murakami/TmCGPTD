@@ -25,6 +25,7 @@ Partial Public Class Form1
             DockPanel1.Theme = New VS2015LightTheme
         End If
         inputForm.Show(DockPanel1, WeifenLuo.WinFormsUI.Docking.DockState.Document)
+        ChangeControlColor()
     End Sub
 
     Public Sub PreviewWindowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewWindowToolStripMenuItem.Click
@@ -34,6 +35,7 @@ Partial Public Class Form1
             DockPanel1.Theme = New VS2015LightTheme
         End If
         previewForm.Show(DockPanel1, WeifenLuo.WinFormsUI.Docking.DockState.DockRight)
+        ChangeControlColor()
     End Sub
     Public Sub ChatLogToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChatLogToolStripMenuItem.Click
         If chatForm Is Nothing Then
@@ -42,6 +44,7 @@ Partial Public Class Form1
             DockPanel1.Theme = New VS2015LightTheme
         End If
         chatForm.Show(DockPanel1, WeifenLuo.WinFormsUI.Docking.DockState.Document)
+        ChangeControlColor()
     End Sub
 
     Public Sub ChatListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChatListToolStripMenuItem.Click
@@ -51,6 +54,7 @@ Partial Public Class Form1
             DockPanel1.Theme = New VS2015LightTheme
         End If
         chatLogForm.Show(DockPanel1, WeifenLuo.WinFormsUI.Docking.DockState.DockLeft)
+        ChangeControlColor()
     End Sub
     Public Sub PhrasetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PhraseToolStripMenuItem.Click
         If phraseForm Is Nothing Then
@@ -59,6 +63,7 @@ Partial Public Class Form1
             DockPanel1.Theme = New VS2015LightTheme
         End If
         phraseForm.Show(DockPanel1, WeifenLuo.WinFormsUI.Docking.DockState.DockBottom)
+        ChangeControlColor()
     End Sub
     Private Sub LayoutResetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LayoutResetToolStripMenuItem.Click
         LoadDefaultDockLayout()
@@ -125,7 +130,7 @@ Partial Public Class Form1
     End Sub
 
     ' 定型句プリセット選択(ハンドルはメニュー生成時にコードで付加)--------------------------------------------------------------
-    Private Sub SelectionItem_Click(sender As Object, e As EventArgs)
+    Public Sub SelectionItem_Click(sender As Object, e As EventArgs)
         Dim clickedItem As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
         If clickedItem.Checked = True Then Return
 
@@ -162,7 +167,7 @@ Partial Public Class Form1
     End Sub
 
     ' シンタックスハイライト変更--------------------------------------------------------------
-    Private Sub SelectionItemLang_Click(sender As Object, e As EventArgs)
+    Public Sub SelectionItemLang_Click(sender As Object, e As EventArgs)
         Dim clickedItem As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
         If clickedItem.Checked = True Then Return
 
@@ -218,7 +223,7 @@ Partial Public Class Form1
         End If
     End Sub
     ' 再起動時の再帰的検索メソッド
-    Private Function FindMenuItemByText(parent As ToolStripItem, targetText As String) As ToolStripMenuItem
+    Public Function FindMenuItemByText(parent As ToolStripItem, targetText As String) As ToolStripMenuItem
         If TypeOf parent Is ToolStripMenuItem Then
             Dim parentMenuItem As ToolStripMenuItem = CType(parent, ToolStripMenuItem)
             If parentMenuItem.Text = targetText Then
@@ -235,7 +240,6 @@ Partial Public Class Form1
 
         Return Nothing
     End Function
-
 
     ' フォントファミリ変更--------------------------------------------------------------
     Private Sub InputAreaFontToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InputAreaFontToolStripMenuItem.Click

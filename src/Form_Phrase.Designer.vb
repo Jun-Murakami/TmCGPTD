@@ -23,6 +23,7 @@ Partial Class Form_Phrase
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         TableLayoutPanel1 = New TableLayoutPanel()
+        Button1 = New Button()
         Button3 = New Button()
         Button4 = New Button()
         Button5 = New Button()
@@ -62,7 +63,6 @@ Partial Class Form_Phrase
         Button17 = New Button()
         Button16 = New Button()
         Button2 = New Button()
-        Button1 = New Button()
         TableLayoutPanel1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -128,12 +128,22 @@ Partial Class Form_Phrase
         TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 25F))
         TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 25F))
         TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 25F))
-        TableLayoutPanel1.Size = New Size(1131, 142)
+        TableLayoutPanel1.Size = New Size(1131, 141)
         TableLayoutPanel1.TabIndex = 48
+        ' 
+        ' Button1
+        ' 
+        Button1.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
+        Button1.Location = New Point(9, 3)
+        Button1.Margin = New Padding(9, 3, 2, 3)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(42, 29)
+        Button1.TabIndex = 49
+        Button1.Text = "1"
+        Button1.UseVisualStyleBackColor = True
         ' 
         ' Button3
         ' 
-        Button3.Dock = DockStyle.Fill
         Button3.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button3.Location = New Point(457, 3)
         Button3.Margin = New Padding(0, 3, 2, 3)
@@ -145,7 +155,6 @@ Partial Class Form_Phrase
         ' 
         ' Button4
         ' 
-        Button4.Dock = DockStyle.Fill
         Button4.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button4.Location = New Point(681, 3)
         Button4.Margin = New Padding(0, 3, 2, 3)
@@ -157,7 +166,6 @@ Partial Class Form_Phrase
         ' 
         ' Button5
         ' 
-        Button5.Dock = DockStyle.Fill
         Button5.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button5.Location = New Point(905, 3)
         Button5.Margin = New Padding(0, 3, 2, 3)
@@ -180,7 +188,6 @@ Partial Class Form_Phrase
         ' 
         ' Button7
         ' 
-        Button7.Dock = DockStyle.Fill
         Button7.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button7.Location = New Point(233, 38)
         Button7.Margin = New Padding(0, 3, 2, 3)
@@ -192,7 +199,6 @@ Partial Class Form_Phrase
         ' 
         ' Button8
         ' 
-        Button8.Dock = DockStyle.Fill
         Button8.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button8.Location = New Point(457, 38)
         Button8.Margin = New Padding(0, 3, 2, 3)
@@ -204,7 +210,6 @@ Partial Class Form_Phrase
         ' 
         ' Button9
         ' 
-        Button9.Dock = DockStyle.Fill
         Button9.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button9.Location = New Point(681, 38)
         Button9.Margin = New Padding(0, 3, 2, 3)
@@ -216,7 +221,6 @@ Partial Class Form_Phrase
         ' 
         ' Button10
         ' 
-        Button10.Dock = DockStyle.Fill
         Button10.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button10.Location = New Point(905, 38)
         Button10.Margin = New Padding(0, 3, 2, 3)
@@ -228,7 +232,6 @@ Partial Class Form_Phrase
         ' 
         ' Button11
         ' 
-        Button11.Dock = DockStyle.Fill
         Button11.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button11.Location = New Point(9, 73)
         Button11.Margin = New Padding(9, 3, 2, 3)
@@ -240,7 +243,6 @@ Partial Class Form_Phrase
         ' 
         ' Button12
         ' 
-        Button12.Dock = DockStyle.Fill
         Button12.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button12.Location = New Point(233, 73)
         Button12.Margin = New Padding(0, 3, 2, 3)
@@ -252,7 +254,6 @@ Partial Class Form_Phrase
         ' 
         ' Button13
         ' 
-        Button13.Dock = DockStyle.Fill
         Button13.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button13.Location = New Point(457, 73)
         Button13.Margin = New Padding(0, 3, 2, 3)
@@ -264,7 +265,6 @@ Partial Class Form_Phrase
         ' 
         ' Button14
         ' 
-        Button14.Dock = DockStyle.Fill
         Button14.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button14.Location = New Point(681, 73)
         Button14.Margin = New Padding(0, 3, 2, 3)
@@ -276,7 +276,6 @@ Partial Class Form_Phrase
         ' 
         ' Button15
         ' 
-        Button15.Dock = DockStyle.Fill
         Button15.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button15.Location = New Point(905, 73)
         Button15.Margin = New Padding(0, 3, 2, 3)
@@ -288,24 +287,22 @@ Partial Class Form_Phrase
         ' 
         ' Button19
         ' 
-        Button19.Dock = DockStyle.Fill
         Button19.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button19.Location = New Point(681, 108)
         Button19.Margin = New Padding(0, 3, 2, 3)
         Button19.Name = "Button19"
-        Button19.Size = New Size(42, 31)
+        Button19.Size = New Size(42, 30)
         Button19.TabIndex = 19
         Button19.Text = "19"
         Button19.UseVisualStyleBackColor = True
         ' 
         ' Button20
         ' 
-        Button20.Dock = DockStyle.Fill
         Button20.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button20.Location = New Point(905, 108)
         Button20.Margin = New Padding(0, 3, 2, 3)
         Button20.Name = "Button20"
-        Button20.Size = New Size(42, 31)
+        Button20.Size = New Size(42, 30)
         Button20.TabIndex = 20
         Button20.Text = "20"
         Button20.UseVisualStyleBackColor = True
@@ -513,43 +510,39 @@ Partial Class Form_Phrase
         ' 
         ' Button18
         ' 
-        Button18.Dock = DockStyle.Fill
         Button18.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button18.Location = New Point(457, 108)
         Button18.Margin = New Padding(0, 3, 2, 3)
         Button18.Name = "Button18"
-        Button18.Size = New Size(42, 31)
+        Button18.Size = New Size(42, 30)
         Button18.TabIndex = 18
         Button18.Text = "18"
         Button18.UseVisualStyleBackColor = True
         ' 
         ' Button17
         ' 
-        Button17.Dock = DockStyle.Fill
         Button17.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button17.Location = New Point(233, 108)
         Button17.Margin = New Padding(0, 3, 2, 3)
         Button17.Name = "Button17"
-        Button17.Size = New Size(42, 31)
+        Button17.Size = New Size(42, 30)
         Button17.TabIndex = 17
         Button17.Text = "17"
         Button17.UseVisualStyleBackColor = True
         ' 
         ' Button16
         ' 
-        Button16.Dock = DockStyle.Fill
         Button16.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button16.Location = New Point(9, 108)
         Button16.Margin = New Padding(9, 3, 2, 3)
         Button16.Name = "Button16"
-        Button16.Size = New Size(42, 31)
+        Button16.Size = New Size(42, 30)
         Button16.TabIndex = 16
         Button16.Text = "16"
         Button16.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
-        Button2.Dock = DockStyle.Fill
         Button2.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
         Button2.Location = New Point(233, 3)
         Button2.Margin = New Padding(0, 3, 2, 3)
@@ -559,23 +552,11 @@ Partial Class Form_Phrase
         Button2.Text = "2"
         Button2.UseVisualStyleBackColor = True
         ' 
-        ' Button1
-        ' 
-        Button1.Dock = DockStyle.Fill
-        Button1.Font = New Font("BIZ UDPゴシック", 8F, FontStyle.Regular, GraphicsUnit.Point)
-        Button1.Location = New Point(9, 3)
-        Button1.Margin = New Padding(9, 3, 2, 3)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(42, 29)
-        Button1.TabIndex = 49
-        Button1.Text = "1"
-        Button1.UseVisualStyleBackColor = True
-        ' 
         ' Form_Phrase
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1131, 142)
+        ClientSize = New Size(1131, 141)
         Controls.Add(TableLayoutPanel1)
         Name = "Form_Phrase"
         Text = "Phrase Presets"

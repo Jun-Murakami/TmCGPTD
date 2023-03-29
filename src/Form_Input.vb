@@ -378,4 +378,35 @@ Public Class Form_Input
             e.DrawFocusRectangle()
         End If
     End Sub
+
+    Private Sub Form_Input_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        ' テキストエリアを初期化
+        MainFormInst.ScintillaInitialize(My.Settings.InputFontName, My.Settings.InputFontSize, nowLangueage, My.Settings.ChatFontName, My.Settings.ChatFontSize)
+
+        ' 定型句再現
+        Dim lastSelectedMenuItem As String = My.Settings.DefaultPresets
+        For Each item As ToolStripItem In MainFormInst.PhrasePresetsToolStripMenuItem.DropDownItems
+            If TypeOf item Is ToolStripMenuItem AndAlso CType(item, ToolStripMenuItem).Text = lastSelectedMenuItem Then
+                Dim selectedItem As ToolStripMenuItem = CType(item, ToolStripMenuItem)
+                MainFormInst.SelectionItem_Click(selectedItem, EventArgs.Empty)
+                Exit For
+            End If
+        Next
+        ' シンタックスハイライト再現
+        lastSelectedMenuItem = My.Settings.Language
+        For Each item As ToolStripItem In MainFormInst.LanguageToolStripMenuItem.DropDownItems
+            Dim selectedItem As ToolStripMenuItem = MainFormInst.FindMenuItemByText(item, lastSelectedMenuItem)
+            If selectedItem IsNot Nothing Then
+                selectedItem.Checked = False
+                MainFormInst.SelectionItemLang_Click(selectedItem, EventArgs.Empty)
+                Exit For
+            End If
+        Next
+
+        TextInput1.Zoom = My.Settings.Zoom1
+        TextInput2.Zoom = My.Settings.Zoom2
+        TextInput3.Zoom = My.Settings.Zoom3
+        TextInput4.Zoom = My.Settings.Zoom4
+        TextInput5.Zoom = My.Settings.Zoom5
+    End Sub
 End Class

@@ -56,7 +56,6 @@ Partial Class Form_ChatLog
         ' 
         ' TableLayoutPanel1
         ' 
-        TableLayoutPanel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         TableLayoutPanel1.ColumnCount = 6
         TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 29F))
         TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
@@ -70,22 +69,24 @@ Partial Class Form_ChatLog
         TableLayoutPanel1.Controls.Add(PictureBox2, 2, 0)
         TableLayoutPanel1.Controls.Add(PictureBox1, 0, 0)
         TableLayoutPanel1.Controls.Add(ComboBoxTag, 3, 0)
-        TableLayoutPanel1.Location = New Point(9, 5)
-        TableLayoutPanel1.Margin = New Padding(0)
+        TableLayoutPanel1.Dock = DockStyle.Fill
+        TableLayoutPanel1.Location = New Point(0, 0)
+        TableLayoutPanel1.Margin = New Padding(9, 5, 9, 5)
         TableLayoutPanel1.Name = "TableLayoutPanel1"
+        TableLayoutPanel1.Padding = New Padding(9, 5, 9, 5)
         TableLayoutPanel1.RowCount = 1
         TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        TableLayoutPanel1.Size = New Size(594, 35)
+        TableLayoutPanel1.Size = New Size(611, 47)
         TableLayoutPanel1.TabIndex = 78
         ' 
         ' TextBoxSearch
         ' 
         TextBoxSearch.Dock = DockStyle.Fill
         TextBoxSearch.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        TextBoxSearch.Location = New Point(31, 2)
+        TextBoxSearch.Location = New Point(40, 7)
         TextBoxSearch.Margin = New Padding(2, 2, 6, 2)
         TextBoxSearch.Name = "TextBoxSearch"
-        TextBoxSearch.Size = New Size(209, 29)
+        TextBoxSearch.Size = New Size(208, 29)
         TextBoxSearch.TabIndex = 1
         ' 
         ' ButtonCal
@@ -93,7 +94,7 @@ Partial Class Form_ChatLog
         ButtonCal.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         ButtonCal.BackgroundImageLayout = ImageLayout.Center
         ButtonCal.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        ButtonCal.Location = New Point(492, 0)
+        ButtonCal.Location = New Point(499, 5)
         ButtonCal.Margin = New Padding(0)
         ButtonCal.Name = "ButtonCal"
         ButtonCal.Size = New Size(31, 35)
@@ -104,7 +105,7 @@ Partial Class Form_ChatLog
         ' 
         ButtonChatDelete.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         ButtonChatDelete.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        ButtonChatDelete.Location = New Point(530, 0)
+        ButtonChatDelete.Location = New Point(538, 5)
         ButtonChatDelete.Margin = New Padding(3, 0, 0, 0)
         ButtonChatDelete.Name = "ButtonChatDelete"
         ButtonChatDelete.Size = New Size(64, 35)
@@ -116,7 +117,7 @@ Partial Class Form_ChatLog
         ' 
         PictureBox2.Image = My.Resources.Resources.iconTag
         PictureBox2.InitialImage = My.Resources.Resources.iconTag
-        PictureBox2.Location = New Point(249, 3)
+        PictureBox2.Location = New Point(257, 8)
         PictureBox2.Name = "PictureBox2"
         PictureBox2.Size = New Size(23, 29)
         PictureBox2.SizeMode = PictureBoxSizeMode.Zoom
@@ -127,7 +128,7 @@ Partial Class Form_ChatLog
         ' 
         PictureBox1.Image = My.Resources.Resources.iconSearch
         PictureBox1.InitialImage = My.Resources.Resources.iconChat
-        PictureBox1.Location = New Point(3, 3)
+        PictureBox1.Location = New Point(12, 8)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(23, 29)
         PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
@@ -142,10 +143,10 @@ Partial Class Form_ChatLog
         ComboBoxTag.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
         ComboBoxTag.ForeColor = SystemColors.WindowText
         ComboBoxTag.FormattingEnabled = True
-        ComboBoxTag.Location = New Point(277, 2)
+        ComboBoxTag.Location = New Point(285, 7)
         ComboBoxTag.Margin = New Padding(2, 2, 6, 2)
         ComboBoxTag.Name = "ComboBoxTag"
-        ComboBoxTag.Size = New Size(209, 30)
+        ComboBoxTag.Size = New Size(208, 30)
         ComboBoxTag.TabIndex = 77
         ' 
         ' Panel2

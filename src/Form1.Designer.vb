@@ -31,6 +31,8 @@ Partial Class Form1
         ToolStripSeparator1 = New ToolStripSeparator()
         LanguageToolStripMenuItem = New ToolStripMenuItem()
         SettingToolStripMenuItem = New ToolStripMenuItem()
+        APIOptionToolStripMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator3 = New ToolStripSeparator()
         InputAreaFontToolStripMenuItem = New ToolStripMenuItem()
         PreviewAreaFontToolStripMenuItem = New ToolStripMenuItem()
         ChatLogFontToolStripMenuItem = New ToolStripMenuItem()
@@ -45,15 +47,13 @@ Partial Class Form1
         HelpToolStripMenuItem = New ToolStripMenuItem()
         KeyboardSHortcutsToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip1 = New MenuStrip()
-        APIOptionToolStripMenuItem = New ToolStripMenuItem()
-        ToolStripSeparator3 = New ToolStripSeparator()
         MenuStrip1.SuspendLayout()
         SuspendLayout()
         ' 
         ' DockPanel1
         ' 
         DockPanel1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        DockPanel1.DefaultFloatWindowSize = New Size(600, 900)
+        DockPanel1.DefaultFloatWindowSize = New Size(500, 500)
         DockPanel1.DockBackColor = Color.FromArgb(CByte(32), CByte(32), CByte(32))
         DockPanel1.DockBottomPortion = 180R
         DockPanel1.Location = New Point(9, 27)
@@ -112,22 +112,33 @@ Partial Class Form1
         SettingToolStripMenuItem.Size = New Size(68, 24)
         SettingToolStripMenuItem.Text = "Setting"
         ' 
+        ' APIOptionToolStripMenuItem
+        ' 
+        APIOptionToolStripMenuItem.Name = "APIOptionToolStripMenuItem"
+        APIOptionToolStripMenuItem.Size = New Size(162, 24)
+        APIOptionToolStripMenuItem.Text = "API Option"
+        ' 
+        ' ToolStripSeparator3
+        ' 
+        ToolStripSeparator3.Name = "ToolStripSeparator3"
+        ToolStripSeparator3.Size = New Size(159, 6)
+        ' 
         ' InputAreaFontToolStripMenuItem
         ' 
         InputAreaFontToolStripMenuItem.Name = "InputAreaFontToolStripMenuItem"
-        InputAreaFontToolStripMenuItem.Size = New Size(180, 24)
+        InputAreaFontToolStripMenuItem.Size = New Size(162, 24)
         InputAreaFontToolStripMenuItem.Text = "Editor Font"
         ' 
         ' PreviewAreaFontToolStripMenuItem
         ' 
         PreviewAreaFontToolStripMenuItem.Name = "PreviewAreaFontToolStripMenuItem"
-        PreviewAreaFontToolStripMenuItem.Size = New Size(180, 24)
+        PreviewAreaFontToolStripMenuItem.Size = New Size(162, 24)
         PreviewAreaFontToolStripMenuItem.Text = "Preview Font"
         ' 
         ' ChatLogFontToolStripMenuItem
         ' 
         ChatLogFontToolStripMenuItem.Name = "ChatLogFontToolStripMenuItem"
-        ChatLogFontToolStripMenuItem.Size = New Size(180, 24)
+        ChatLogFontToolStripMenuItem.Size = New Size(162, 24)
         ChatLogFontToolStripMenuItem.Text = "Chat Font"
         ' 
         ' WindowToolStripMenuItem
@@ -201,17 +212,6 @@ Partial Class Form1
         MenuStrip1.Size = New Size(1224, 28)
         MenuStrip1.TabIndex = 75
         MenuStrip1.Text = "MenuStrip1"
-        ' 
-        ' APIOptionToolStripMenuItem
-        ' 
-        APIOptionToolStripMenuItem.Name = "APIOptionToolStripMenuItem"
-        APIOptionToolStripMenuItem.Size = New Size(180, 24)
-        APIOptionToolStripMenuItem.Text = "API Option"
-        ' 
-        ' ToolStripSeparator3
-        ' 
-        ToolStripSeparator3.Name = "ToolStripSeparator3"
-        ToolStripSeparator3.Size = New Size(177, 6)
         ' 
         ' Form1
         ' 
