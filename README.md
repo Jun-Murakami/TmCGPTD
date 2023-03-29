@@ -8,7 +8,7 @@
 
 This application is a developer-oriented Chat GPT API client designed to assist with program debugging. To use it, you must enter your API key in the appsettings.json file.
 
-for Windows 10
+for Windows 10.
 
 // Features:
 
