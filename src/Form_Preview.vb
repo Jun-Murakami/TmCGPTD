@@ -5,7 +5,7 @@ Public Class Form_Preview
     Inherits DockContent
 
     Public Property MainFormInst As Form1
-    Private Sub Form_Preview_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub Form_Preview_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         TextOut.Font = My.Settings.OutputFont
     End Sub
     Private Sub PreviewForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

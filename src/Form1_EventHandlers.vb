@@ -7,11 +7,29 @@ Imports TmCGPTD.Form_Input
 Imports TmCGPTD.Form_Preview
 Imports TmCGPTD.Form_Chat
 Imports WeifenLuo.WinFormsUI.Docking
+Imports System.Diagnostics.Eventing
 
 Partial Public Class Form1
 
     Private Sub MainForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         SaveSetting()
+    End Sub
+    Private Async Sub ExpotChatLogToolStripMenuItem_ClickAsync(sender As Object, e As EventArgs) Handles ExpotChatLogToolStripMenuItem.Click
+        Await ExportTableToCsvAsync("chatlog")
+    End Sub
+
+    Private Async Sub ExportEditorLogToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportEditorLogToolStripMenuItem.Click
+        Await ExportTableToCsvAsync("log")
+    End Sub
+
+    Private Async Sub ImportChatLogToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImportChatLogToolStripMenuItem.Click
+        Await ImportCsvToTableAsync("chatlog")
+        Await chatLogForm.TextBoxSearch_TextChangedAsync(chatLogForm.DataGrid, EventArgs.Empty)
+    End Sub
+
+    Private Async Sub ImportEditorLogToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImportEditorLogToolStripMenuItem.Click
+        Await ImportCsvToTableAsync("log")
+        Await chatLogForm.TextBoxSearch_TextChangedAsync(chatLogForm.DataGrid, EventArgs.Empty)
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -68,6 +86,30 @@ Partial Public Class Form1
     Private Sub LayoutResetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LayoutResetToolStripMenuItem.Click
         LoadDefaultDockLayout()
     End Sub
+    Private Sub KeyboardSHortcutsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KeyboardSHortcutsToolStripMenuItem.Click
+        Dim imageForm As New Form With {
+            .Size = New Size(1270, 850),
+            .StartPosition = FormStartPosition.CenterScreen,
+            .FormBorderStyle = FormBorderStyle.FixedDialog,
+            .BackColor = Color.FromArgb(53, 55, 64),
+            .MaximizeBox = False,
+            .MinimizeBox = False,
+            .Text = "Keyboard Shortcut"
+        }
+
+        Dim imagePictureBox As New PictureBox With {
+            .SizeMode = PictureBoxSizeMode.StretchImage,
+            .Image = My.Resources.TmcGPTD_SC,
+            .Size = New Size(1226, 783),
+            .Location = New Point((imageForm.ClientSize.Width - 1226) \ 2, (imageForm.ClientSize.Height - 783) \ 2)
+        }
+
+        imageForm.Controls.Add(imagePictureBox)
+        AddHandler imageForm.Click, Sub(s, ea) imageForm.Close()
+        AddHandler imagePictureBox.Click, Sub(s, ea) imageForm.Close()
+
+        imageForm.ShowDialog()
+    End Sub
 
     ' 定型句セーブ--------------------------------------------------------------
     Private Sub SavePresetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SavePresetToolStripMenuItem.Click
@@ -112,7 +154,7 @@ Partial Public Class Form1
     Public Sub ClearPresetPhrases()
         For i As Integer = PhrasePresetsToolStripMenuItem.DropDownItems.Count - 1 To 0 Step -1
             Dim item As ToolStripItem = PhrasePresetsToolStripMenuItem.DropDownItems(i)
-            If item.Text IsNot "Save Presets" AndAlso TypeOf item Is ToolStripMenuItem Then
+            If item.Text IsNot "Save Presets" AndAlso item.Text IsNot "Clear Presets" AndAlso TypeOf item Is ToolStripMenuItem Then
                 Dim menuItem As ToolStripMenuItem = CType(item, ToolStripMenuItem)
                 RemoveHandler menuItem.Click, AddressOf SelectionItem_Click
                 PhrasePresetsToolStripMenuItem.DropDownItems.Remove(menuItem)
@@ -164,6 +206,25 @@ Partial Public Class Form1
         clickedItem.Checked = True
         My.Settings.DefaultPresets = clickedItem.Text
         My.Settings.Save()
+    End Sub
+
+    ' 定型句クリア--------------------------------------------------------------
+    Private Sub ClearPresetsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearPresetsToolStripMenuItem.Click
+        ' メニューアイテムのチェックをクリアする
+        For Each item As ToolStripItem In PhrasePresetsToolStripMenuItem.DropDownItems
+            If TypeOf item Is ToolStripMenuItem Then
+                CType(item, ToolStripMenuItem).Checked = False
+            End If
+        Next
+
+        For i = 1 To 20
+            Dim textBoxName As String = $"TextBox{i}"
+            Dim controlStr = phraseForm.Controls.Find(textBoxName, True)
+            If controlStr IsNot Nothing AndAlso TypeOf controlStr(0) Is TextBox Then
+                Dim texBox As TextBox = CType(controlStr(0), TextBox)
+                texBox.Text = ""
+            End If
+        Next
     End Sub
 
     ' シンタックスハイライト変更--------------------------------------------------------------
@@ -296,6 +357,19 @@ Partial Public Class Form1
         End If
     End Sub
 
+    ' エディターログのオートセーブ--------------------------------------------------------------
+    Private Sub EditorLogAutoSaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditorLogAutoSaveToolStripMenuItem.Click
+        Dim clickedItem As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
+        If clickedItem.Checked = True Then
+            clickedItem.Checked = False
+            My.Settings.AutoSave = False
+        Else
+            clickedItem.Checked = True
+            My.Settings.AutoSave = True
+        End If
+        My.Settings.Save()
+    End Sub
+
     ' APIオプション設定--------------------------------------------------------------
     Private Sub APIOptionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles APIOptionToolStripMenuItem.Click
         Dim optionForm As New Form_Option() ' Form_Optionをインスタンス化
@@ -315,11 +389,11 @@ Partial Public Class Form1
     End Function
 
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        If e.Alt AndAlso e.KeyCode >= Keys.NumPad1 AndAlso e.KeyCode <= Keys.NumPad9 Then
+        If e.Alt AndAlso e.KeyCode >= Keys.NumPad0 AndAlso e.KeyCode <= Keys.NumPad9 Then
             ' Alt + テンキー1～9 の場合
             Dim buttonIndex As Integer = e.KeyCode - Keys.NumPad1 ' ボタンのインデックス
-            If buttonIndex < 0 Then
-                buttonIndex = 19 ' テンキー0の場合
+            If e.KeyCode = Keys.NumPad0 Then
+                buttonIndex = 9 ' テンキー0の場合
             End If
             Dim controlStr = phraseForm.Controls.Find($"Button{buttonIndex + 11}", True)
             Dim buttonStr = TryCast(controlStr.FirstOrDefault(), Button) ' ボタンを取得
@@ -338,12 +412,16 @@ Partial Public Class Form1
             inputForm.ButtonPost.BackColor = SystemColors.GradientInactiveCaption
             inputForm.ButtonPost.PerformClick()
             e.SuppressKeyPress = True ' リターンキーの動作をキャンセルする
-        ElseIf e.Control AndAlso e.KeyCode = Keys.s Then
+        ElseIf e.Control AndAlso e.KeyCode = Keys.S Then
             inputForm.ButtonSave.BackColor = SystemColors.GradientInactiveCaption
             inputForm.ButtonSave.PerformClick()
             e.SuppressKeyPress = True
+        ElseIf e.Control AndAlso e.KeyCode = Keys.F Then
+            chatForm.TextBoxChatTextSearch.Focus()
+            e.SuppressKeyPress = True
         End If
     End Sub
+
 
     Private Sub Form1_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         If e.KeyCode = Keys.Return Then ' Ctrlが押された場合

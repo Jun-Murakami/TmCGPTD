@@ -33,7 +33,7 @@ Partial Class Form_ChatLog
         ButtonChatDelete = New Button()
         PictureBox2 = New PictureBox()
         PictureBox1 = New PictureBox()
-        ComboBoxTag = New ComboBox()
+        ComboBoxTag = New CustomComboBox()
         Panel2 = New Panel()
         DataGrid = New DataGridView()
         Panel1.SuspendLayout()
@@ -87,7 +87,7 @@ Partial Class Form_ChatLog
         TextBoxSearch.Margin = New Padding(2, 2, 6, 2)
         TextBoxSearch.Name = "TextBoxSearch"
         TextBoxSearch.Size = New Size(208, 29)
-        TextBoxSearch.TabIndex = 1
+        TextBoxSearch.TabIndex = 69
         ' 
         ' ButtonCal
         ' 
@@ -98,7 +98,7 @@ Partial Class Form_ChatLog
         ButtonCal.Margin = New Padding(0)
         ButtonCal.Name = "ButtonCal"
         ButtonCal.Size = New Size(31, 35)
-        ButtonCal.TabIndex = 78
+        ButtonCal.TabIndex = 71
         ButtonCal.UseVisualStyleBackColor = True
         ' 
         ' ButtonChatDelete
@@ -109,7 +109,7 @@ Partial Class Form_ChatLog
         ButtonChatDelete.Margin = New Padding(3, 0, 0, 0)
         ButtonChatDelete.Name = "ButtonChatDelete"
         ButtonChatDelete.Size = New Size(64, 35)
-        ButtonChatDelete.TabIndex = 79
+        ButtonChatDelete.TabIndex = 72
         ButtonChatDelete.Text = "Delete"
         ButtonChatDelete.UseVisualStyleBackColor = True
         ' 
@@ -141,13 +141,12 @@ Partial Class Form_ChatLog
         ComboBoxTag.DrawMode = DrawMode.OwnerDrawFixed
         ComboBoxTag.FlatStyle = FlatStyle.Flat
         ComboBoxTag.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        ComboBoxTag.ForeColor = SystemColors.WindowText
         ComboBoxTag.FormattingEnabled = True
         ComboBoxTag.Location = New Point(285, 7)
         ComboBoxTag.Margin = New Padding(2, 2, 6, 2)
         ComboBoxTag.Name = "ComboBoxTag"
         ComboBoxTag.Size = New Size(208, 30)
-        ComboBoxTag.TabIndex = 77
+        ComboBoxTag.TabIndex = 70
         ' 
         ' Panel2
         ' 
@@ -213,7 +212,7 @@ Partial Class Form_ChatLog
         DataGrid.RowTemplate.Height = 33
         DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DataGrid.Size = New Size(611, 484)
-        DataGrid.TabIndex = 0
+        DataGrid.TabIndex = 73
         ' 
         ' Form_ChatLog
         ' 
@@ -245,6 +244,6 @@ Partial Class Form_ChatLog
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents ComboBoxTag As ComboBox
+    Friend WithEvents ComboBoxTag As CustomComboBox
     Friend WithEvents TextBoxSearch As TextBoxWithClearButton
 End Class

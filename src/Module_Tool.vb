@@ -2,6 +2,14 @@
 Imports WeifenLuo.WinFormsUI.Docking
 Imports System.Reflection
 Imports WeifenLuo.WinFormsUI.ThemeVS2015
+Imports System.ComponentModel
+Imports CsvHelper
+Imports CsvHelper.Configuration
+Imports ScintillaNET
+Imports System.Data.SQLite
+Imports System.Globalization
+Imports System.IO
+Imports System.Collections.ObjectModel
 
 Partial Public Class Form1
     ' ボタン色変更--------------------------------------------------------------
@@ -37,14 +45,14 @@ Partial Public Class Form1
                 Dim Lbl As Label = DirectCast(ctrl, Label)
                 Lbl.BackColor = Color.FromArgb(53, 55, 64)
                 Lbl.ForeColor = Color.FromArgb(220, 220, 220)
-                Lbl.BorderStyle = BorderStyle.None
+                Lbl.BorderStyle = System.Windows.Forms.BorderStyle.None
             ElseIf TypeOf ctrl Is TextBox Then
                 Dim tbx As TextBox = DirectCast(ctrl, TextBox)
                 tbx.BackColor = Color.FromArgb(53, 55, 64)
                 tbx.ForeColor = Color.FromArgb(220, 220, 220)
-                tbx.BorderStyle = BorderStyle.FixedSingle
+                tbx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
             ElseIf TypeOf ctrl Is ComboBox Then
-                Dim cbx As ComboBox = DirectCast(ctrl, ComboBox)
+                Dim cbx As CustomComboBox = DirectCast(ctrl, CustomComboBox)
                 cbx.BackColor = Color.FromArgb(53, 55, 64)
                 cbx.ForeColor = Color.FromArgb(220, 220, 220)
                 If cbx.Name = "ComboBoxSearch" Then cbx.ForeColor = Color.FromArgb(160, 160, 160)
@@ -53,8 +61,6 @@ Partial Public Class Form1
             End If
         Next
 
-        chatLogForm.ComboBoxTag.DrawMode = DrawMode.OwnerDrawFixed
-        inputForm.ComboBoxSearch.DrawMode = DrawMode.OwnerDrawFixed
     End Sub
     Private Sub Button_MouseEnter(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
@@ -116,6 +122,5 @@ Partial Public Class Form1
         ' モーダルダイアログを表示
         dialog.ShowDialog(mainForm)
     End Sub
-
 
 End Class

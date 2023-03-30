@@ -389,6 +389,18 @@ Namespace My
                 Me("url") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property AutoSave() As Boolean
+            Get
+                Return CType(Me("AutoSave"),Boolean)
+            End Get
+            Set
+                Me("AutoSave") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

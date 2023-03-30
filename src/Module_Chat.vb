@@ -8,6 +8,7 @@ Imports ScintillaNET
 Imports System.ComponentModel
 Imports System.Data.Entity.Core
 Imports System.Text.RegularExpressions
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
 
 Partial Public Class Form1
     Private Function GetApiKey() As String
@@ -21,38 +22,23 @@ Partial Public Class Form1
 
     Public Async Function GoChatAsync() As Task
         Dim postDate As Date = Now
-        Await Task.Run(Sub()
-                           chatForm.ChatBox.Invoke(Sub()
-                                                       If chatForm.ChatBox.Text = "" AndAlso chatForm.TextBoxTitle.Text = "" Then
-                                                           Dim prompt As String = "Please enter the title of new chat."
-                                                           Dim title As String = "New Chat"
-                                                           Dim defaultResponse As String = ""
-                                                           Dim chatTitle As String = InputBox(prompt, title, defaultResponse)
-                                                           If chatTitle <> "" Then
-                                                               chatForm.TextBoxTitle.Text = chatTitle
-                                                           Else
-                                                               Return
-                                                           End If
-                                                       End If
-                                                   End Sub)
-                       End Sub)
+        If chatForm.ChatBox.Text = "" AndAlso chatForm.TextBoxTitle.Text = "" Then
+            If InitializeChat() = "" Then
+                Return
+            End If
+        End If
 
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(
-                                    Sub()
-                                        AddLogAsync($"[{postDate.ToString}] by You{Environment.NewLine}{Environment.NewLine}{String.Join(Environment.NewLine, recentText).Trim() & Environment.NewLine}")
-                                        'AddLogAsync(String.Join(Environment.NewLine, recentText).Trim() & Environment.NewLine)
-                                    End Sub))
-        Await InsertDatabaseAsync()
+        AddLog($"[{postDate.ToString}] by You{Environment.NewLine}{Environment.NewLine}{String.Join(Environment.NewLine, recentText).Trim() & Environment.NewLine}")
 
-        Await StartThinkingAnimationAsync()
+        If EditorLogAutoSaveToolStripMenuItem.Checked = True Then Await InsertDatabaseAsync()
+
+        StartThinkingAnimation()
         Dim resultMes As String = Await PostChatAsync(recentText)
-        Await StopThinkingAnimationAsync()
+        StopThinkingAnimation()
         Dim resDate As Date = Now
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(
-                           Sub()
-                               AddLogAsync($"[{resDate.ToString}] by ChatGPT{Environment.NewLine}{resultMes}")
-                               'AddLogAsync(resultMes, True)
-                           End Sub))
+
+        AddLog($"[{resDate.ToString}] by ChatGPT{Environment.NewLine}{resultMes}")
+        'AddLogAsync(resultMes, True)
 
         Await InsertDatabaseChatAsync(postDate, resDate, resultMes)
 
@@ -63,14 +49,15 @@ Partial Public Class Form1
         Await UpdateChatSaysMarkerAsync()
         Await UpdateChatCodeMarkerAsync()
     End Function
+
     ' チャットログ表示--------------------------------------------------------------
-    Public Async Sub AddLogAsync(ByVal data As String, Optional ByVal gptSays As Boolean = False)
+    Public Sub AddLog(ByVal data As String, Optional ByVal gptSays As Boolean = False)
 
         Dim initialLineCount As Integer
         Dim finalLineCount As Integer
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() initialLineCount = chatForm.ChatBox.Lines.Count)) ' data を表示する前の行数を取得
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() chatForm.ChatBox.AppendText(data & Environment.NewLine))) ' data を表示
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() finalLineCount = chatForm.ChatBox.Lines.Count)) ' data を表示した後の行数を取得
+        initialLineCount = chatForm.ChatBox.Lines.Count ' data を表示する前の行数を取得
+        chatForm.ChatBox.AppendText(data & Environment.NewLine) ' data を表示
+        finalLineCount = chatForm.ChatBox.Lines.Count ' data を表示した後の行数を取得
 
         ' 表示された行の最後まで反復してマーカーを設定
         'If gptSays Then
@@ -79,8 +66,8 @@ Partial Public Class Form1
         'Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() chatForm.ChatBox.Lines(currentIndex - 1).MarkerAdd(1)))
         'Next
         'End If
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() chatForm.ChatBox.GotoPosition(chatForm.ChatBox.Lines(chatForm.ChatBox.Lines.Count).Position)))
-        Await Task.Run(Sub() chatForm.ChatBox.Invoke(Sub() chatForm.ChatBox.ScrollCaret()))
+        chatForm.ChatBox.GotoPosition(chatForm.ChatBox.Lines(chatForm.ChatBox.Lines.Count).Position)
+        chatForm.ChatBox.ScrollCaret()
     End Sub
 
     ' チャットのAI背景色設定--------------------------------------------------------------
@@ -171,23 +158,31 @@ Partial Public Class Form1
     End Function
 
     ' 新しいチャットを初期化--------------------------------------------------------------
-    Public Async Function InitializeChatAsync() As Task
-        Await Task.Run(Sub()
-                           chatForm.ChatBox.Invoke(Sub()
-                                                       Dim prompt As String = "Please enter the title of new chat."
-                                                       Dim title As String = "New Chat"
-                                                       Dim defaultResponse As String = ""
-                                                       Dim chatTitle As String = InputBox(prompt, title, defaultResponse)
-                                                       If chatTitle <> "" Then
-                                                           chatForm.TextBoxTitle.Text = chatTitle
-                                                           conversationHistory = New List(Of Dictionary(Of String, Object))()
-                                                           lastRowId = Nothing
-                                                           chatForm.ChatBox.Text = ""
-                                                       Else
-                                                           Return
-                                                       End If
-                                                   End Sub)
-                       End Sub)
+    Public Function InitializeChat() As String
+        Dim customDialog As New Form_NewChat()
+        ' ダイアログのStartPositionプロパティをManualに設定
+        customDialog.StartPosition = FormStartPosition.Manual
+        ' ダイアログの位置をメインフォームの中央に設定
+        customDialog.Location = New Point(
+            Me.Location.X + (Me.Width - customDialog.Width) \ 2,
+            Me.Location.Y + (Me.Height - customDialog.Height) \ 2)
+        If customDialog.ShowDialog() = DialogResult.OK Then
+            Dim enteredText As String = customDialog.EnteredText
+            customDialog.Dispose()
+
+            If enteredText <> "" Then
+                chatForm.TextBoxTitle.Text = enteredText
+                conversationHistory = New List(Of Dictionary(Of String, Object))()
+                lastRowId = Nothing
+                chatForm.ChatBox.Text = ""
+                Return enteredText
+            Else
+                Return ""
+            End If
+
+        Else
+            Return ""
+        End If
     End Function
 
     ' APIに接続してレスポンス取得--------------------------------------------------------------
@@ -205,17 +200,17 @@ Partial Public Class Form1
 
                 ' 現在のユーザーの入力を表すディクショナリ
                 Dim userInput As New Dictionary(Of String, Object) From {
-                    {"role", "user"},
-                    {"content", chatTextPost}
-                }
+                {"role", "user"},
+                {"content", chatTextPost}
+            }
 
                 ' 過去の会話履歴と現在の入力を結合
                 conversationHistory.Add(userInput)
 
                 Dim options As New Dictionary(Of String, Object) From {
-                    {"model", api_model},
-                    {"messages", conversationHistory}
-                }
+                {"model", api_model},
+                {"messages", conversationHistory}
+            }
 
                 ' オプションパラメータを追加
                 If api_max_tokens.HasValue Then options.Add("max_tokens", api_max_tokens.Value)
@@ -226,6 +221,10 @@ Partial Public Class Form1
                 If api_presence_penalty.HasValue Then options.Add("presence_penalty", api_presence_penalty.Value)
                 If api_frequency_penalty.HasValue Then options.Add("frequency_penalty", api_frequency_penalty.Value)
                 If api_best_of.HasValue Then options.Add("best_of", api_best_of.Value)
+
+                'MsgBox("api_max_tokens: " & api_max_tokens)
+                'MsgBox("api_logprobs: " & api_logprobs)
+                'MsgBox("api_best_of: " & api_best_of)
 
                 ' api_stop パラメータの処理
                 If Not String.IsNullOrEmpty(api_stop) Then
@@ -242,8 +241,6 @@ Partial Public Class Form1
                 Dim jsonContent As String = JsonSerializer.Serialize(options)
 
                 Dim content As New StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json")
-
-                'form2.AddLog($"JSON : {jsonContent}") 'Json生データ出力
 
                 Dim response As HttpResponseMessage = Await httpClientStr.PostAsync(api_url, content)
 
@@ -266,6 +263,10 @@ Partial Public Class Form1
                     'chatTextRes &= $"{prop.Name}={propValue}" & Environment.NewLine
                     'End If
                     'Next
+
+                    ' 応答を受け取った後、conversationHistory に追加
+                    conversationHistory.Add(New Dictionary(Of String, Object) From {{"role", "assistant"}, {"content", chatTextRes}})
+
                 Else
                     Dim errorBody As String = Await response.Content.ReadAsStringAsync()
                     Return $"Error: Response status code does not indicate success: {response.StatusCode} ({response.ReasonPhrase}). Response body: {errorBody}"
@@ -275,9 +276,6 @@ Partial Public Class Form1
 
             Return chatTextRes
 
-            ' 応答を受け取った後、conversationHistory に追加
-            conversationHistory.Add(New Dictionary(Of String, Object) From {{"role", "assistant"}, {"content", chatTextRes}})
-
         Catch ex As Exception
             Return $"Error: {ex.Message & Environment.NewLine}"
         End Try
@@ -286,19 +284,19 @@ Partial Public Class Form1
     Private WithEvents thinkTimer As New System.Windows.Forms.Timer()
     Private thinkCounter As Integer = 0
 
-    Private Async Function StartThinkingAnimationAsync() As Task
+    Private Sub StartThinkingAnimation()
         thinkTimer.Interval = 400 'アニメーションの速度
         thinkCounter = 0
-        Await Task.Run(Sub() chatForm.ChatBox.BeginInvoke(Sub() chatForm.ChatBox.AddText("AI: ")))
+        chatForm.ChatBox.Invoke(Sub() chatForm.ChatBox.AddText("AI: "))
         thinkTimer.Start()
-    End Function
+    End Sub
 
-    Private Async Function StopThinkingAnimationAsync() As Task
-        Await UpdateMessageAsync("")
+    Private Sub StopThinkingAnimation()
+        UpdateMessage("")
         thinkTimer.Stop()
-    End Function
+    End Sub
 
-    Private Async Sub thinkTimer_TickAsync(ByVal sender As Object, ByVal e As System.EventArgs) Handles thinkTimer.Tick
+    Private Sub thinkTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles thinkTimer.Tick
         Dim thinkingText As String = "Now thinking"
         Dim thinkAnim As String() = {". _", ".. -", "... |", ".... /"}
         ' ローディングアイコンを回転させる
@@ -308,22 +306,22 @@ Partial Public Class Form1
         'thinkingText &= "."
         'Next
 
-        Await UpdateMessageAsync("AI: " & thinkingText)
+        UpdateMessage("AI: " & thinkingText)
         thinkCounter += 1
     End Sub
-    Private Async Function UpdateMessageAsync(thinkingText As String) As Task
-        Await Task.Run(Sub()
-                           chatForm.ChatBox.BeginInvoke(Sub()
-                                                            ' 最後の行のインデックスを取得
-                                                            Dim lastLineIndex As Integer = chatForm.ChatBox.Lines.Count - 1
-                                                            ' 最後の行の開始位置と長さを取得
-                                                            Dim lastLineStartPos As Integer = chatForm.ChatBox.Lines(lastLineIndex).Position
-                                                            Dim lastLineLength As Integer = chatForm.ChatBox.Lines(lastLineIndex).Length
-                                                            ' 最後の行を新しいテキストで置き換える
-                                                            chatForm.ChatBox.DeleteRange(lastLineStartPos, lastLineLength)
-                                                            chatForm.ChatBox.InsertText(lastLineStartPos, thinkingText)
-                                                        End Sub)
-                       End Sub)
-    End Function
+
+    Private Sub UpdateMessage(thinkingText As String)
+        chatForm.ChatBox.Invoke(Sub()
+                                    ' 最後の行のインデックスを取得
+                                    Dim lastLineIndex As Integer = chatForm.ChatBox.Lines.Count - 1
+                                    ' 最後の行の開始位置と長さを取得
+                                    Dim lastLineStartPos As Integer = chatForm.ChatBox.Lines(lastLineIndex).Position
+                                    Dim lastLineLength As Integer = chatForm.ChatBox.Lines(lastLineIndex).Length
+                                    ' 最後の行を新しいテキストで置き換える
+                                    chatForm.ChatBox.DeleteRange(lastLineStartPos, lastLineLength)
+                                    chatForm.ChatBox.InsertText(lastLineStartPos, thinkingText)
+                                End Sub)
+    End Sub
+
 
 End Class

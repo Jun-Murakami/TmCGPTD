@@ -30,7 +30,7 @@ Partial Class Form_Input
         TextInput4 = New ScintillaNET.Scintilla()
         TextInput2 = New ScintillaNET.Scintilla()
         TextInput1 = New ScintillaNET.Scintilla()
-        ComboBoxSearch = New ComboBox()
+        ComboBoxSearch = New CustomComboBox()
         ButtonPrev = New Button()
         ButtonNext = New Button()
         ButtonRecentLog = New Button()
@@ -83,7 +83,7 @@ Partial Class Form_Input
         TextInput5.CaretLineBackColor = Color.FromArgb(CByte(32), CByte(33), CByte(45))
         TextInput5.CaretLineVisible = True
         TextInput5.Dock = DockStyle.Fill
-        TextInput5.Font = New Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point)
+        TextInput5.Font = New Font("Migu 1M", 11.0F, FontStyle.Regular, GraphicsUnit.Point)
         TextInput5.LexerName = Nothing
         TextInput5.Location = New Point(0, 249)
         TextInput5.Margin = New Padding(0)
@@ -94,6 +94,7 @@ Partial Class Form_Input
         TextInput5.Size = New Size(558, 68)
         TextInput5.TabIndents = True
         TextInput5.TabIndex = 5
+        TextInput5.TabStop = False
         TextInput5.UseRightToLeftReadingLayout = False
         TextInput5.WrapMode = ScintillaNET.WrapMode.None
         ' 
@@ -107,7 +108,7 @@ Partial Class Form_Input
         TextInput3.CaretLineBackColor = Color.FromArgb(CByte(32), CByte(33), CByte(45))
         TextInput3.CaretLineVisible = True
         TextInput3.Dock = DockStyle.Fill
-        TextInput3.Font = New Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point)
+        TextInput3.Font = New Font("Migu 1M", 11.0F, FontStyle.Regular, GraphicsUnit.Point)
         TextInput3.LexerName = Nothing
         TextInput3.Location = New Point(0, 153)
         TextInput3.Margin = New Padding(0)
@@ -118,6 +119,7 @@ Partial Class Form_Input
         TextInput3.Size = New Size(558, 32)
         TextInput3.TabIndents = True
         TextInput3.TabIndex = 3
+        TextInput3.TabStop = False
         TextInput3.UseRightToLeftReadingLayout = False
         TextInput3.WrapMode = ScintillaNET.WrapMode.None
         ' 
@@ -131,7 +133,7 @@ Partial Class Form_Input
         TextInput4.CaretLineBackColor = Color.FromArgb(CByte(32), CByte(33), CByte(45))
         TextInput4.CaretLineVisible = True
         TextInput4.Dock = DockStyle.Fill
-        TextInput4.Font = New Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point)
+        TextInput4.Font = New Font("Migu 1M", 11.0F, FontStyle.Regular, GraphicsUnit.Point)
         TextInput4.IndentationGuides = ScintillaNET.IndentView.LookBoth
         TextInput4.LexerName = Nothing
         TextInput4.Location = New Point(0, 185)
@@ -143,6 +145,7 @@ Partial Class Form_Input
         TextInput4.Size = New Size(558, 64)
         TextInput4.TabIndents = True
         TextInput4.TabIndex = 4
+        TextInput4.TabStop = False
         TextInput4.UseRightToLeftReadingLayout = False
         TextInput4.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAlways
         TextInput4.WhitespaceSize = 2
@@ -158,7 +161,7 @@ Partial Class Form_Input
         TextInput2.CaretLineBackColor = Color.FromArgb(CByte(32), CByte(33), CByte(45))
         TextInput2.CaretLineVisible = True
         TextInput2.Dock = DockStyle.Fill
-        TextInput2.Font = New Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point)
+        TextInput2.Font = New Font("Migu 1M", 11.0F, FontStyle.Regular, GraphicsUnit.Point)
         TextInput2.IndentationGuides = ScintillaNET.IndentView.LookBoth
         TextInput2.LexerName = Nothing
         TextInput2.Location = New Point(0, 89)
@@ -170,6 +173,7 @@ Partial Class Form_Input
         TextInput2.Size = New Size(558, 64)
         TextInput2.TabIndents = True
         TextInput2.TabIndex = 2
+        TextInput2.TabStop = False
         TextInput2.UseRightToLeftReadingLayout = False
         TextInput2.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAlways
         TextInput2.WhitespaceSize = 2
@@ -186,7 +190,7 @@ Partial Class Form_Input
         TextInput1.CaretLineVisible = True
         TextInput1.Dock = DockStyle.Fill
         TextInput1.EdgeColor = Color.FromArgb(CByte(96), CByte(96), CByte(96))
-        TextInput1.Font = New Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point)
+        TextInput1.Font = New Font("Migu 1M", 11.0F, FontStyle.Regular, GraphicsUnit.Point)
         TextInput1.LexerName = Nothing
         TextInput1.Location = New Point(0, 0)
         TextInput1.Margin = New Padding(0)
@@ -197,20 +201,22 @@ Partial Class Form_Input
         TextInput1.Size = New Size(558, 89)
         TextInput1.TabIndents = True
         TextInput1.TabIndex = 1
+        TextInput1.TabStop = False
         TextInput1.UseRightToLeftReadingLayout = False
         TextInput1.WrapMode = ScintillaNET.WrapMode.None
         ' 
         ' ComboBoxSearch
         ' 
         ComboBoxSearch.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        ComboBoxSearch.DrawMode = DrawMode.OwnerDrawFixed
         ComboBoxSearch.FlatStyle = FlatStyle.Flat
-        ComboBoxSearch.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        ComboBoxSearch.Font = New Font("Yu Gothic UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point)
         ComboBoxSearch.FormattingEnabled = True
         ComboBoxSearch.Location = New Point(56, 8)
         ComboBoxSearch.Margin = New Padding(0)
         ComboBoxSearch.Name = "ComboBoxSearch"
-        ComboBoxSearch.Size = New Size(283, 29)
-        ComboBoxSearch.TabIndex = 55
+        ComboBoxSearch.Size = New Size(283, 30)
+        ComboBoxSearch.TabIndex = 14
         ComboBoxSearch.Text = "Type text here and press Enter to search Editor log."
         ' 
         ' ButtonPrev
@@ -221,7 +227,7 @@ Partial Class Form_Input
         ButtonPrev.Margin = New Padding(6, 3, 3, 3)
         ButtonPrev.Name = "ButtonPrev"
         ButtonPrev.Size = New Size(29, 32)
-        ButtonPrev.TabIndex = 60
+        ButtonPrev.TabIndex = 15
         ButtonPrev.Text = "<"
         ButtonPrev.UseVisualStyleBackColor = True
         ' 
@@ -233,7 +239,7 @@ Partial Class Form_Input
         ButtonNext.Margin = New Padding(0, 3, 3, 3)
         ButtonNext.Name = "ButtonNext"
         ButtonNext.Size = New Size(29, 32)
-        ButtonNext.TabIndex = 61
+        ButtonNext.TabIndex = 16
         ButtonNext.Text = ">"
         ButtonNext.UseVisualStyleBackColor = True
         ' 
@@ -245,7 +251,7 @@ Partial Class Form_Input
         ButtonRecentLog.Margin = New Padding(5, 3, 3, 3)
         ButtonRecentLog.Name = "ButtonRecentLog"
         ButtonRecentLog.Size = New Size(64, 32)
-        ButtonRecentLog.TabIndex = 62
+        ButtonRecentLog.TabIndex = 17
         ButtonRecentLog.Text = "Recent"
         ButtonRecentLog.UseVisualStyleBackColor = True
         ' 
@@ -256,7 +262,7 @@ Partial Class Form_Input
         ButtonDelete.Location = New Point(484, 6)
         ButtonDelete.Name = "ButtonDelete"
         ButtonDelete.Size = New Size(64, 32)
-        ButtonDelete.TabIndex = 58
+        ButtonDelete.TabIndex = 18
         ButtonDelete.Text = "Delete"
         ButtonDelete.UseVisualStyleBackColor = True
         ' 
@@ -279,7 +285,7 @@ Partial Class Form_Input
         ButtonClear1.Location = New Point(62, 369)
         ButtonClear1.Name = "ButtonClear1"
         ButtonClear1.Size = New Size(40, 32)
-        ButtonClear1.TabIndex = 70
+        ButtonClear1.TabIndex = 6
         ButtonClear1.Text = "1"
         ButtonClear1.UseVisualStyleBackColor = True
         ' 
@@ -290,7 +296,7 @@ Partial Class Form_Input
         ButtonClear2.Location = New Point(108, 369)
         ButtonClear2.Name = "ButtonClear2"
         ButtonClear2.Size = New Size(40, 32)
-        ButtonClear2.TabIndex = 74
+        ButtonClear2.TabIndex = 7
         ButtonClear2.Text = "2"
         ButtonClear2.UseVisualStyleBackColor = True
         ' 
@@ -301,7 +307,7 @@ Partial Class Form_Input
         ButtonClear3.Location = New Point(154, 369)
         ButtonClear3.Name = "ButtonClear3"
         ButtonClear3.Size = New Size(40, 32)
-        ButtonClear3.TabIndex = 75
+        ButtonClear3.TabIndex = 8
         ButtonClear3.Text = "3"
         ButtonClear3.UseVisualStyleBackColor = True
         ' 
@@ -312,7 +318,7 @@ Partial Class Form_Input
         ButtonClear4.Location = New Point(200, 369)
         ButtonClear4.Name = "ButtonClear4"
         ButtonClear4.Size = New Size(40, 32)
-        ButtonClear4.TabIndex = 76
+        ButtonClear4.TabIndex = 9
         ButtonClear4.Text = "4"
         ButtonClear4.UseVisualStyleBackColor = True
         ' 
@@ -323,7 +329,7 @@ Partial Class Form_Input
         ButtonClear5.Location = New Point(246, 369)
         ButtonClear5.Name = "ButtonClear5"
         ButtonClear5.Size = New Size(40, 32)
-        ButtonClear5.TabIndex = 66
+        ButtonClear5.TabIndex = 10
         ButtonClear5.Text = "5"
         ButtonClear5.UseVisualStyleBackColor = True
         ' 
@@ -334,7 +340,7 @@ Partial Class Form_Input
         ButtonClearAll.Location = New Point(292, 369)
         ButtonClearAll.Name = "ButtonClearAll"
         ButtonClearAll.Size = New Size(80, 32)
-        ButtonClearAll.TabIndex = 65
+        ButtonClearAll.TabIndex = 11
         ButtonClearAll.Text = "All clear"
         ButtonClearAll.UseVisualStyleBackColor = True
         ' 
@@ -347,7 +353,7 @@ Partial Class Form_Input
         ButtonPost.Location = New Point(445, 365)
         ButtonPost.Name = "ButtonPost"
         ButtonPost.Size = New Size(100, 40)
-        ButtonPost.TabIndex = 77
+        ButtonPost.TabIndex = 13
         ButtonPost.Text = "Post"
         ButtonPost.UseVisualStyleBackColor = True
         ' 
@@ -368,7 +374,7 @@ Partial Class Form_Input
         ButtonSave.Location = New Point(377, 369)
         ButtonSave.Name = "ButtonSave"
         ButtonSave.Size = New Size(62, 32)
-        ButtonSave.TabIndex = 79
+        ButtonSave.TabIndex = 12
         ButtonSave.Text = "Save"
         ButtonSave.UseVisualStyleBackColor = True
         ' 
@@ -406,7 +412,7 @@ Partial Class Form_Input
     Friend WithEvents TextInput3 As ScintillaNET.Scintilla
     Friend WithEvents TextInput4 As ScintillaNET.Scintilla
     Friend WithEvents TextInput5 As ScintillaNET.Scintilla
-    Friend WithEvents ComboBoxSearch As ComboBox
+    Friend WithEvents ComboBoxSearch As CustomComboBox
     Friend WithEvents ButtonPrev As Button
     Friend WithEvents ButtonNext As Button
     Friend WithEvents ButtonRecentLog As Button

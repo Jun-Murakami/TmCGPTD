@@ -58,8 +58,8 @@ Partial Class Form_Chat
         ChatBox.BorderStyle = ScintillaNET.BorderStyle.FixedSingle
         ChatBox.CaretForeColor = Color.White
         ChatBox.CaretLineBackColor = Color.Black
-        ChatBox.CaretLineBackColorAlpha = 32
-        ChatBox.CaretLineLayer = ScintillaNET.Layer.OverText
+        ChatBox.CaretLineBackColorAlpha = 0
+        ChatBox.CaretLineLayer = ScintillaNET.Layer.UnderText
         ChatBox.CaretLineVisible = True
         ChatBox.Dock = DockStyle.Fill
         ChatBox.Font = New Font("Migu 1M", 9F, FontStyle.Regular, GraphicsUnit.Point)
@@ -72,7 +72,7 @@ Partial Class Form_Chat
         ChatBox.ScrollWidth = 75
         ChatBox.Size = New Size(657, 592)
         ChatBox.TabIndents = True
-        ChatBox.TabIndex = 0
+        ChatBox.TabIndex = 22
         ChatBox.UseRightToLeftReadingLayout = False
         ChatBox.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAlways
         ChatBox.WrapMode = ScintillaNET.WrapMode.None
@@ -100,7 +100,7 @@ Partial Class Form_Chat
         ButtonNewChat.Location = New Point(520, 4)
         ButtonNewChat.Name = "ButtonNewChat"
         ButtonNewChat.Size = New Size(125, 40)
-        ButtonNewChat.TabIndex = 82
+        ButtonNewChat.TabIndex = 26
         ButtonNewChat.Text = "New Chat"
         ButtonNewChat.UseVisualStyleBackColor = False
         ' 
@@ -133,7 +133,7 @@ Partial Class Form_Chat
         TextBoxTag3.Margin = New Padding(0)
         TextBoxTag3.Name = "TextBoxTag3"
         TextBoxTag3.Size = New Size(144, 29)
-        TextBoxTag3.TabIndex = 86
+        TextBoxTag3.TabIndex = 25
         ' 
         ' TextBoxTag2
         ' 
@@ -146,7 +146,7 @@ Partial Class Form_Chat
         TextBoxTag2.Margin = New Padding(0)
         TextBoxTag2.Name = "TextBoxTag2"
         TextBoxTag2.Size = New Size(143, 29)
-        TextBoxTag2.TabIndex = 85
+        TextBoxTag2.TabIndex = 24
         ' 
         ' TextBoxTag1
         ' 
@@ -159,7 +159,7 @@ Partial Class Form_Chat
         TextBoxTag1.Margin = New Padding(3, 0, 0, 0)
         TextBoxTag1.Name = "TextBoxTag1"
         TextBoxTag1.Size = New Size(140, 29)
-        TextBoxTag1.TabIndex = 84
+        TextBoxTag1.TabIndex = 23
         ' 
         ' PictureButtonTag
         ' 
@@ -222,7 +222,7 @@ Partial Class Form_Chat
         TextBoxTitle.Margin = New Padding(2, 2, 3, 2)
         TextBoxTitle.Name = "TextBoxTitle"
         TextBoxTitle.Size = New Size(263, 29)
-        TextBoxTitle.TabIndex = 86
+        TextBoxTitle.TabIndex = 27
         ' 
         ' TextBoxChatTextSearch
         ' 
@@ -235,7 +235,7 @@ Partial Class Form_Chat
         TextBoxChatTextSearch.Margin = New Padding(2, 2, 3, 2)
         TextBoxChatTextSearch.Name = "TextBoxChatTextSearch"
         TextBoxChatTextSearch.Size = New Size(184, 29)
-        TextBoxChatTextSearch.TabIndex = 83
+        TextBoxChatTextSearch.TabIndex = 19
         ' 
         ' ButtonDown
         ' 
@@ -247,7 +247,7 @@ Partial Class Form_Chat
         ButtonDown.Margin = New Padding(0, 3, 3, 3)
         ButtonDown.Name = "ButtonDown"
         ButtonDown.Size = New Size(29, 32)
-        ButtonDown.TabIndex = 85
+        ButtonDown.TabIndex = 21
         ButtonDown.Text = "↓"
         ButtonDown.UseVisualStyleBackColor = False
         ' 
@@ -261,7 +261,7 @@ Partial Class Form_Chat
         ButtonUp.Margin = New Padding(6, 3, 3, 3)
         ButtonUp.Name = "ButtonUp"
         ButtonUp.Size = New Size(29, 32)
-        ButtonUp.TabIndex = 84
+        ButtonUp.TabIndex = 20
         ButtonUp.Text = "↑"
         ButtonUp.UseVisualStyleBackColor = False
         ' 

@@ -256,7 +256,7 @@ Public Class Form_ChatLog
     End Sub
 
     ' インクリメンタルサーチ--------------------------------------------------------------
-    Private Async Function TextBoxSearch_TextChangedAsync(sender As Object, e As EventArgs) As Task Handles TextBoxSearch.TextChanged
+    Public Async Function TextBoxSearch_TextChangedAsync(sender As Object, e As EventArgs) As Task Handles TextBoxSearch.TextChanged
         Dim searchKey As String = Nothing
         Await Task.Run(Sub() TextBoxSearch.BeginInvoke(Sub() searchKey = TextBoxSearch.Text.Trim()))
         Dim query As String

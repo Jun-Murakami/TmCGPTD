@@ -40,16 +40,16 @@ Partial Class Form_Preview
         TextOut.ReadOnly = True
         TextOut.ScrollBars = ScrollBars.Both
         TextOut.Size = New Size(800, 450)
-        TextOut.TabIndex = 54
+        TextOut.TabIndex = 68
         TextOut.WordWrap = False
         ' 
-        ' PreviewForm
+        ' Form_Preview
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
         Controls.Add(TextOut)
-        Name = "PreviewForm"
+        Name = "Form_Preview"
         Text = "Preview"
         ResumeLayout(False)
         PerformLayout()

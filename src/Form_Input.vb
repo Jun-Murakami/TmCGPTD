@@ -12,8 +12,6 @@ Imports System.Data.SQLite
 Imports System.Text.RegularExpressions
 Imports System.IO
 Imports System.Reflection
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel
-
 Public Class Form_Input
     Inherits DockContent
 
@@ -156,7 +154,7 @@ Public Class Form_Input
     Private Async Sub ButtonRecentLog_ClickAsync(sender As Object, e As EventArgs) Handles ButtonRecentLog.Click
         ' ドロップダウンリストの項目をクリア
         Await Task.Run(Sub() ComboBoxSearch.BeginInvoke(Sub() ComboBoxSearch.Items.Clear()))
-        ComboBoxSearch.ForeColor = Color.Black
+        ComboBoxSearch.ForeColor = Color.FromArgb(220, 220, 220)
         ' 最新50件
         Dim query As String = $"SELECT id, date, text FROM log ORDER BY date DESC LIMIT 200"
         Await Form1.SearchDatabaseAsync(query)
@@ -299,7 +297,7 @@ Public Class Form_Input
     Private Sub ButtonPrev_Click(sender As Object, e As EventArgs) Handles ButtonPrev.Click
         Dim searchDate As DateTime
         Dim input As String = ComboBoxSearch.Text
-        ComboBoxSearch.ForeColor = Color.Black
+        ComboBoxSearch.ForeColor = Color.FromArgb(220, 220, 220)
         If String.IsNullOrWhiteSpace(input) OrElse input = "Type text here and press Enter to search Editor log." Then input = Now.ToString("yyyy/MM/dd HH:mm:ss")
         Dim pattern As String = "^\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2}:\d{2}"
         Dim rx As String = Regex.Match(input, pattern).Value
@@ -319,7 +317,7 @@ Public Class Form_Input
     Private Sub ButtonNext_Click(sender As Object, e As EventArgs) Handles ButtonNext.Click
         Dim searchDate As DateTime
         Dim input As String = ComboBoxSearch.Text
-        ComboBoxSearch.ForeColor = Color.Black
+        ComboBoxSearch.ForeColor = Color.FromArgb(220, 220, 220)
         If String.IsNullOrWhiteSpace(input) OrElse input = "Type text here and press Enter to search Editor log." Then input = Now.ToString("yyyy/MM/dd HH:mm:ss")
         Dim pattern As String = "^\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2}:\d{2}"
         Dim rx As String = Regex.Match(input, pattern).Value
@@ -379,7 +377,7 @@ Public Class Form_Input
         End If
     End Sub
 
-    Private Sub Form_Input_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub Form_Input_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         ' テキストエリアを初期化
         MainFormInst.ScintillaInitialize(My.Settings.InputFontName, My.Settings.InputFontSize, nowLangueage, My.Settings.ChatFontName, My.Settings.ChatFontSize)
 

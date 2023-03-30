@@ -3,7 +3,10 @@ Imports System.Data.SQLite
 Imports ScintillaNET
 Imports TmCGPTD.Form_Input
 Imports System.Text.Json
-Imports System.Xml
+Imports CsvHelper
+Imports CsvHelper.Configuration
+Imports System.Globalization
+Imports System.ComponentModel
 
 Partial Public Class Form1
     ' SQログLテーブル初期化--------------------------------------------------------------
@@ -388,4 +391,196 @@ Partial Public Class Form1
             End Using
         End Using
     End Sub
+
+    ' CSVエキスポート--------------------------------------------------------------
+    Public Async Function ExportTableToCsvAsync(tableName As String) As Task
+        Try
+            ' ファイル保存ダイアログを表示
+            Dim saveFileDialog As New SaveFileDialog()
+            saveFileDialog.InitialDirectory = Application.ExecutablePath
+            saveFileDialog.Filter = $"CSV Files (*.csv)|{tableName}.csv"
+            If saveFileDialog.ShowDialog() <> DialogResult.OK Then
+                Return
+            End If
+            Dim fileName As String = saveFileDialog.FileName
+
+            ProgressDialog.Show()
+
+            Dim processedCount As Integer = 0
+
+            ' SELECT クエリを実行し、テーブルのデータを取得
+            Dim command As New SQLiteCommand($"SELECT * FROM {tableName};", memoryConnection)
+            Using reader As SQLiteDataReader = CType(Await command.ExecuteReaderAsync(), SQLiteDataReader)
+
+                ' CSV ファイルに書き込むための StreamWriter を作成
+                Using writer As New StreamWriter(fileName, False, System.Text.Encoding.UTF8)
+
+                    ' CsvWriter を作成し、設定を適用
+                    Dim config As New CsvConfiguration(CultureInfo.InvariantCulture) With {
+                    .HasHeaderRecord = True,
+                    .Delimiter = ","
+                }
+                    Using csvWriter As New CsvWriter(writer, config)
+
+                        Dim commandRowCount As New SQLiteCommand($"SELECT COUNT(*) FROM {tableName};", memoryConnection)
+                        Dim rowCount As Integer = CInt(commandRowCount.ExecuteScalar())
+
+                        ' ヘッダー行を書き込む
+                        For i As Integer = 0 To reader.FieldCount - 1
+                            csvWriter.WriteField(reader.GetName(i))
+                        Next
+                        csvWriter.NextRecord()
+
+                        ' データ行を書き込む
+
+                        While Await reader.ReadAsync()
+                            For i As Integer = 0 To reader.FieldCount - 1
+                                If reader.GetFieldType(i) = GetType(DateTime) Then
+                                    Dim dateValue As DateTime = reader.GetDateTime(i)
+                                    csvWriter.WriteField(dateValue.ToString("yyyy-MM-dd HH:mm:ss.fffffff"))
+                                Else
+                                    csvWriter.WriteField(reader.GetValue(i))
+                                End If
+                            Next
+                            csvWriter.NextRecord()
+                            ' Report progress
+                            processedCount += 1
+                            Dim progressPercentage As Integer = CInt((processedCount / rowCount) * 100)
+                            ProgressDialog.Invoke(New Action(Sub()
+                                                                 ProgressDialog.UpdateProgress(progressPercentage)
+                                                             End Sub))
+                        End While
+                    End Using
+                End Using
+            End Using
+            ProgressDialog.Invoke(New Action(Sub()
+                                                 ProgressDialog.Close()
+                                             End Sub))
+            MsgBox($"Successfully exported log. ({processedCount} Records)", MsgBoxStyle.Information, "Information")
+        Catch ex As Exception
+            MsgBox("Failed to export log." & vbCrLf & "Error: " & ex.Message, MsgBoxStyle.Exclamation, "Error")
+        End Try
+    End Function
+
+
+    ' CSVインポート--------------------------------------------------------------
+    Public Async Function ImportCsvToTableAsync(tableName As String) As Task
+        ' ファイルオープンダイアログを表示
+        Dim openFileDialog As New OpenFileDialog()
+        openFileDialog.InitialDirectory = Application.ExecutablePath
+        openFileDialog.Filter = "CSV Files (*.csv)|*.csv"
+        If openFileDialog.ShowDialog() <> DialogResult.OK Then
+            Return
+        End If
+        Dim processedCount As Integer = 0
+        Dim fileName As String = openFileDialog.FileName
+        Dim columnEnd As Integer
+        Dim columnNames As String
+        If tableName = "log" Then
+            columnEnd = 2
+            columnNames = "date, text"
+        Else
+            columnEnd = 5
+            columnNames = "date, title, tag, json, text"
+        End If
+
+        ' CSVファイルからデータを読み込む
+        Using reader As New StreamReader(fileName, System.Text.Encoding.UTF8)
+            Dim config As New CsvConfiguration(CultureInfo.InvariantCulture) With {
+            .HasHeaderRecord = True,
+            .Delimiter = ","
+        }
+            Using csvReader As New CsvReader(reader, config)
+                csvReader.Read() ' ヘッダー行をスキップ
+
+                Using con As New SQLiteConnection($"Data Source={dbPath}")
+                    Await con.OpenAsync()
+                    Using transaction As SQLiteTransaction = con.BeginTransaction()
+                        Try
+                            While Await csvReader.ReadAsync() ' データ行を読み込む
+
+                                ' データを取得
+                                Dim rowData As New List(Of String)()
+                                For i As Integer = 1 To columnEnd ' 2列目から6列目まで
+                                    rowData.Add(csvReader.GetField(i))
+                                Next
+                                ' INSERT文を作成
+                                Dim values As String = String.Join(", ", Enumerable.Range(0, rowData.Count).Select(Function(i) $"@value{i}"))
+
+                                Dim insertQuery As String = $"INSERT INTO {tableName} ({columnNames}) VALUES ({values});"
+
+                                ' データをデータベースに挿入
+                                Using command As New SQLiteCommand(insertQuery, con)
+                                    For i As Integer = 0 To rowData.Count - 1
+                                        command.Parameters.AddWithValue($"@value{i}", rowData(i))
+                                    Next
+                                    Await command.ExecuteNonQueryAsync()
+                                End Using
+                                processedCount += 1
+                            End While
+
+                            transaction.Commit()
+                            MsgBox($"Successfully imported log. ({processedCount} Records)", MsgBoxStyle.Information, "Information")
+                        Catch ex As Exception
+                            transaction.Rollback()
+                            Throw
+                            MsgBox("Failed to import log." & vbCrLf & "Error: " & ex.Message, MsgBoxStyle.Exclamation, "Error")
+                        End Try
+                    End Using
+                    Await con.CloseAsync()
+                End Using
+            End Using
+        End Using
+
+        ' インメモリをいったん閉じてまた開く
+        memoryConnection.Close()
+        DbLoadToMemory()
+    End Function
+
+End Class
+
+Public Class ProgressDialog
+    Inherits Form
+
+    Public Sub New()
+        ' Initialize components and set properties
+        InitializeComponent()
+
+        Me.FormBorderStyle = FormBorderStyle.FixedDialog
+        Me.StartPosition = FormStartPosition.CenterScreen
+        Me.ControlBox = False
+        Me.ShowInTaskbar = False
+        Me.MinimizeBox = False
+        Me.MaximizeBox = False
+        Me.Text = "Exporting to CSV"
+    End Sub
+
+    Public Sub UpdateProgress(value As Integer)
+        ' Update the progress bar value
+        Me.ProgressBar1.Value = value
+    End Sub
+
+    Private Sub InitializeComponent()
+        Me.ProgressBar1 = New ProgressBar()
+        Me.SuspendLayout()
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 12)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(260, 23)
+        Me.ProgressBar1.TabIndex = 0
+        '
+        'ProgressDialog
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(284, 61)
+        Me.Controls.Add(Me.ProgressBar1)
+        Me.Name = "ProgressDialog"
+        Me.ResumeLayout(False)
+
+    End Sub
+
+    Friend WithEvents ProgressBar1 As ProgressBar
 End Class

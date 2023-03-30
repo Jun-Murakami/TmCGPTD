@@ -10,7 +10,7 @@ Imports System.Runtime.CompilerServices
 Public Class Form_Chat
     Inherits DockContent
     Public Property MainFormInst As Form1
-    Private Sub Form_Chat_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub Form_Chat_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         ChatBox.Zoom = My.Settings.ZoomChat
     End Sub
     ' Form2は閉じれないようにする。--------------------------------------------------------------
@@ -271,9 +271,9 @@ Public Class Form_Chat
         Next
     End Sub
 
-    Private Async Sub ButtonNewChat_ClickAsync(sender As Object, e As EventArgs) Handles ButtonNewChat.Click
-        Await MainFormInst.InitializeChatAsync()
-
+    ' New Chat--------------------------------------------------------------
+    Private Sub ButtonNewChat_Click(sender As Object, e As EventArgs) Handles ButtonNewChat.Click
+        MainFormInst.InitializeChat()
     End Sub
 
     Private dockedSize As Size

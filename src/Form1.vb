@@ -29,18 +29,20 @@ Public Class Form1
     Public previewForm As New Form_Preview()
     Public chatLogForm As New Form_ChatLog()
     Public phraseForm As New Form_Phrase()
-    Public Shared api_max_tokens As Nullable(Of Integer) = If(My.Settings.max_tokens = "Nothing", Nothing, CType(My.Settings.max_tokens, Integer))
-    Public Shared api_temperature As Nullable(Of Double) = If(My.Settings.temperature = "Nothing", Nothing, CType(My.Settings.temperature, Double))
-    Public Shared api_top_p As Nullable(Of Double) = If(My.Settings.top_p = "Nothing", Nothing, CType(My.Settings.top_p, Double))
-    Public Shared api_n As Nullable(Of Integer) = If(My.Settings.n = "Nothing", Nothing, CType(My.Settings.n, Integer))
-    Public Shared api_logprobs As Nullable(Of Integer) = If(My.Settings.logprobs = "Nothing", Nothing, CType(My.Settings.logprobs, Integer))
-    Public Shared api_presence_penalty As Nullable(Of Double) = If(My.Settings.presence_penalty = "Nothing", Nothing, CType(My.Settings.presence_penalty, Double))
-    Public Shared api_frequency_penalty As Nullable(Of Double) = If(My.Settings.frequency_penalty = "Nothing", Nothing, CType(My.Settings.frequency_penalty, Double))
-    Public Shared api_best_of As Nullable(Of Integer) = If(My.Settings.best_of = "Nothing", Nothing, CType(My.Settings.best_of, Integer))
+    'APIパラメータ初期化
+    Public Shared api_max_tokens As Integer? = If(My.Settings.max_tokens = "Nothing", New Integer?(), Integer.Parse(My.Settings.max_tokens))
+    Public Shared api_temperature As Double? = If(My.Settings.temperature = "Nothing", New Double?(), Double.Parse(My.Settings.temperature))
+    Public Shared api_top_p As Double? = If(My.Settings.top_p = "Nothing", New Double?(), Double.Parse(My.Settings.top_p))
+    Public Shared api_n As Integer? = If(My.Settings.n = "Nothing", New Integer?(), Integer.Parse(My.Settings.n))
+    Public Shared api_logprobs As Integer? = If(My.Settings.logprobs = "Nothing", New Integer?(), Integer.Parse(My.Settings.logprobs))
+    Public Shared api_presence_penalty As Double? = If(My.Settings.presence_penalty = "Nothing", New Double?(), Double.Parse(My.Settings.presence_penalty))
+    Public Shared api_frequency_penalty As Double? = If(My.Settings.frequency_penalty = "Nothing", New Double?(), Double.Parse(My.Settings.frequency_penalty))
+    Public Shared api_best_of As Integer? = If(My.Settings.best_of = "Nothing", New Integer?(), Integer.Parse(My.Settings.best_of))
     Public Shared api_stop As String = My.Settings.stop
     Public Shared api_logit_bias As String = My.Settings.logit_bias
     Public Shared api_model As String = My.Settings.model
     Public Shared api_url As String = My.Settings.url
+
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -157,6 +159,8 @@ Public Class Form1
             Me.Location = My.Settings.WindowPosition
             Me.Size = My.Settings.WindowSize
         End If
+
+        EditorLogAutoSaveToolStripMenuItem.Checked = My.Settings.AutoSave
 
         Me.KeyPreview = True ' KeyPreview プロパティを True に設定
 

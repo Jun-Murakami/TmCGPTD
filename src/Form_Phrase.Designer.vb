@@ -138,7 +138,7 @@ Partial Class Form_Phrase
         Button1.Margin = New Padding(9, 3, 2, 3)
         Button1.Name = "Button1"
         Button1.Size = New Size(42, 29)
-        Button1.TabIndex = 49
+        Button1.TabIndex = 28
         Button1.Text = "1"
         Button1.UseVisualStyleBackColor = True
         ' 
@@ -149,7 +149,7 @@ Partial Class Form_Phrase
         Button3.Margin = New Padding(0, 3, 2, 3)
         Button3.Name = "Button3"
         Button3.Size = New Size(42, 29)
-        Button3.TabIndex = 3
+        Button3.TabIndex = 30
         Button3.Text = "3"
         Button3.UseVisualStyleBackColor = True
         ' 
@@ -160,7 +160,7 @@ Partial Class Form_Phrase
         Button4.Margin = New Padding(0, 3, 2, 3)
         Button4.Name = "Button4"
         Button4.Size = New Size(42, 29)
-        Button4.TabIndex = 4
+        Button4.TabIndex = 30
         Button4.Text = "4"
         Button4.UseVisualStyleBackColor = True
         ' 
@@ -171,7 +171,7 @@ Partial Class Form_Phrase
         Button5.Margin = New Padding(0, 3, 2, 3)
         Button5.Name = "Button5"
         Button5.Size = New Size(42, 29)
-        Button5.TabIndex = 5
+        Button5.TabIndex = 31
         Button5.Text = "5"
         Button5.UseVisualStyleBackColor = True
         ' 
@@ -182,7 +182,7 @@ Partial Class Form_Phrase
         Button6.Margin = New Padding(9, 3, 2, 3)
         Button6.Name = "Button6"
         Button6.Size = New Size(42, 29)
-        Button6.TabIndex = 6
+        Button6.TabIndex = 32
         Button6.Text = "6"
         Button6.UseVisualStyleBackColor = True
         ' 
@@ -193,7 +193,7 @@ Partial Class Form_Phrase
         Button7.Margin = New Padding(0, 3, 2, 3)
         Button7.Name = "Button7"
         Button7.Size = New Size(42, 29)
-        Button7.TabIndex = 7
+        Button7.TabIndex = 33
         Button7.Text = "7"
         Button7.UseVisualStyleBackColor = True
         ' 
@@ -204,7 +204,7 @@ Partial Class Form_Phrase
         Button8.Margin = New Padding(0, 3, 2, 3)
         Button8.Name = "Button8"
         Button8.Size = New Size(42, 29)
-        Button8.TabIndex = 8
+        Button8.TabIndex = 34
         Button8.Text = "8"
         Button8.UseVisualStyleBackColor = True
         ' 
@@ -215,7 +215,7 @@ Partial Class Form_Phrase
         Button9.Margin = New Padding(0, 3, 2, 3)
         Button9.Name = "Button9"
         Button9.Size = New Size(42, 29)
-        Button9.TabIndex = 9
+        Button9.TabIndex = 35
         Button9.Text = "9"
         Button9.UseVisualStyleBackColor = True
         ' 
@@ -226,7 +226,7 @@ Partial Class Form_Phrase
         Button10.Margin = New Padding(0, 3, 2, 3)
         Button10.Name = "Button10"
         Button10.Size = New Size(42, 29)
-        Button10.TabIndex = 10
+        Button10.TabIndex = 36
         Button10.Text = "10"
         Button10.UseVisualStyleBackColor = True
         ' 
@@ -237,7 +237,7 @@ Partial Class Form_Phrase
         Button11.Margin = New Padding(9, 3, 2, 3)
         Button11.Name = "Button11"
         Button11.Size = New Size(42, 29)
-        Button11.TabIndex = 11
+        Button11.TabIndex = 37
         Button11.Text = "11"
         Button11.UseVisualStyleBackColor = True
         ' 
@@ -248,7 +248,7 @@ Partial Class Form_Phrase
         Button12.Margin = New Padding(0, 3, 2, 3)
         Button12.Name = "Button12"
         Button12.Size = New Size(42, 29)
-        Button12.TabIndex = 12
+        Button12.TabIndex = 38
         Button12.Text = "12"
         Button12.UseVisualStyleBackColor = True
         ' 
@@ -259,7 +259,7 @@ Partial Class Form_Phrase
         Button13.Margin = New Padding(0, 3, 2, 3)
         Button13.Name = "Button13"
         Button13.Size = New Size(42, 29)
-        Button13.TabIndex = 13
+        Button13.TabIndex = 39
         Button13.Text = "13"
         Button13.UseVisualStyleBackColor = True
         ' 
@@ -270,7 +270,7 @@ Partial Class Form_Phrase
         Button14.Margin = New Padding(0, 3, 2, 3)
         Button14.Name = "Button14"
         Button14.Size = New Size(42, 29)
-        Button14.TabIndex = 14
+        Button14.TabIndex = 40
         Button14.Text = "14"
         Button14.UseVisualStyleBackColor = True
         ' 
@@ -281,7 +281,7 @@ Partial Class Form_Phrase
         Button15.Margin = New Padding(0, 3, 2, 3)
         Button15.Name = "Button15"
         Button15.Size = New Size(42, 29)
-        Button15.TabIndex = 15
+        Button15.TabIndex = 41
         Button15.Text = "15"
         Button15.UseVisualStyleBackColor = True
         ' 
@@ -292,7 +292,7 @@ Partial Class Form_Phrase
         Button19.Margin = New Padding(0, 3, 2, 3)
         Button19.Name = "Button19"
         Button19.Size = New Size(42, 30)
-        Button19.TabIndex = 19
+        Button19.TabIndex = 46
         Button19.Text = "19"
         Button19.UseVisualStyleBackColor = True
         ' 
@@ -303,7 +303,7 @@ Partial Class Form_Phrase
         Button20.Margin = New Padding(0, 3, 2, 3)
         Button20.Name = "Button20"
         Button20.Size = New Size(42, 30)
-        Button20.TabIndex = 20
+        Button20.TabIndex = 47
         Button20.Text = "20"
         Button20.UseVisualStyleBackColor = True
         ' 
@@ -316,7 +316,7 @@ Partial Class Form_Phrase
         TextBox1.Margin = New Padding(3, 7, 9, 7)
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(168, 19)
-        TextBox1.TabIndex = 40
+        TextBox1.TabIndex = 48
         ' 
         ' TextBox2
         ' 
@@ -326,7 +326,7 @@ Partial Class Form_Phrase
         TextBox2.Margin = New Padding(3, 7, 9, 7)
         TextBox2.Name = "TextBox2"
         TextBox2.Size = New Size(168, 19)
-        TextBox2.TabIndex = 41
+        TextBox2.TabIndex = 49
         ' 
         ' TextBox3
         ' 
@@ -336,7 +336,7 @@ Partial Class Form_Phrase
         TextBox3.Margin = New Padding(3, 7, 9, 7)
         TextBox3.Name = "TextBox3"
         TextBox3.Size = New Size(168, 19)
-        TextBox3.TabIndex = 42
+        TextBox3.TabIndex = 50
         ' 
         ' TextBox4
         ' 
@@ -346,7 +346,7 @@ Partial Class Form_Phrase
         TextBox4.Margin = New Padding(3, 7, 9, 7)
         TextBox4.Name = "TextBox4"
         TextBox4.Size = New Size(168, 19)
-        TextBox4.TabIndex = 43
+        TextBox4.TabIndex = 51
         ' 
         ' TextBox5
         ' 
@@ -356,7 +356,7 @@ Partial Class Form_Phrase
         TextBox5.Margin = New Padding(3, 7, 9, 7)
         TextBox5.Name = "TextBox5"
         TextBox5.Size = New Size(170, 19)
-        TextBox5.TabIndex = 44
+        TextBox5.TabIndex = 52
         ' 
         ' TextBox6
         ' 
@@ -366,7 +366,7 @@ Partial Class Form_Phrase
         TextBox6.Margin = New Padding(3, 7, 9, 7)
         TextBox6.Name = "TextBox6"
         TextBox6.Size = New Size(168, 19)
-        TextBox6.TabIndex = 45
+        TextBox6.TabIndex = 53
         ' 
         ' TextBox7
         ' 
@@ -376,7 +376,7 @@ Partial Class Form_Phrase
         TextBox7.Margin = New Padding(3, 7, 9, 7)
         TextBox7.Name = "TextBox7"
         TextBox7.Size = New Size(168, 19)
-        TextBox7.TabIndex = 46
+        TextBox7.TabIndex = 54
         ' 
         ' TextBox8
         ' 
@@ -386,7 +386,7 @@ Partial Class Form_Phrase
         TextBox8.Margin = New Padding(3, 7, 9, 7)
         TextBox8.Name = "TextBox8"
         TextBox8.Size = New Size(168, 19)
-        TextBox8.TabIndex = 47
+        TextBox8.TabIndex = 55
         ' 
         ' TextBox9
         ' 
@@ -396,7 +396,7 @@ Partial Class Form_Phrase
         TextBox9.Margin = New Padding(3, 7, 9, 7)
         TextBox9.Name = "TextBox9"
         TextBox9.Size = New Size(168, 19)
-        TextBox9.TabIndex = 48
+        TextBox9.TabIndex = 56
         ' 
         ' TextBox10
         ' 
@@ -406,7 +406,7 @@ Partial Class Form_Phrase
         TextBox10.Margin = New Padding(3, 7, 9, 7)
         TextBox10.Name = "TextBox10"
         TextBox10.Size = New Size(170, 19)
-        TextBox10.TabIndex = 49
+        TextBox10.TabIndex = 57
         ' 
         ' TextBox11
         ' 
@@ -416,7 +416,7 @@ Partial Class Form_Phrase
         TextBox11.Margin = New Padding(3, 7, 9, 7)
         TextBox11.Name = "TextBox11"
         TextBox11.Size = New Size(168, 19)
-        TextBox11.TabIndex = 50
+        TextBox11.TabIndex = 58
         ' 
         ' TextBox12
         ' 
@@ -426,7 +426,7 @@ Partial Class Form_Phrase
         TextBox12.Margin = New Padding(3, 7, 9, 7)
         TextBox12.Name = "TextBox12"
         TextBox12.Size = New Size(168, 19)
-        TextBox12.TabIndex = 51
+        TextBox12.TabIndex = 59
         ' 
         ' TextBox13
         ' 
@@ -436,7 +436,7 @@ Partial Class Form_Phrase
         TextBox13.Margin = New Padding(3, 7, 9, 7)
         TextBox13.Name = "TextBox13"
         TextBox13.Size = New Size(168, 19)
-        TextBox13.TabIndex = 52
+        TextBox13.TabIndex = 60
         ' 
         ' TextBox14
         ' 
@@ -446,7 +446,7 @@ Partial Class Form_Phrase
         TextBox14.Margin = New Padding(3, 7, 9, 7)
         TextBox14.Name = "TextBox14"
         TextBox14.Size = New Size(168, 19)
-        TextBox14.TabIndex = 53
+        TextBox14.TabIndex = 61
         ' 
         ' TextBox15
         ' 
@@ -456,7 +456,7 @@ Partial Class Form_Phrase
         TextBox15.Margin = New Padding(3, 7, 9, 7)
         TextBox15.Name = "TextBox15"
         TextBox15.Size = New Size(170, 19)
-        TextBox15.TabIndex = 54
+        TextBox15.TabIndex = 62
         ' 
         ' TextBox17
         ' 
@@ -466,7 +466,7 @@ Partial Class Form_Phrase
         TextBox17.Margin = New Padding(3, 7, 9, 7)
         TextBox17.Name = "TextBox17"
         TextBox17.Size = New Size(168, 19)
-        TextBox17.TabIndex = 56
+        TextBox17.TabIndex = 64
         ' 
         ' TextBox16
         ' 
@@ -476,7 +476,7 @@ Partial Class Form_Phrase
         TextBox16.Margin = New Padding(3, 7, 9, 7)
         TextBox16.Name = "TextBox16"
         TextBox16.Size = New Size(168, 19)
-        TextBox16.TabIndex = 55
+        TextBox16.TabIndex = 63
         ' 
         ' TextBox18
         ' 
@@ -486,7 +486,7 @@ Partial Class Form_Phrase
         TextBox18.Margin = New Padding(3, 7, 9, 7)
         TextBox18.Name = "TextBox18"
         TextBox18.Size = New Size(168, 19)
-        TextBox18.TabIndex = 57
+        TextBox18.TabIndex = 65
         ' 
         ' TextBox19
         ' 
@@ -496,7 +496,7 @@ Partial Class Form_Phrase
         TextBox19.Margin = New Padding(3, 7, 9, 7)
         TextBox19.Name = "TextBox19"
         TextBox19.Size = New Size(168, 19)
-        TextBox19.TabIndex = 58
+        TextBox19.TabIndex = 66
         ' 
         ' TextBox20
         ' 
@@ -506,7 +506,7 @@ Partial Class Form_Phrase
         TextBox20.Margin = New Padding(3, 7, 9, 7)
         TextBox20.Name = "TextBox20"
         TextBox20.Size = New Size(170, 19)
-        TextBox20.TabIndex = 59
+        TextBox20.TabIndex = 67
         ' 
         ' Button18
         ' 
@@ -515,7 +515,7 @@ Partial Class Form_Phrase
         Button18.Margin = New Padding(0, 3, 2, 3)
         Button18.Name = "Button18"
         Button18.Size = New Size(42, 30)
-        Button18.TabIndex = 18
+        Button18.TabIndex = 44
         Button18.Text = "18"
         Button18.UseVisualStyleBackColor = True
         ' 
@@ -526,7 +526,7 @@ Partial Class Form_Phrase
         Button17.Margin = New Padding(0, 3, 2, 3)
         Button17.Name = "Button17"
         Button17.Size = New Size(42, 30)
-        Button17.TabIndex = 17
+        Button17.TabIndex = 43
         Button17.Text = "17"
         Button17.UseVisualStyleBackColor = True
         ' 
@@ -537,7 +537,7 @@ Partial Class Form_Phrase
         Button16.Margin = New Padding(9, 3, 2, 3)
         Button16.Name = "Button16"
         Button16.Size = New Size(42, 30)
-        Button16.TabIndex = 16
+        Button16.TabIndex = 42
         Button16.Text = "16"
         Button16.UseVisualStyleBackColor = True
         ' 
@@ -548,7 +548,7 @@ Partial Class Form_Phrase
         Button2.Margin = New Padding(0, 3, 2, 3)
         Button2.Name = "Button2"
         Button2.Size = New Size(42, 29)
-        Button2.TabIndex = 2
+        Button2.TabIndex = 29
         Button2.Text = "2"
         Button2.UseVisualStyleBackColor = True
         ' 

@@ -25,12 +25,19 @@ Partial Class Form1
         DockPanel1 = New WeifenLuo.WinFormsUI.Docking.DockPanel()
         FileToolStripMenuItem = New ToolStripMenuItem()
         ExpotChatLogToolStripMenuItem = New ToolStripMenuItem()
+        ExportEditorLogToolStripMenuItem = New ToolStripMenuItem()
+        ImportChatLogToolStripMenuItem = New ToolStripMenuItem()
+        ImportEditorLogToolStripMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator4 = New ToolStripSeparator()
         ExitToolStripMenuItem = New ToolStripMenuItem()
         PhrasePresetsToolStripMenuItem = New ToolStripMenuItem()
         SavePresetToolStripMenuItem = New ToolStripMenuItem()
+        ClearPresetsToolStripMenuItem = New ToolStripMenuItem()
         ToolStripSeparator1 = New ToolStripSeparator()
         LanguageToolStripMenuItem = New ToolStripMenuItem()
         SettingToolStripMenuItem = New ToolStripMenuItem()
+        EditorLogAutoSaveToolStripMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator5 = New ToolStripSeparator()
         APIOptionToolStripMenuItem = New ToolStripMenuItem()
         ToolStripSeparator3 = New ToolStripSeparator()
         InputAreaFontToolStripMenuItem = New ToolStripMenuItem()
@@ -60,11 +67,11 @@ Partial Class Form1
         DockPanel1.Margin = New Padding(0)
         DockPanel1.Name = "DockPanel1"
         DockPanel1.Size = New Size(1207, 825)
-        DockPanel1.TabIndex = 74
+        DockPanel1.TabIndex = 999
         ' 
         ' FileToolStripMenuItem
         ' 
-        FileToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {ExpotChatLogToolStripMenuItem, ExitToolStripMenuItem})
+        FileToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {ExpotChatLogToolStripMenuItem, ExportEditorLogToolStripMenuItem, ImportChatLogToolStripMenuItem, ImportEditorLogToolStripMenuItem, ToolStripSeparator4, ExitToolStripMenuItem})
         FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         FileToolStripMenuItem.Size = New Size(44, 24)
         FileToolStripMenuItem.Text = "File"
@@ -72,18 +79,41 @@ Partial Class Form1
         ' ExpotChatLogToolStripMenuItem
         ' 
         ExpotChatLogToolStripMenuItem.Name = "ExpotChatLogToolStripMenuItem"
-        ExpotChatLogToolStripMenuItem.Size = New Size(179, 24)
+        ExpotChatLogToolStripMenuItem.Size = New Size(196, 24)
         ExpotChatLogToolStripMenuItem.Text = "Expot Chat Log"
+        ' 
+        ' ExportEditorLogToolStripMenuItem
+        ' 
+        ExportEditorLogToolStripMenuItem.Name = "ExportEditorLogToolStripMenuItem"
+        ExportEditorLogToolStripMenuItem.Size = New Size(196, 24)
+        ExportEditorLogToolStripMenuItem.Text = "Export Editor Log"
+        ' 
+        ' ImportChatLogToolStripMenuItem
+        ' 
+        ImportChatLogToolStripMenuItem.Name = "ImportChatLogToolStripMenuItem"
+        ImportChatLogToolStripMenuItem.Size = New Size(196, 24)
+        ImportChatLogToolStripMenuItem.Text = "Import Chat Log"
+        ' 
+        ' ImportEditorLogToolStripMenuItem
+        ' 
+        ImportEditorLogToolStripMenuItem.Name = "ImportEditorLogToolStripMenuItem"
+        ImportEditorLogToolStripMenuItem.Size = New Size(196, 24)
+        ImportEditorLogToolStripMenuItem.Text = "Import Editor Log"
+        ' 
+        ' ToolStripSeparator4
+        ' 
+        ToolStripSeparator4.Name = "ToolStripSeparator4"
+        ToolStripSeparator4.Size = New Size(193, 6)
         ' 
         ' ExitToolStripMenuItem
         ' 
         ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        ExitToolStripMenuItem.Size = New Size(179, 24)
+        ExitToolStripMenuItem.Size = New Size(196, 24)
         ExitToolStripMenuItem.Text = "Exit"
         ' 
         ' PhrasePresetsToolStripMenuItem
         ' 
-        PhrasePresetsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {SavePresetToolStripMenuItem, ToolStripSeparator1})
+        PhrasePresetsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {SavePresetToolStripMenuItem, ClearPresetsToolStripMenuItem, ToolStripSeparator1})
         PhrasePresetsToolStripMenuItem.Name = "PhrasePresetsToolStripMenuItem"
         PhrasePresetsToolStripMenuItem.Size = New Size(114, 24)
         PhrasePresetsToolStripMenuItem.Text = "Phrase Presets"
@@ -91,13 +121,19 @@ Partial Class Form1
         ' SavePresetToolStripMenuItem
         ' 
         SavePresetToolStripMenuItem.Name = "SavePresetToolStripMenuItem"
-        SavePresetToolStripMenuItem.Size = New Size(159, 24)
+        SavePresetToolStripMenuItem.Size = New Size(162, 24)
         SavePresetToolStripMenuItem.Text = "Save Presets"
+        ' 
+        ' ClearPresetsToolStripMenuItem
+        ' 
+        ClearPresetsToolStripMenuItem.Name = "ClearPresetsToolStripMenuItem"
+        ClearPresetsToolStripMenuItem.Size = New Size(162, 24)
+        ClearPresetsToolStripMenuItem.Text = "Clear Presets"
         ' 
         ' ToolStripSeparator1
         ' 
         ToolStripSeparator1.Name = "ToolStripSeparator1"
-        ToolStripSeparator1.Size = New Size(156, 6)
+        ToolStripSeparator1.Size = New Size(159, 6)
         ' 
         ' LanguageToolStripMenuItem
         ' 
@@ -107,38 +143,51 @@ Partial Class Form1
         ' 
         ' SettingToolStripMenuItem
         ' 
-        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {APIOptionToolStripMenuItem, ToolStripSeparator3, InputAreaFontToolStripMenuItem, PreviewAreaFontToolStripMenuItem, ChatLogFontToolStripMenuItem})
+        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {EditorLogAutoSaveToolStripMenuItem, ToolStripSeparator5, APIOptionToolStripMenuItem, ToolStripSeparator3, InputAreaFontToolStripMenuItem, PreviewAreaFontToolStripMenuItem, ChatLogFontToolStripMenuItem})
         SettingToolStripMenuItem.Name = "SettingToolStripMenuItem"
         SettingToolStripMenuItem.Size = New Size(68, 24)
         SettingToolStripMenuItem.Text = "Setting"
         ' 
+        ' EditorLogAutoSaveToolStripMenuItem
+        ' 
+        EditorLogAutoSaveToolStripMenuItem.Checked = True
+        EditorLogAutoSaveToolStripMenuItem.CheckState = CheckState.Checked
+        EditorLogAutoSaveToolStripMenuItem.Name = "EditorLogAutoSaveToolStripMenuItem"
+        EditorLogAutoSaveToolStripMenuItem.Size = New Size(220, 24)
+        EditorLogAutoSaveToolStripMenuItem.Text = "Editor Log Auto-Save"
+        ' 
+        ' ToolStripSeparator5
+        ' 
+        ToolStripSeparator5.Name = "ToolStripSeparator5"
+        ToolStripSeparator5.Size = New Size(217, 6)
+        ' 
         ' APIOptionToolStripMenuItem
         ' 
         APIOptionToolStripMenuItem.Name = "APIOptionToolStripMenuItem"
-        APIOptionToolStripMenuItem.Size = New Size(162, 24)
+        APIOptionToolStripMenuItem.Size = New Size(220, 24)
         APIOptionToolStripMenuItem.Text = "API Option"
         ' 
         ' ToolStripSeparator3
         ' 
         ToolStripSeparator3.Name = "ToolStripSeparator3"
-        ToolStripSeparator3.Size = New Size(159, 6)
+        ToolStripSeparator3.Size = New Size(217, 6)
         ' 
         ' InputAreaFontToolStripMenuItem
         ' 
         InputAreaFontToolStripMenuItem.Name = "InputAreaFontToolStripMenuItem"
-        InputAreaFontToolStripMenuItem.Size = New Size(162, 24)
+        InputAreaFontToolStripMenuItem.Size = New Size(220, 24)
         InputAreaFontToolStripMenuItem.Text = "Editor Font"
         ' 
         ' PreviewAreaFontToolStripMenuItem
         ' 
         PreviewAreaFontToolStripMenuItem.Name = "PreviewAreaFontToolStripMenuItem"
-        PreviewAreaFontToolStripMenuItem.Size = New Size(162, 24)
+        PreviewAreaFontToolStripMenuItem.Size = New Size(220, 24)
         PreviewAreaFontToolStripMenuItem.Text = "Preview Font"
         ' 
         ' ChatLogFontToolStripMenuItem
         ' 
         ChatLogFontToolStripMenuItem.Name = "ChatLogFontToolStripMenuItem"
-        ChatLogFontToolStripMenuItem.Size = New Size(162, 24)
+        ChatLogFontToolStripMenuItem.Size = New Size(220, 24)
         ChatLogFontToolStripMenuItem.Text = "Chat Font"
         ' 
         ' WindowToolStripMenuItem
@@ -199,8 +248,8 @@ Partial Class Form1
         ' KeyboardSHortcutsToolStripMenuItem
         ' 
         KeyboardSHortcutsToolStripMenuItem.Name = "KeyboardSHortcutsToolStripMenuItem"
-        KeyboardSHortcutsToolStripMenuItem.Size = New Size(207, 24)
-        KeyboardSHortcutsToolStripMenuItem.Text = "Keyboard Shortcuts"
+        KeyboardSHortcutsToolStripMenuItem.Size = New Size(201, 24)
+        KeyboardSHortcutsToolStripMenuItem.Text = "Keyboard Shortcut"
         ' 
         ' MenuStrip1
         ' 
@@ -256,4 +305,11 @@ Partial Class Form1
     Friend WithEvents PhraseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents APIOptionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents ExportEditorLogToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ImportChatLogToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ImportEditorLogToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents ClearPresetsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EditorLogAutoSaveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
 End Class
