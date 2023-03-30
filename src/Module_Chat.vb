@@ -198,19 +198,45 @@ Partial Public Class Form1
                 httpClientStr.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GetApiKey())
                 httpClientStr.Timeout = TimeSpan.FromSeconds(200)
 
+                ' 過去の会話履歴と現在の入力を結合する前に、過去の会話履歴に含まれるcontent文字列の文字数を取得
+                Dim historyContentLength As Integer = conversationHistory.Sum(Function(d) d("content").ToString().Length)
+
                 ' 現在のユーザーの入力を表すディクショナリ
                 Dim userInput As New Dictionary(Of String, Object) From {
-                {"role", "user"},
-                {"content", chatTextPost}
-            }
+                     {"role", "user"},
+                     {"content", chatTextPost}
+                }
+
+                ' もし、過去の会話履歴と現在の入力を結合して2048文字を超える場合は、会話履歴のuserとassistantのJSONデータを一組分、古いものから削除する
+                While historyContentLength + chatTextPost.Length > MAX_CONTENT_LENGTH
+                    If conversationHistory.Count = 0 Then
+                        ' 会話履歴がないのに、文字数が2048文字を超える場合は、何もしないで処理を中止する
+                        Return "Error: The total length of conversation history exceeded the maximum content length."
+                    End If
+                    Dim oldestConversation As Dictionary(Of String, Object) = conversationHistory.First()
+                    If oldestConversation("role").ToString() = "assistant" Then
+                        ' 最初の会話履歴がassistantだった場合は、次のassistantのデータが出るまで削除する
+                        Do
+                            conversationHistory.RemoveAt(0)
+                            historyContentLength = conversationHistory.Sum(Function(d) d("content").ToString().Length)
+                            If conversationHistory.Count = 0 Then
+                                ' 会話履歴がなくなった場合は、処理を中止する
+                                Return "Error: The total length of conversation history exceeded the maximum content length."
+                            End If
+                        Loop Until conversationHistory.First()("role").ToString() = "assistant"
+                    End If
+                    ' 最も古い会話履歴を削除する
+                    conversationHistory.RemoveAt(0)
+                    historyContentLength = conversationHistory.Sum(Function(d) d("content").ToString().Length)
+                End While
 
                 ' 過去の会話履歴と現在の入力を結合
                 conversationHistory.Add(userInput)
 
                 Dim options As New Dictionary(Of String, Object) From {
-                {"model", api_model},
-                {"messages", conversationHistory}
-            }
+                    {"model", api_model},
+                    {"messages", conversationHistory}
+                }
 
                 ' オプションパラメータを追加
                 If api_max_tokens.HasValue Then options.Add("max_tokens", api_max_tokens.Value)

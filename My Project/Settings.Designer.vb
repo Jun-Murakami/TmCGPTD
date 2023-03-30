@@ -401,6 +401,18 @@ Namespace My
                 Me("AutoSave") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Nothing")>  _
+        Public Property conversation_history_limit() As String
+            Get
+                Return CType(Me("conversation_history_limit"),String)
+            End Get
+            Set
+                Me("conversation_history_limit") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

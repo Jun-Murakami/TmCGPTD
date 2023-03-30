@@ -78,6 +78,12 @@ Partial Class Form_Option
         ComboBox1 = New ComboBox()
         TextBox3 = New TextBox()
         Label24 = New Label()
+        Label25 = New Label()
+        TrackBar9 = New TrackBar()
+        CheckBox11 = New CheckBox()
+        LabelN9 = New Label()
+        Label26 = New Label()
+        Label27 = New Label()
         CType(TrackBar1, ComponentModel.ISupportInitialize).BeginInit()
         CType(TrackBar2, ComponentModel.ISupportInitialize).BeginInit()
         CType(TrackBar3, ComponentModel.ISupportInitialize).BeginInit()
@@ -86,6 +92,7 @@ Partial Class Form_Option
         CType(TrackBar6, ComponentModel.ISupportInitialize).BeginInit()
         CType(TrackBar7, ComponentModel.ISupportInitialize).BeginInit()
         CType(TrackBar8, ComponentModel.ISupportInitialize).BeginInit()
+        CType(TrackBar9, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' TrackBar1
@@ -371,7 +378,7 @@ Partial Class Form_Option
         ' ButtonOK
         ' 
         ButtonOK.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        ButtonOK.Location = New Point(187, 530)
+        ButtonOK.Location = New Point(184, 611)
         ButtonOK.Margin = New Padding(15)
         ButtonOK.Name = "ButtonOK"
         ButtonOK.Size = New Size(120, 40)
@@ -382,7 +389,7 @@ Partial Class Form_Option
         ' ButtonCancel
         ' 
         ButtonCancel.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        ButtonCancel.Location = New Point(319, 530)
+        ButtonCancel.Location = New Point(316, 611)
         ButtonCancel.Margin = New Padding(0, 15, 15, 15)
         ButtonCancel.Name = "ButtonCancel"
         ButtonCancel.Size = New Size(120, 40)
@@ -442,7 +449,7 @@ Partial Class Form_Option
         Label16.AutoSize = True
         Label16.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
         Label16.ForeColor = SystemColors.ControlText
-        Label16.Location = New Point(116, 401)
+        Label16.Location = New Point(116, 451)
         Label16.Margin = New Padding(10)
         Label16.Name = "Label16"
         Label16.RightToLeft = RightToLeft.Yes
@@ -498,7 +505,7 @@ Partial Class Form_Option
         ' 
         Label19.AutoSize = True
         Label19.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        Label19.Location = New Point(548, 400)
+        Label19.Location = New Point(548, 450)
         Label19.Margin = New Padding(6, 10, 10, 10)
         Label19.Name = "Label19"
         Label19.Size = New Size(33, 19)
@@ -583,7 +590,7 @@ Partial Class Form_Option
         ' CheckBox9
         ' 
         CheckBox9.AutoSize = True
-        CheckBox9.Location = New Point(483, 405)
+        CheckBox9.Location = New Point(483, 455)
         CheckBox9.Name = "CheckBox9"
         CheckBox9.Size = New Size(15, 14)
         CheckBox9.TabIndex = 48
@@ -604,7 +611,7 @@ Partial Class Form_Option
         ' 
         TextBox1.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
         TextBox1.ForeColor = SystemColors.GrayText
-        TextBox1.Location = New Point(175, 396)
+        TextBox1.Location = New Point(175, 446)
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(276, 29)
         TextBox1.TabIndex = 50
@@ -615,7 +622,7 @@ Partial Class Form_Option
         Label21.AutoSize = True
         Label21.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
         Label21.ForeColor = SystemColors.ControlText
-        Label21.Location = New Point(80, 440)
+        Label21.Location = New Point(80, 490)
         Label21.Margin = New Padding(10)
         Label21.Name = "Label21"
         Label21.RightToLeft = RightToLeft.Yes
@@ -627,7 +634,7 @@ Partial Class Form_Option
         ' 
         TextBox2.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
         TextBox2.ForeColor = SystemColors.GrayText
-        TextBox2.Location = New Point(175, 435)
+        TextBox2.Location = New Point(175, 485)
         TextBox2.Name = "TextBox2"
         TextBox2.Size = New Size(276, 29)
         TextBox2.TabIndex = 52
@@ -636,7 +643,7 @@ Partial Class Form_Option
         ' CheckBox10
         ' 
         CheckBox10.AutoSize = True
-        CheckBox10.Location = New Point(483, 444)
+        CheckBox10.Location = New Point(483, 494)
         CheckBox10.Name = "CheckBox10"
         CheckBox10.Size = New Size(15, 14)
         CheckBox10.TabIndex = 53
@@ -646,7 +653,7 @@ Partial Class Form_Option
         ' 
         Label22.AutoSize = True
         Label22.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        Label22.Location = New Point(548, 439)
+        Label22.Location = New Point(548, 489)
         Label22.Margin = New Padding(6, 10, 10, 10)
         Label22.Name = "Label22"
         Label22.Size = New Size(33, 19)
@@ -678,7 +685,7 @@ Partial Class Form_Option
         ' 
         TextBox3.Font = New Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
         TextBox3.ForeColor = SystemColors.ControlText
-        TextBox3.Location = New Point(175, 474)
+        TextBox3.Location = New Point(175, 524)
         TextBox3.Name = "TextBox3"
         TextBox3.Size = New Size(276, 29)
         TextBox3.TabIndex = 57
@@ -688,7 +695,7 @@ Partial Class Form_Option
         Label24.AutoSize = True
         Label24.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
         Label24.ForeColor = SystemColors.ControlText
-        Label24.Location = New Point(127, 479)
+        Label24.Location = New Point(127, 529)
         Label24.Margin = New Padding(10)
         Label24.Name = "Label24"
         Label24.RightToLeft = RightToLeft.Yes
@@ -696,11 +703,86 @@ Partial Class Form_Option
         Label24.TabIndex = 58
         Label24.Text = "url"
         ' 
+        ' Label25
+        ' 
+        Label25.AutoSize = True
+        Label25.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        Label25.Location = New Point(13, 388)
+        Label25.Margin = New Padding(10)
+        Label25.Name = "Label25"
+        Label25.RightToLeft = RightToLeft.Yes
+        Label25.Size = New Size(140, 38)
+        Label25.TabIndex = 59
+        Label25.Text = "conversation history" & vbCrLf & "limit"
+        ' 
+        ' TrackBar9
+        ' 
+        TrackBar9.Location = New Point(169, 388)
+        TrackBar9.Margin = New Padding(3, 40, 3, 3)
+        TrackBar9.Maximum = 4096
+        TrackBar9.Minimum = 1
+        TrackBar9.Name = "TrackBar9"
+        TrackBar9.Size = New Size(250, 45)
+        TrackBar9.SmallChange = 4
+        TrackBar9.TabIndex = 60
+        TrackBar9.Value = 4
+        ' 
+        ' CheckBox11
+        ' 
+        CheckBox11.AutoSize = True
+        CheckBox11.ForeColor = SystemColors.Control
+        CheckBox11.Location = New Point(483, 393)
+        CheckBox11.Name = "CheckBox11"
+        CheckBox11.Size = New Size(15, 14)
+        CheckBox11.TabIndex = 62
+        CheckBox11.UseVisualStyleBackColor = True
+        ' 
+        ' LabelN9
+        ' 
+        LabelN9.AutoSize = True
+        LabelN9.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        LabelN9.Location = New Point(421, 388)
+        LabelN9.Margin = New Padding(6, 10, 10, 10)
+        LabelN9.Name = "LabelN9"
+        LabelN9.Size = New Size(17, 19)
+        LabelN9.TabIndex = 63
+        LabelN9.Text = "0"
+        ' 
+        ' Label26
+        ' 
+        Label26.AutoSize = True
+        Label26.Font = New Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point)
+        Label26.ForeColor = SystemColors.ControlText
+        Label26.Location = New Point(49, 565)
+        Label26.Margin = New Padding(10)
+        Label26.Name = "Label26"
+        Label26.RightToLeft = RightToLeft.No
+        Label26.Size = New Size(533, 30)
+        Label26.TabIndex = 64
+        Label26.Text = """Conversation history limit"" is a client option, not an API parameter. " & vbCrLf & "When the set character limit is exceeded, the conversation history will be automatically deleted."
+        ' 
+        ' Label27
+        ' 
+        Label27.AutoSize = True
+        Label27.Font = New Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        Label27.Location = New Point(548, 389)
+        Label27.Margin = New Padding(6, 10, 10, 10)
+        Label27.Name = "Label27"
+        Label27.Size = New Size(41, 19)
+        Label27.TabIndex = 65
+        Label27.Text = "2048"
+        ' 
         ' Form_Option
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(622, 592)
+        ClientSize = New Size(622, 675)
+        Controls.Add(Label27)
+        Controls.Add(Label26)
+        Controls.Add(LabelN9)
+        Controls.Add(CheckBox11)
+        Controls.Add(TrackBar9)
+        Controls.Add(Label25)
         Controls.Add(Label24)
         Controls.Add(TextBox3)
         Controls.Add(ComboBox1)
@@ -768,6 +850,7 @@ Partial Class Form_Option
         CType(TrackBar6, ComponentModel.ISupportInitialize).EndInit()
         CType(TrackBar7, ComponentModel.ISupportInitialize).EndInit()
         CType(TrackBar8, ComponentModel.ISupportInitialize).EndInit()
+        CType(TrackBar9, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -828,4 +911,10 @@ Partial Class Form_Option
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents Label24 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents TrackBar9 As TrackBar
+    Friend WithEvents CheckBox11 As CheckBox
+    Friend WithEvents LabelN9 As Label
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label27 As Label
 End Class

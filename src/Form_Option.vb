@@ -12,6 +12,7 @@ Public Class Form_Option
     Private value9 As String
     Private value10 As String
     Private value11 As String
+    Private value12 As Integer
     Private Sub Form_Option_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         If Not My.Settings.max_tokens = "Nothing" Then
             CheckBox1.Checked = True
@@ -90,6 +91,11 @@ Public Class Form_Option
             TextBox3.Text = "https://api.openai.com/v1/chat/completions"
         End If
 
+        If Not My.Settings.conversation_history_limit = "Nothing" Then
+            TrackBar9.Value = CType(My.Settings.conversation_history_limit, Integer)
+        Else
+            TrackBar9.Value = 2048
+        End If
 
         TrackBar1_ValueChanged(TrackBar1, EventArgs.Empty)
         TrackBar2_ValueChanged(TrackBar2, EventArgs.Empty)
@@ -99,6 +105,7 @@ Public Class Form_Option
         TrackBar6_ValueChanged(TrackBar6, EventArgs.Empty)
         TrackBar7_ValueChanged(TrackBar7, EventArgs.Empty)
         TrackBar8_ValueChanged(TrackBar8, EventArgs.Empty)
+        TrackBar9_ValueChanged(TrackBar9, EventArgs.Empty)
     End Sub
     Private Sub TrackBar1_ValueChanged(sender As Object, e As EventArgs) Handles TrackBar1.ValueChanged
         value1 = TrackBar1.Value
@@ -131,6 +138,11 @@ Public Class Form_Option
     Private Sub TrackBar8_ValueChanged(sender As Object, e As EventArgs) Handles TrackBar8.ValueChanged
         value8 = TrackBar8.Value
         LabelN8.Text = value8.ToString()
+    End Sub
+
+    Private Sub TrackBar9_ValueChanged(sender As Object, e As EventArgs) Handles TrackBar9.ValueChanged
+        value12 = TrackBar9.Value
+        LabelN9.Text = value12.ToString()
     End Sub
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
@@ -232,6 +244,14 @@ Public Class Form_Option
         Else
             api_model = "https://api.openai.com/v1/chat/completions"
             My.Settings.model = "https://api.openai.com/v1/chat/completions"
+        End If
+
+        If CheckBox11.Checked = True Then
+            MAX_CONTENT_LENGTH = value12
+            My.Settings.conversation_history_limit = value12.ToString
+        Else
+            MAX_CONTENT_LENGTH = Nothing
+            My.Settings.conversation_history_limit = "Nothing"
         End If
 
         My.Settings.Save()

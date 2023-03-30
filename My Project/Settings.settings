@@ -89,5 +89,8 @@
     <Setting Name="AutoSave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="conversation_history_limit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Nothing</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
