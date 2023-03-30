@@ -770,7 +770,7 @@ Partial Class Form_Option
         Label27.Name = "Label27"
         Label27.Size = New Size(41, 19)
         Label27.TabIndex = 65
-        Label27.Text = "2048"
+        Label27.Text = "1920"
         ' 
         ' Form_Option
         ' 
