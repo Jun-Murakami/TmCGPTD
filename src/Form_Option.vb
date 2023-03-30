@@ -94,7 +94,7 @@ Public Class Form_Option
         If Not My.Settings.conversation_history_limit = "Nothing" Then
             TrackBar9.Value = CType(My.Settings.conversation_history_limit, Integer)
         Else
-            TrackBar9.Value = 2048
+            TrackBar9.Value = 1920
         End If
 
         TrackBar1_ValueChanged(TrackBar1, EventArgs.Empty)

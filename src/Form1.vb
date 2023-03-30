@@ -42,7 +42,7 @@ Public Class Form1
     Public Shared api_logit_bias As String = My.Settings.logit_bias
     Public Shared api_model As String = My.Settings.model
     Public Shared api_url As String = My.Settings.url
-    Public Shared MAX_CONTENT_LENGTH As Integer? = If(My.Settings.conversation_history_limit = "Nothing", 2048, Integer.Parse(My.Settings.conversation_history_limit))
+    Public Shared MAX_CONTENT_LENGTH As Integer? = If(My.Settings.conversation_history_limit = "Nothing", 1920, Integer.Parse(My.Settings.conversation_history_limit))
 
 
 
