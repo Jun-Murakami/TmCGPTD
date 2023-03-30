@@ -294,7 +294,7 @@ Partial Public Class Form1
                     conversationHistory.Add(New Dictionary(Of String, Object) From {{"role", "assistant"}, {"content", chatTextRes}})
                     ' 削除が実行された場合、メソッドの戻り値の最後に削除前の文字数と削除後の文字数をメッセージとして付け加える
                     If preDeleteHistoryLength > historyContentLength Then
-                        chatTextRes &= $"{Environment.NewLine}-Conversation history has been truncated. Char-before: {preDeleteHistoryLength}, after: {historyContentLength}.{Environment.NewLine}"
+                        chatTextRes &= $"-Conversation history has been truncated. Char-before: {preDeleteHistoryLength}, after: {historyContentLength}.{Environment.NewLine}"
                     End If
 
                 Else
