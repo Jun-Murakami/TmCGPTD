@@ -200,6 +200,8 @@ Partial Public Class Form1
 
                 ' 過去の会話履歴と現在の入力を結合する前に、過去の会話履歴に含まれるcontent文字列の文字数を取得
                 Dim historyContentLength As Integer = conversationHistory.Sum(Function(d) d("content").ToString().Length)
+                ' 削除前の文字数を記録
+                Dim preDeleteHistoryLength As Integer = historyContentLength
 
                 ' 現在のユーザーの入力を表すディクショナリ
                 Dim userInput As New Dictionary(Of String, Object) From {
@@ -207,11 +209,12 @@ Partial Public Class Form1
                      {"content", chatTextPost}
                 }
 
-                ' もし、過去の会話履歴と現在の入力を結合して2048文字を超える場合は、会話履歴のuserとassistantのJSONデータを一組分、古いものから削除する
+                ' もし、過去の会話履歴と現在の入力を結合して制限文字数を超える場合は、会話履歴のuserとassistantのJSONデータを一組分、古いものから削除する
                 While historyContentLength + chatTextPost.Length > MAX_CONTENT_LENGTH
                     If conversationHistory.Count = 0 Then
-                        ' 会話履歴がないのに、文字数が2048文字を超える場合は、何もしないで処理を中止する
-                        Return "Error: The total length of conversation history exceeded the maximum content length."
+                        ' 会話履歴がないのに、文字数が制限文字数を超える場合は、何もしないで処理を中止する
+                        Return $"Error: The total length of conversation history ({historyContentLength + chatTextPost.Length} characters) exceeded the maximum content length ({MAX_CONTENT_LENGTH} characters). Please reduce the input by {historyContentLength + chatTextPost.Length - MAX_CONTENT_LENGTH} characters."
+
                     End If
                     Dim oldestConversation As Dictionary(Of String, Object) = conversationHistory.First()
                     If oldestConversation("role").ToString() = "assistant" Then
@@ -221,7 +224,8 @@ Partial Public Class Form1
                             historyContentLength = conversationHistory.Sum(Function(d) d("content").ToString().Length)
                             If conversationHistory.Count = 0 Then
                                 ' 会話履歴がなくなった場合は、処理を中止する
-                                Return "Error: The total length of conversation history exceeded the maximum content length."
+                                Return "Error: There is no conversation history left, but the character count still exceeds the limit. Please ensure your input is within the allowed character limit."
+
                             End If
                         Loop Until conversationHistory.First()("role").ToString() = "assistant"
                     End If
@@ -247,10 +251,6 @@ Partial Public Class Form1
                 If api_presence_penalty.HasValue Then options.Add("presence_penalty", api_presence_penalty.Value)
                 If api_frequency_penalty.HasValue Then options.Add("frequency_penalty", api_frequency_penalty.Value)
                 If api_best_of.HasValue Then options.Add("best_of", api_best_of.Value)
-
-                'MsgBox("api_max_tokens: " & api_max_tokens)
-                'MsgBox("api_logprobs: " & api_logprobs)
-                'MsgBox("api_best_of: " & api_best_of)
 
                 ' api_stop パラメータの処理
                 If Not String.IsNullOrEmpty(api_stop) Then
@@ -292,6 +292,10 @@ Partial Public Class Form1
 
                     ' 応答を受け取った後、conversationHistory に追加
                     conversationHistory.Add(New Dictionary(Of String, Object) From {{"role", "assistant"}, {"content", chatTextRes}})
+                    ' 削除が実行された場合、メソッドの戻り値の最後に削除前の文字数と削除後の文字数をメッセージとして付け加える
+                    If preDeleteHistoryLength > historyContentLength Then
+                        chatTextRes &= $"{Environment.NewLine}-Conversation history has been truncated. Char-before: {preDeleteHistoryLength}, after: {historyContentLength}.{Environment.NewLine}"
+                    End If
 
                 Else
                     Dim errorBody As String = Await response.Content.ReadAsStringAsync()
