@@ -25,7 +25,7 @@ for Windows 10.
 No installation is required. Please launch TmCGPTE.exe.
 It's a simple software, so there should be no confusion, but we'll provide a brief explanation of keyboard shortcuts.
 
-![Screenshot](./docs/images/SS_Shortcut.png)
+![Screenshot](./docs/images/TmcGPTD_SC.png)
 - Ctrl + numeric keypad 1-9, 0 correspond to preset phrases 1-10.
 - Alt + numeric keypad 1-9, 0 correspond to preset phrases 11-20.
 - Ctrl + Enter key to send text.
