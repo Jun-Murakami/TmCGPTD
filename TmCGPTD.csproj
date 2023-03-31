@@ -1,0 +1,111 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>TmCGPTD</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>images\TmCGPTD.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DefaultDockState.xml" />
+    <None Remove="images\iconCal.png" />
+    <None Remove="images\iconCalBlack.png" />
+    <None Remove="images\iconChat.png" />
+    <None Remove="images\iconChatBlack.png" />
+    <None Remove="images\iconChatO6.png" />
+    <None Remove="images\iconLoading.png" />
+    <None Remove="images\iconOK.png" />
+    <None Remove="images\iconReturn.png" />
+    <None Remove="images\iconSearch.png" />
+    <None Remove="images\iconTag.png" />
+    <None Remove="images\iconTagBlack.png" />
+    <None Remove="images\iconWrite.png" />
+    <None Remove="images\iconWriteBlack.png" />
+    <None Remove="images\iconWriteO6.png" />
+    <None Remove="images\TmCGPT.ico" />
+    <None Remove="images\TmcGPTD_SC.png" />
+    <None Remove="images\TmCGPTE.png" />
+    <None Remove="Syntax_Setting.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\TmCGPTD.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DefaultDockState.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="images\iconCal.png" />
+    <EmbeddedResource Include="images\iconCalBlack.png" />
+    <EmbeddedResource Include="images\iconChat.png" />
+    <EmbeddedResource Include="images\iconChatBlack.png" />
+    <EmbeddedResource Include="images\iconChatO6.png" />
+    <EmbeddedResource Include="images\iconLoading.png" />
+    <EmbeddedResource Include="images\iconOK.png" />
+    <EmbeddedResource Include="images\iconReturn.png" />
+    <EmbeddedResource Include="images\iconSearch.png" />
+    <EmbeddedResource Include="images\iconTag.png" />
+    <EmbeddedResource Include="images\iconTagBlack.png" />
+    <EmbeddedResource Include="images\iconWrite.png" />
+    <EmbeddedResource Include="images\iconWriteBlack.png" />
+    <EmbeddedResource Include="images\iconWriteO6.png" />
+    <EmbeddedResource Include="images\TmCGPT.ico" />
+    <EmbeddedResource Include="images\TmcGPTD_SC.png" />
+    <EmbeddedResource Include="images\TmCGPTE.png" />
+    <EmbeddedResource Include="Syntax_Setting.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <PackageReference Include="DockPanelSuite" Version="3.1.0" />
+    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Scintilla.NET" Version="5.3.2.7" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+    <PackageReference Include="VPKSoft.ScintillaLexers.NET" Version="1.1.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

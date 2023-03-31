@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "TmCGPTD": {
-      "commandName": "Project",
-      "jsWebView2Debugging": false,
-      "remoteDebugEnabled": false
-    }
-  }
-}
