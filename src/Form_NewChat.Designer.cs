@@ -46,7 +46,7 @@ namespace TmCGPTD
             // 
             Label23.AutoSize = true;
             Label23.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label23.Location = new Point(27, 32);
+            Label23.Location = new Point(27, 37);
             Label23.Margin = new Padding(14, 17, 14, 17);
             Label23.Name = "Label23";
             Label23.Size = new Size(222, 29);
@@ -66,7 +66,7 @@ namespace TmCGPTD
             // ButtonCancel
             // 
             ButtonCancel.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonCancel.Location = new Point(250, 217);
+            ButtonCancel.Location = new Point(250, 191);
             ButtonCancel.Margin = new Padding(0, 25, 21, 25);
             ButtonCancel.Name = "ButtonCancel";
             ButtonCancel.Size = new Size(171, 67);
@@ -78,7 +78,7 @@ namespace TmCGPTD
             // ButtonOK
             // 
             ButtonOK.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonOK.Location = new Point(61, 217);
+            ButtonOK.Location = new Point(58, 191);
             ButtonOK.Margin = new Padding(21, 25, 21, 25);
             ButtonOK.Name = "ButtonOK";
             ButtonOK.Size = new Size(171, 67);
@@ -91,7 +91,7 @@ namespace TmCGPTD
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(481, 327);
+            ClientSize = new Size(481, 278);
             Controls.Add(ButtonCancel);
             Controls.Add(ButtonOK);
             Controls.Add(TextBox1);

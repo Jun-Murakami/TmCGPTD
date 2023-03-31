@@ -230,44 +230,52 @@ namespace TmCGPTD
                     httpClientStr.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GetApiKey());
                     httpClientStr.Timeout = TimeSpan.FromSeconds(200d);
 
-                    // 過去の会話履歴と現在の入力を結合する前に、過去の会話履歴に含まれるcontent文字列の文字数を取得
-                    int historyContentLength = conversationHistory.Sum(d => d["content"].ToString().Length);
-                    // 削除前の文字数を記録
-                    int preDeleteHistoryLength = historyContentLength;
+                    // 過去の会話履歴と現在の入力を結合する前に、過去の会話履歴に含まれるcontent文字列のトークン数を取得
+                    int historyContentTokenCount = conversationHistory.Sum(d => GetTokenCount(d["content"].ToString()));
+                    // 要約前のトークン数を記録
+                    int preSummarizedHistoryTokenCount = historyContentTokenCount;
+
+                    // 過去の履歴＋ユーザーの新規入力が制限トークン数「MAX_CONTENT_LENGTH」を超えた場合
+                    if (historyContentTokenCount + GetTokenCount(chatTextPost) > MAX_CONTENT_LENGTH)
+                    {
+                        int historyTokenCount = 0;
+                        int messagesToRemove = 0;
+                        string forCompMes = "";
+
+                        // 会話履歴の最新のものから、ユーザーとアシスタントを1セットとして、1セットずつトークン数を数えて一時変数「historyTokenCount」に足していく
+                        for (int i = 0; i < conversationHistory.Count; i += 2)
+                        {
+                            int userMessageTokenCount = GetTokenCount(conversationHistory[i]["content"].ToString());
+                            int assistantMessageTokenCount = GetTokenCount(conversationHistory[i + 1]["content"].ToString());
+                            historyTokenCount += userMessageTokenCount + assistantMessageTokenCount;
+
+                            if (historyTokenCount > (MAX_CONTENT_LENGTH - 300))
+                            {
+                                forCompMes = conversationHistory.GetRange(messagesToRemove, conversationHistory.Count - messagesToRemove).Select(message => message["content"].ToString()).Reverse().Aggregate((a, b) => a + b);
+                                messagesToRemove = i + 1;
+                                break;
+                            }
+                        }
+
+                        // 抽出したテキストを要約APIリクエストに送信
+                        try
+                        {
+                            string summary = await GetSummaryAsync(forCompMes);
+
+                            historyContentTokenCount = summary.Length;
+
+                            // 返ってきた要約文で、conversationHistoryを書き換える
+                            conversationHistory.RemoveRange(0, messagesToRemove + 1);
+                            conversationHistory.Insert(0, new Dictionary<string, object>() { { "role", "assistant" }, { "content", summary } });
+                        }
+                        catch (Exception ex)
+                        {
+                            return $"Error: {ex.Message + Environment.NewLine}";
+                        }
+                    }
 
                     // 現在のユーザーの入力を表すディクショナリ
                     var userInput = new Dictionary<string, object>() { { "role", "user" }, { "content", chatTextPost } };
-
-                    // もし、過去の会話履歴と現在の入力を結合して制限文字数を超える場合は、会話履歴のuserとassistantのJSONデータを一組分、古いものから削除する
-                    while ((bool)(historyContentLength + chatTextPost.Length is { } arg1 && MAX_CONTENT_LENGTH.HasValue ? arg1 > MAX_CONTENT_LENGTH : (bool?)null))
-                    {
-                        if (conversationHistory.Count == 0)
-                        {
-                            // 会話履歴がないのに、文字数が制限文字数を超える場合は、何もしないで処理を中止する
-                            return $"Error: The total length of conversation history ({historyContentLength + chatTextPost.Length} characters) exceeded the maximum content length ({MAX_CONTENT_LENGTH} characters). Please reduce the input by {historyContentLength + chatTextPost.Length - MAX_CONTENT_LENGTH} characters.";
-
-                        }
-                        var oldestConversation = conversationHistory.First();
-                        if (oldestConversation["role"].ToString() == "assistant")
-                        {
-                            // 最初の会話履歴がassistantだった場合は、次のassistantのデータが出るまで削除する
-                            do
-                            {
-                                conversationHistory.RemoveAt(0);
-                                historyContentLength = conversationHistory.Sum(d => d["content"].ToString().Length);
-                                if (conversationHistory.Count == 0)
-                                {
-                                    // 会話履歴がなくなった場合は、処理を中止する
-                                    return "Error: There is no conversation history left, but the character count still exceeds the limit. Please ensure your input is within the allowed character limit.";
-
-                                }
-                            }
-                            while (conversationHistory.First()["role"].ToString() != "assistant");
-                        }
-                        // 最も古い会話履歴を削除する
-                        conversationHistory.RemoveAt(0);
-                        historyContentLength = conversationHistory.Sum(d => d["content"].ToString().Length);
-                    }
 
                     // 過去の会話履歴と現在の入力を結合
                     conversationHistory.Add(userInput);
@@ -318,6 +326,10 @@ namespace TmCGPTD
                         var responseJson = JsonSerializer.Deserialize<JsonElement>(responseBody);
                         // レス本文
                         chatTextRes = Environment.NewLine + responseJson.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString().Trim() + Environment.NewLine + Environment.NewLine;
+
+                        // 応答を受け取った後、conversationHistory に追加
+                        conversationHistory.Add(new Dictionary<string, object>() { { "role", "assistant" }, { "content", chatTextRes } });
+
                         // usageプロパティだけ取得する
                         JsonElement usageProperty;
                         if (responseJson.TryGetProperty("usage", out usageProperty))
@@ -334,13 +346,12 @@ namespace TmCGPTD
                         // End If
                         // Next
 
-                        // 応答を受け取った後、conversationHistory に追加
-                        conversationHistory.Add(new Dictionary<string, object>() { { "role", "assistant" }, { "content", chatTextRes } });
-                        // 削除が実行された場合、メソッドの戻り値の最後に削除前の文字数と削除後の文字数をメッセージとして付け加える
-                        if (preDeleteHistoryLength > historyContentLength)
+                        // 要約が実行された場合、メソッドの戻り値の最後に要約前のトークン数と要約後のトークン数をメッセージとして付け加える
+                        if (preSummarizedHistoryTokenCount > GetTokenCount(conversationHistory.Select(d => d["content"].ToString()).Aggregate((a, b) => a + b)))
                         {
-                            chatTextRes += $"{Environment.NewLine}-Conversation history has been truncated. Chars-before: {preDeleteHistoryLength}, after: {historyContentLength}.{Environment.NewLine}";
+                            chatTextRes += $"-Conversation history has been summarized. before: {preSummarizedHistoryTokenCount}, after: {GetTokenCount(conversationHistory.Select(d => d["content"].ToString()).Aggregate((a, b) => a + b))}.{Environment.NewLine}";
                         }
+
                     }
 
                     else
@@ -359,6 +370,79 @@ namespace TmCGPTD
                 return $"Error: {ex.Message + Environment.NewLine}";
             }
         }
+
+        //トークン数計算
+        public int GetTokenCount(string text)
+        {
+            var tokenizer = new System.Text.RegularExpressions.Regex(@"\p{L}+|\p{N}+|[^\p{L}\p{N}\s]+");
+            string[] words = text.Split(' ');
+
+            int tokenCount = 0;
+            foreach (string word in words)
+            {
+                if (ContainsDoubleByteCharacter(word))
+                {
+                    tokenCount += word.Length;
+                }
+                else
+                {
+                    tokenCount += tokenizer.Matches(word).Count;
+                }
+            }
+
+            return tokenCount;
+        }
+
+        public bool ContainsDoubleByteCharacter(string text)
+        {
+            return text.Any(c => c > 0x80);
+        }
+
+
+        //文章要約圧縮メソッド
+        public async Task<string> GetSummaryAsync(string forCompMes)
+        {
+            string summary;
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GetApiKey());
+                httpClient.Timeout = TimeSpan.FromSeconds(200d);
+
+                var options = new Dictionary<string, object>
+        {
+            { "model", "gpt-3.5-turbo" },
+            { "messages", new List<Dictionary<string, object>>
+                {
+                    new Dictionary<string, object> { { "role", "system" }, { "content", "You are a professional editor. Please summarize the following text in about 500 tokens using the language in which the text is written." } },
+                    new Dictionary<string, object> { { "role", "user" }, { "content", forCompMes } }
+                }
+            }
+        };
+
+                string jsonContent = JsonSerializer.Serialize(options);
+
+                var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync(api_url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var responseJson = JsonSerializer.Deserialize<JsonElement>(responseBody);
+                    summary = responseJson.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString().Trim();
+                    //MessageBox.Show(summary);
+                }
+                else
+                {
+                    string errorBody = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error: Response status code does not indicate success: {response.StatusCode} ({response.ReasonPhrase}). Response body: {errorBody}");
+                }
+            }
+
+            return summary;
+        }
+
 
         private System.Windows.Forms.Timer thinkTimer;
         private int thinkCounter = 0;

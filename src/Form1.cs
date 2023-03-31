@@ -53,7 +53,7 @@ namespace TmCGPTD
         public static string api_logit_bias = Properties.Settings.Default.logit_bias;
         public static string api_model = Properties.Settings.Default.model;
         public static string api_url = Properties.Settings.Default.url;
-        public static int? MAX_CONTENT_LENGTH = Properties.Settings.Default.conversation_history_limit == "Nothing" ? 1920 : int.Parse(Properties.Settings.Default.conversation_history_limit);
+        public static int? MAX_CONTENT_LENGTH = Properties.Settings.Default.conversation_history_limit == "Nothing" ? 2048 : int.Parse(Properties.Settings.Default.conversation_history_limit);
 
 
 

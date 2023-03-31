@@ -148,7 +148,7 @@ namespace TmCGPTD
             }
             else
             {
-                TrackBar9.Value = 1920;
+                TrackBar9.Value = 2048;
             }
 
             TrackBar1_ValueChanged(TrackBar1, EventArgs.Empty);

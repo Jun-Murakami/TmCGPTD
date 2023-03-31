@@ -801,15 +801,15 @@ namespace TmCGPTD
             // 
             Label26.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Label26.AutoSize = true;
-            Label26.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Label26.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Label26.ForeColor = SystemColors.ControlText;
             Label26.Location = new Point(70, 943);
             Label26.Margin = new Padding(14, 17, 14, 17);
             Label26.Name = "Label26";
             Label26.RightToLeft = RightToLeft.No;
-            Label26.Size = new Size(816, 48);
+            Label26.Size = new Size(800, 44);
             Label26.TabIndex = 64;
-            Label26.Text = "\"conversation history limit\" is a client option, not an API parameter. \r\nWhen the set character limit is exceeded, the conversation history will be automatically deleted.";
+            Label26.Text = "\"conversation history limit\" is a client option, not an API parameter. \r\nWhen the set value (close to tokens) is exceeded, the conversation history will be automatically summarized.";
             // 
             // Label27
             // 
@@ -820,7 +820,7 @@ namespace TmCGPTD
             Label27.Name = "Label27";
             Label27.Size = new Size(61, 29);
             Label27.TabIndex = 65;
-            Label27.Text = "1920";
+            Label27.Text = "2048";
             // 
             // Form_Option
             // 
