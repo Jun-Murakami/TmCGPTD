@@ -411,7 +411,7 @@ namespace TmCGPTD
 
                 var options = new Dictionary<string, object>
         {
-            { "model", "gpt-3.5-turbo" },
+            { "model", api_model },
             { "messages", new List<Dictionary<string, object>>
                 {
                     new Dictionary<string, object> { { "role", "system" }, { "content", "You are a professional editor. Please summarize the following text in about 500 tokens using the language in which the text is written." } },
