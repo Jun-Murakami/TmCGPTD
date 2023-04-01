@@ -186,8 +186,9 @@ namespace TmCGPTD
             memoryConnection.Close();
             DbLoadToMemory();
         }
+
         // チャットログを更新--------------------------------------------------------------
-        public long lastRowId = default; // チャットログ書き込み先IDを保持
+        public static long lastRowId = default; // チャットログ書き込み先IDを保持
         public async Task InsertDatabaseChatAsync(DateTime postDate, DateTime resDate, string resText)
         {
             if (!string.IsNullOrEmpty(recentText))
@@ -313,8 +314,8 @@ namespace TmCGPTD
                         text = text.Replace("<---TMCGPT--->", "-");
                         text = text.Length > 80 ? text.Substring(0, 80) + "…" : text;
 
-                        allRecords.Add($"{dateStr}  {text} #{id}");
-                        dropList.Add($"{dateStr}  {text} #{id}");
+                        allRecords.Add($"{text} {dateStr} #{id}");
+                        dropList.Add($"{text} {dateStr} #{id}");
                     }
 
                     // 検索結果が空なら、"No matching rows found."をリストに追加
@@ -456,8 +457,8 @@ namespace TmCGPTD
 
                         text = text.Replace("<---TMCGPT--->", "-");
                         text = text.Length > 28 ? text.Substring(0, 28) + "…" : text;
-                        dropList.Add($"{dateStr}  {text} #{id}");
-                        inputForm.ComboBoxSearch.Text = $"{dateStr}  {text} #{id}";
+                        dropList.Add($"{text} {dateStr} #{id}");
+                        inputForm.ComboBoxSearch.Text = $"{text} {dateStr} #{id}";
 
                         // textカラムの値を取得して、区切り文字「---」で分割する
                         string[] texts;
@@ -499,8 +500,6 @@ namespace TmCGPTD
                     return;
                 }
                 string fileName = saveFileDialog.FileName;
-
-                progressForm.Show();
 
                 int processedCount = 0;
 
@@ -550,12 +549,10 @@ namespace TmCGPTD
                                 // Report progress
                                 processedCount += 1;
                                 int progressPercentage = (int)Math.Round(processedCount / (double)rowCount * 100d);
-                                progressForm.Invoke(new Action(() => progressForm.UpdateProgress(progressPercentage)));
                             }
                         }
                     }
                 }
-                progressForm.Invoke(new Action(() => progressForm.Close()));
                 Interaction.MsgBox($"Successfully exported log. ({processedCount} Records)", MsgBoxStyle.Information, "Information");
             }
             catch (Exception ex)
@@ -654,67 +651,5 @@ namespace TmCGPTD
 
     }
 
-    public class ProgressDialog : Form
-    {
 
-        public ProgressDialog()
-        {
-            // Initialize components and set properties
-            InitializeComponent();
-
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            StartPosition = FormStartPosition.CenterScreen;
-            ControlBox = false;
-            ShowInTaskbar = false;
-            MinimizeBox = false;
-            MaximizeBox = false;
-            Text = "Exporting to CSV";
-        }
-
-        public void UpdateProgress(int value)
-        {
-            // Update the progress bar value
-            ProgressBar1.Value = value;
-        }
-
-        private void InitializeComponent()
-        {
-            _ProgressBar1 = new ProgressBar();
-            SuspendLayout();
-            // 
-            // ProgressBar1
-            // 
-            _ProgressBar1.Location = new Point(12, 12);
-            _ProgressBar1.Name = "_ProgressBar1";
-            _ProgressBar1.Size = new Size(260, 23);
-            _ProgressBar1.TabIndex = 0;
-            // 
-            // ProgressDialog
-            // 
-            AutoScaleDimensions = new SizeF(6.0f, 13.0f);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(284, 61);
-            Controls.Add(_ProgressBar1);
-            Name = "ProgressDialog";
-            ResumeLayout(false);
-
-        }
-
-        private ProgressBar _ProgressBar1;
-
-        internal virtual ProgressBar ProgressBar1
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _ProgressBar1;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                _ProgressBar1 = value;
-            }
-        }
-    }
 }

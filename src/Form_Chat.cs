@@ -23,7 +23,7 @@ namespace TmCGPTD
         {
             ChatBox.Zoom = Properties.Settings.Default.ZoomChat;
         }
-        // Form2は閉じれないようにする。--------------------------------------------------------------
+        // Formは閉じれないようにする。--------------------------------------------------------------
         private void PreviewForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var mainForm = Application.OpenForms.OfType<Form1>().FirstOrDefault();
@@ -165,45 +165,55 @@ namespace TmCGPTD
             pictureBox.Image = bmp;
         }
         // タイトル編集--------------------------------------------------------------
-        private async void PictureButtonTitle_ClickAsync(object sender, EventArgs e)
+        public async void PictureButtonTitle_ClickAsync(object sender, EventArgs e)
         {
             try
             {
-                // テキストボックスのテキストを読み取り、改行で結合してシングルクォートをエスケープ
-                string title = "";
-                await Task.Run(() => TextBoxTitle.BeginInvoke(() => title = TextBoxTitle.Text));
-                title = title.Replace("'", "''");
-                // データグリッドビューの現在選択行のchatIdカラムの値を読み取る
-                if (MainFormInst.chatLogForm.DataGrid.CurrentRow is not null)
-                {
-                    isDone = false;
-                    await Task.Run(() => PictureButtonTitle.Invoke(() => PictureButtonTitle.Image = Properties.Resources.iconLoading));
-                    loadingTimer2.Interval = 100; // 更新間隔(ms)
-                    loadingTimer2.Start();
-                    int chatId = Conversions.ToInteger(MainFormInst.chatLogForm.DataGrid.CurrentRow.Cells["chatId"].Value);
-
-                    // SQL実行
-                    string query = $"UPDATE chatlog SET title = '{title}' WHERE id = {chatId}";
-                    await MainFormInst.UpdateDatabaseAsync(query);
-
-                    // 表示更新
-                    query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
-                    var dT = await MainFormInst.SearchChatDatabaseAsync(query);
-                    await MainFormInst.chatLogForm.ShowChatSearchResultAsync(dT);
-                    SelectRowByChatId(chatId);
-                    await Task.Delay(500);
-                    isDone = true;
-                }
-                else
-                {
-                    MessageBox.Show("Please select a row in the DataGrid before updating the title.", "No row selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                await EditTitle();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error1: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        public async Task EditTitle()
+        {
+            // テキストボックスのテキストを読み取り、改行で結合してシングルクォートをエスケープ
+            string title = "";
+            TextBoxTitle.Invoke(() => title = TextBoxTitle.Text);
+            title = title.Replace("'", "''");
+            // データグリッドビューの現在選択行のchatIdカラムの値またはlastRowIdを読み取る
+            if (MainFormInst.chatLogForm.DataGrid.CurrentRow is not null)
+            {
+                isDone = false;
+                PictureButtonTitle.Invoke(() => PictureButtonTitle.Image = Properties.Resources.iconLoading);
+                loadingTimer2.Interval = 100; // 更新間隔(ms)
+                loadingTimer2.Start();
+
+                // チャット実行中でなければはDB更新して表示
+                if (Form1.isChatRunning == false)
+                {
+                    int chatId = default;
+                    MainFormInst.chatLogForm.DataGrid.Invoke(() => chatId = Conversions.ToInteger(MainFormInst.chatLogForm.DataGrid.CurrentRow.Cells["chatId"].Value));
+
+                    // SQL実行
+                    string query = $"UPDATE chatlog SET title = '{title}' WHERE id = {chatId}";
+                    await MainFormInst.UpdateDatabaseAsync(query);
+
+                    query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
+                    var dT = await MainFormInst.SearchChatDatabaseAsync(query);
+                    await MainFormInst.chatLogForm.ShowChatSearchResultAsync(dT);
+                    SelectRowByChatId(chatId);
+                }
+                await Task.Delay(500);
+                isDone = true;
+            }
+            else
+            {
+                MessageBox.Show("Please select a row in the DataGrid before updating the title.", "No row selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         // タグ編集--------------------------------------------------------------
         private async void PictureButtonTag_ClickAsync(object sender, EventArgs e)
         {

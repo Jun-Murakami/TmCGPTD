@@ -369,7 +369,7 @@ namespace TmCGPTD
             ComboBoxSearch.ForeColor = Color.FromArgb(220, 220, 220);
             if (string.IsNullOrWhiteSpace(input) || input == "Type text here and press Enter to search Editor log.")
                 input = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            string pattern = @"^\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2}:\d{2}";
+            string pattern = @"\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2}:\d{2}";
             string rx = Regex.Match(input, pattern).Value;
             if (Regex.IsMatch(input, pattern) && DateTime.TryParse(rx, out searchDate))
             {
@@ -394,7 +394,7 @@ namespace TmCGPTD
             ComboBoxSearch.ForeColor = Color.FromArgb(220, 220, 220);
             if (string.IsNullOrWhiteSpace(input) || input == "Type text here and press Enter to search Editor log.")
                 input = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            string pattern = @"^\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2}:\d{2}";
+            string pattern = @"\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2}:\d{2}";
             string rx = Regex.Match(input, pattern).Value;
             if (Regex.IsMatch(input, pattern) && DateTime.TryParse(rx, out searchDate))
             {

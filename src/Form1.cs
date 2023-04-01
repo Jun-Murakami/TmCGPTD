@@ -40,7 +40,6 @@ namespace TmCGPTD
         public Form_Preview previewForm = new Form_Preview();
         public Form_ChatLog chatLogForm = new Form_ChatLog();
         public Form_Phrase phraseForm = new Form_Phrase();
-        public ProgressDialog progressForm = new ProgressDialog();
         // APIパラメータ初期化
         public static int? api_max_tokens = Properties.Settings.Default.max_tokens != "Nothing" ? int.Parse(Properties.Settings.Default.max_tokens) : (int?)null;
         public static double? api_temperature = Properties.Settings.Default.temperature != "Nothing" ? double.Parse(Properties.Settings.Default.temperature) : (double?)null; public static double? api_top_p = Properties.Settings.Default.top_p == "Nothing" ? new double?() : double.Parse(Properties.Settings.Default.top_p);

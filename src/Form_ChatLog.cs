@@ -149,7 +149,7 @@ namespace TmCGPTD
                 string query = $"SELECT title, tag, json, text FROM chatlog WHERE id = {chatId}";
                 var result = await MainFormInst.PickChatDatabaseAsync(query);
                 await MainFormInst.ShowChatLogAsync(result);
-                MainFormInst.lastRowId = chatId;
+                Form1.lastRowId = chatId;
             }
         }
 
@@ -331,7 +331,7 @@ namespace TmCGPTD
                 query = $"SELECT title, tag, json, text FROM chatlog WHERE id = {chatId}";
                 var result = await MainFormInst.PickChatDatabaseAsync(query);
                 await MainFormInst.ShowChatLogAsync(result, searchKey);
-                MainFormInst.lastRowId = chatId;
+                Form1.lastRowId = chatId;
             }
             else
             {

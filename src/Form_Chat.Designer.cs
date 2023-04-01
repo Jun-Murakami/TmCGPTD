@@ -46,7 +46,7 @@ namespace TmCGPTD
             PictureBox2 = new PictureBox();
             Panel2 = new Panel();
             Panel3 = new Panel();
-            TextBoxTitle = new TextBox();
+            TextBoxTitle = new TextBoxWithClearButton();
             TextBoxChatTextSearch = new TextBoxWithClearButton();
             ButtonDown = new Button();
             ButtonUp = new Button();
@@ -405,7 +405,7 @@ namespace TmCGPTD
         internal TmCGPTD.TextBoxWithClearButton TextBoxTag3;
         internal TmCGPTD.TextBoxWithClearButton TextBoxTag2;
         internal TmCGPTD.TextBoxWithClearButton TextBoxTag1;
-        internal TextBox TextBoxTitle;
+        internal TmCGPTD.TextBoxWithClearButton TextBoxTitle;
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel2;
     }
