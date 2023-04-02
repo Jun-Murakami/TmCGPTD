@@ -159,15 +159,15 @@ namespace TmCGPTD
                     string htmlString = div.InnerHtml;
 
                     // 置換処理を行います。
-                    htmlString = htmlString.Replace("<pre>", $"{br}{br}```")
-                                           .Replace("</pre>", $"{br}```{br}{br}")
-                                           .Replace("Copy code", $"{br}")
-                                           .Replace("<ol>", $"{br}")
-                                           .Replace("</ol>", $"{br}")
-                                           .Replace("<ul>", $"{br}")
-                                           .Replace("</ul>", $"{br}")
-                                           .Replace("<li>", $"{br}- ")
-                                           .Replace("</li>", $"{br}");
+                    htmlString = htmlString.Replace("<pre>", "{br}{br}```")
+                                           .Replace("</pre>", "{br}```{br}{br}")
+                                           .Replace("Copy code", "{br}")
+                                           .Replace("<ol>", "{br}")
+                                           .Replace("</ol>", "{br}")
+                                           .Replace("<ul>", "{br}")
+                                           .Replace("</ul>", "{br}")
+                                           .Replace("<li>", "{br}- ")
+                                           .Replace("</li>", "{br}");
 
                     // 正規表現パターンに基づいて削除します。
                     string pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
