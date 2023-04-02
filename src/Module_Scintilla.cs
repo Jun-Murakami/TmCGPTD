@@ -31,6 +31,8 @@ namespace TmCGPTD
                 {
                     inputBox = (Scintilla)Controls.Find($"TextInput{i}", true)[0];
                     spacing = 4 * (int)dpiScaleFactor;
+                    inputBox.Margins.Left = 10 * (int)dpiScaleFactor;
+                    inputBox.Margins.Right = 10 * (int)dpiScaleFactor;
                 }
                 inputBox.StyleResetDefault();
                 if (fontFamily == "Default")
@@ -75,13 +77,15 @@ namespace TmCGPTD
                 inputBox.Styles[Style.IndentGuide].ForeColor = Color.FromArgb(128, 128, 128);
                 if (i == 3)
                 {
-                    inputBox.Margins[0].Width = 50 * (int)dpiScaleFactor; // マージン0の幅を設定
-                    inputBox.Margins[1].Width = 20 * (int)dpiScaleFactor; // マージン1の幅を設定
+                    inputBox.Margins[0].Width = 40 * (int)dpiScaleFactor; // マージン0の幅を設定
+                    inputBox.Margins[1].Width = 5 * (int)dpiScaleFactor; // マージン1の幅を設定
+                    inputBox.Margins.Left = 12 * (int)dpiScaleFactor;
+                    inputBox.Margins.Right = 12 * (int)dpiScaleFactor;
                 }
                 else
                 {
-                    inputBox.Margins[0].Width = 40 * (int)dpiScaleFactor; // マージン0の幅を設定
-                    inputBox.Margins[1].Width = 10 * (int)dpiScaleFactor;
+                    inputBox.Margins[0].Width = 20 * (int)dpiScaleFactor; // マージン0の幅を設定
+                    inputBox.Margins[1].Width = 5 * (int)dpiScaleFactor;
                 } // マージン1の幅を設定
 
                 inputBox.Styles[Style.LineNumber].BackColor = Color.FromArgb(22, 23, 35); // マージン0の背景色
