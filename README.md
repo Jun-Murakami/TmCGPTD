@@ -13,9 +13,12 @@ for Windows 10.
 // Features:
 
 - Consists of a vertically split main editor, preview screen, chat screen, and chat list screen
+- Web chat viewer & log import.
 - Supports syntax highlighting for various programming languages
 - 20 preset phrase buttons & presets (saved in text files)
 - Automatic logging of input text and chat
+- Automatically summarizes conversation history.
+- Automatic title naming.
 - Full-text search using a database
 - API parameter configuration
 
