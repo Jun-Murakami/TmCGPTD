@@ -196,7 +196,7 @@ namespace TmCGPTD
                 var insertText = new List<string>();
                 insertText.Add($"[{postDate.ToString()}] by You" + Environment.NewLine);
                 insertText.Add(recentText + Environment.NewLine);
-                insertText.Add($"[{resDate.ToString()}] by ChatGPT");
+                insertText.Add($"[{resDate.ToString()}] by AI");
                 insertText.Add(resText);
 
                 string titleText = string.Empty; // chatForm.TextBoxTitleのテキストを取得しておく
@@ -635,7 +635,6 @@ namespace TmCGPTD
                             catch (Exception ex)
                             {
                                 transaction.Rollback();
-                                throw;
                                 Interaction.MsgBox("Failed to import log." + Constants.vbCrLf + "Error: " + ex.Message, MsgBoxStyle.Exclamation, "Error");
                             }
                         }
@@ -644,6 +643,53 @@ namespace TmCGPTD
                 }
             }
 
+            // インメモリをいったん閉じてまた開く
+            memoryConnection.Close();
+            DbLoadToMemory();
+        }
+
+        //Webチャットログのインポート--------------------------------------------------------------
+        public async Task InsertDatabaseWebChatAsync(string webChatTitle, List<Dictionary<string, object>> webConversationHistory, string webLog)
+        {
+            if (!string.IsNullOrEmpty(webLog))
+            {
+
+                DateTime nowDate = DateTime.Now;
+                string jsonConversationHistory = JsonSerializer.Serialize(webConversationHistory);
+
+                using (var connection = new SQLiteConnection($"Data Source={Form1.dbPath}"))
+                {
+                    connection.Open();
+                    // トランザクションを開始する
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // logテーブルにデータをインサートする
+                            using (var command = new SQLiteCommand("INSERT INTO chatlog(date, title, tag, json, text) VALUES (@date, @title, @tag, @json, @text)", connection))
+                            {
+                                await Task.Run(() => command.Parameters.AddWithValue("@date", nowDate));
+                                await Task.Run(() => command.Parameters.AddWithValue("@title", webChatTitle));
+                                await Task.Run(() => command.Parameters.AddWithValue("@tag", "WebChat,,"));
+                                await Task.Run(() => command.Parameters.AddWithValue("@json", jsonConversationHistory));
+                                await Task.Run(() => command.Parameters.AddWithValue("@text", webLog));
+                                await command.ExecuteNonQueryAsync();
+                            }
+
+
+                            // トランザクションをコミットする
+                            await Task.Run(() => transaction.Commit());
+                        }
+                        catch (Exception ex)
+                        {
+                            // エラーが発生した場合、トランザクションをロールバックする
+                            transaction.Rollback();
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                }
+            }
             // インメモリをいったん閉じてまた開く
             memoryConnection.Close();
             DbLoadToMemory();

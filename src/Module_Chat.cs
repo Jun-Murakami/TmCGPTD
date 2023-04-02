@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -9,7 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
+using TiktokenSharp;
 using static TmCGPTD.Form_Input;
+
 
 namespace TmCGPTD
 {
@@ -32,37 +36,43 @@ namespace TmCGPTD
                 return;
             }
             isChatRunning = true;
+            try
+            { 
+                var postDate = DateTime.Now;
+                if (string.IsNullOrEmpty(chatForm.ChatBox.Text) && string.IsNullOrEmpty(chatForm.TextBoxTitle.Text))//チャット表示無ければ新規と判断
+                {
+                    InitializeChat();
+                }
 
-            var postDate = DateTime.Now;
-            if (string.IsNullOrEmpty(chatForm.ChatBox.Text) && string.IsNullOrEmpty(chatForm.TextBoxTitle.Text))//チャット表示無ければ新規と判断
+                AddLog($"[{postDate.ToString()}] by You{Environment.NewLine}{Environment.NewLine}{string.Join(Environment.NewLine, recentText).Trim() + Environment.NewLine}");
+
+                if (EditorLogAutoSaveToolStripMenuItem.Checked == true)
+                {
+                    await InsertDatabaseAsync();//オートセーブオンの場合はエディターログを保存
+                }
+
+                StartThinkingAnimation();
+                string resultMes = await PostChatAsync(recentText);
+                StopThinkingAnimation();
+                var resDate = DateTime.Now;
+
+                AddLog($"[{resDate.ToString()}] by AI{Environment.NewLine}{resultMes}");
+                // AddLogAsync(resultMes, True)
+
+                await InsertDatabaseChatAsync(postDate, resDate, resultMes);
+
+                string query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
+                var dT = await SearchChatDatabaseAsync(query);
+                await chatLogForm.ShowChatSearchResultAsync(dT);
+
+                await UpdateChatSaysMarkerAsync();
+                await UpdateChatCodeMarkerAsync();
+                }
+            catch (Exception ex)
             {
-                InitializeChat();
+                StopThinkingAnimation();
+                AddLog($"{Environment.NewLine}[Error]{Environment.NewLine}{ex.Message}");
             }
-
-            AddLog($"[{postDate.ToString()}] by You{Environment.NewLine}{Environment.NewLine}{string.Join(Environment.NewLine, recentText).Trim() + Environment.NewLine}");
-
-            if (EditorLogAutoSaveToolStripMenuItem.Checked == true)
-            {
-                await InsertDatabaseAsync();//オートセーブオンの場合はエディターログを保存
-            }
-
-            StartThinkingAnimation();
-            string resultMes = await PostChatAsync(recentText);
-            StopThinkingAnimation();
-            var resDate = DateTime.Now;
-
-            AddLog($"[{resDate.ToString()}] by ChatGPT{Environment.NewLine}{resultMes}");
-            // AddLogAsync(resultMes, True)
-
-            await InsertDatabaseChatAsync(postDate, resDate, resultMes);
-
-            string query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
-            var dT = await SearchChatDatabaseAsync(query);
-            await chatLogForm.ShowChatSearchResultAsync(dT);
-
-            await UpdateChatSaysMarkerAsync();
-            await UpdateChatCodeMarkerAsync();
-
             isChatRunning = false;
         }
 
@@ -77,7 +87,7 @@ namespace TmCGPTD
         // チャットのAI背景色設定--------------------------------------------------------------
         public async Task UpdateChatSaysMarkerAsync()
         {
-            string pattern = @"(.+by ChatGPT\r\n)((?:(?!by You).|[\r\n])+)";
+            string pattern = @"(.+by AI\r\n)((?:(?!by You).|[\r\n])+)";
             var regex = new Regex(pattern, RegexOptions.Multiline);
 
             // チャット履歴を取得
@@ -110,7 +120,7 @@ namespace TmCGPTD
 
             // チャット履歴を取得
             string chatHistory = "";
-            await Task.Run(() => chatForm.ChatBox.Invoke(() => chatHistory = chatForm.ChatBox.Text));
+            chatForm.ChatBox.Invoke(() => chatHistory = chatForm.ChatBox.Text);
             // コードスニペットの範囲を検索
             var startLine = default(int);
             var endLine = default(int);
@@ -121,15 +131,15 @@ namespace TmCGPTD
 
                 // コードスニペットの開始位置と終了位置を行番号に変換
                 int end = match.Index + match.Length;
-                await Task.Run(() => chatForm.ChatBox.Invoke(() => startLine = chatForm.ChatBox.LineFromPosition(start)));
-                await Task.Run(() => chatForm.ChatBox.Invoke(() => endLine = chatForm.ChatBox.LineFromPosition(end)));
+                chatForm.ChatBox.Invoke(() => startLine = chatForm.ChatBox.LineFromPosition(start));
+                chatForm.ChatBox.Invoke(() => endLine = chatForm.ChatBox.LineFromPosition(end));
 
                 // コードスニペットの範囲にマーカー2を設定
                 for (int line = startLine, loopTo = endLine; line <= loopTo; line++)
                 {
                     int currentLine = line;
-                    await Task.Run(() => chatForm.ChatBox.Invoke(() => chatForm.ChatBox.Lines[currentLine].MarkerDelete(1)));
-                    await Task.Run(() => chatForm.ChatBox.Invoke(() => chatForm.ChatBox.Lines[currentLine].MarkerAdd(2)));
+                    chatForm.ChatBox.Invoke(() => chatForm.ChatBox.Lines[currentLine].MarkerDelete(1));
+                    chatForm.ChatBox.Invoke(() => chatForm.ChatBox.Lines[currentLine].MarkerAdd(2));
                 }
 
             }
@@ -197,7 +207,7 @@ namespace TmCGPTD
             {
                 string chatTextRes;
                 string currentTitle = (string)chatForm.Invoke((Func<string>)(() => chatForm.TextBoxTitle.Text));
-
+                TikToken tokenizer = TikToken.EncodingForModel("gpt-3.5-turbo");
                 using (var httpClientStr = new HttpClient())
                 {
 
@@ -205,31 +215,45 @@ namespace TmCGPTD
                     httpClientStr.Timeout = TimeSpan.FromSeconds(200d);
 
                     // 過去の会話履歴と現在の入力を結合する前に、過去の会話履歴に含まれるcontent文字列のトークン数を取得
-                    int historyContentTokenCount = conversationHistory.Sum(d => GetTokenCount(d["content"].ToString()));
+                    int historyContentTokenCount = conversationHistory.Sum(d => tokenizer.Encode(d["content"].ToString()).Count);
+                    Debug.WriteLine("historyContentTokenCount: " + historyContentTokenCount);
                     // 要約前のトークン数を記録
                     int preSummarizedHistoryTokenCount = historyContentTokenCount;
+                    // 履歴を逆順にする。
+                    List<Dictionary<string, object>> reversedHistoryList = conversationHistory;
+                    reversedHistoryList.Reverse();
+
+                    if (tokenizer.Encode(chatTextPost).Count > MAX_CONTENT_LENGTH)
+                    {
+                        throw new Exception($"The input text exceeds the maximum token limit ({MAX_CONTENT_LENGTH}). Please remove {tokenizer.Encode(chatTextPost).Count - MAX_CONTENT_LENGTH} tokens.{Environment.NewLine}");
+                    }
 
                     // 過去の履歴＋ユーザーの新規入力が制限トークン数「MAX_CONTENT_LENGTH」を超えた場合
-                    if (historyContentTokenCount + GetTokenCount(chatTextPost) > MAX_CONTENT_LENGTH)
+                    if (historyContentTokenCount + tokenizer.Encode(chatTextPost).Count > MAX_CONTENT_LENGTH)
                     {
                         int historyTokenCount = 0;
-                        int messagesToRemove = 0;
+                        int messagesToSelect = 0;
                         string forCompMes = "";
 
                         // 会話履歴の最新のものから、ユーザーとアシスタントを1セットとして、1セットずつトークン数を数えて一時変数「historyTokenCount」に足していく
-                        for (int i = 0; i < conversationHistory.Count; i += 2)
+                        for (int i = 0; i < reversedHistoryList.Count; i += 2)
                         {
-                            int userMessageTokenCount = GetTokenCount(conversationHistory[i]["content"].ToString());
-                            int assistantMessageTokenCount = GetTokenCount(conversationHistory[i + 1]["content"].ToString());
+                            string userMessage = reversedHistoryList[i]["content"].ToString();
+                            string assistantMessage = reversedHistoryList[i + 1]["content"].ToString();
+                            int userMessageTokenCount = tokenizer.Encode(userMessage).Count;
+                            int assistantMessageTokenCount = tokenizer.Encode(assistantMessage).Count;
                             historyTokenCount += userMessageTokenCount + assistantMessageTokenCount;
 
-                            if (historyTokenCount > (MAX_CONTENT_LENGTH - 300))
+                            if (historyTokenCount > MAX_CONTENT_LENGTH)
                             {
-                                forCompMes = conversationHistory.GetRange(messagesToRemove, conversationHistory.Count - messagesToRemove).Select(message => message["content"].ToString()).Reverse().Aggregate((a, b) => a + b);
-                                messagesToRemove = i + 1;
+                                messagesToSelect = i + 2; // 最後に処理したペアの次のインデックスを記録
                                 break;
                             }
                         }
+
+                        // 会話履歴から適切な数のメッセージを削除し、新しい順に並べ替える
+                        forCompMes = reversedHistoryList.GetRange(0, messagesToSelect-2).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);
+
 
                         // 抽出したテキストを要約APIリクエストに送信
                         try
@@ -238,15 +262,13 @@ namespace TmCGPTD
                             summary = currentTitle + ": " + summary;
                             MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summary}");
 
-                            historyContentTokenCount = summary.Length;
-
                             // 返ってきた要約文で、conversationHistoryを書き換える
-                            conversationHistory.RemoveRange(0, messagesToRemove + 1);
+                            conversationHistory.Clear();
                             conversationHistory.Insert(0, new Dictionary<string, object>() { { "role", "assistant" }, { "content", summary } });
                         }
                         catch (Exception ex)
                         {
-                            return $"Error: {ex.Message + Environment.NewLine}";
+                            throw new Exception($"{ex.Message + Environment.NewLine}");
                         }
                     }
 
@@ -315,9 +337,10 @@ namespace TmCGPTD
                         }
 
                         // 要約が実行された場合、メソッドの戻り値の最後に要約前のトークン数と要約後のトークン数をメッセージとして付け加える
-                        if (preSummarizedHistoryTokenCount > GetTokenCount(conversationHistory.Select(d => d["content"].ToString()).Aggregate((a, b) => a + b)))
+                        string postConversation = conversationHistory.Select(d => d["content"].ToString()).Aggregate((a, b) => a + b);
+                        if (preSummarizedHistoryTokenCount > tokenizer.Encode(postConversation).Count)
                         {
-                            chatTextRes += $"-Conversation history has been summarized. before: {preSummarizedHistoryTokenCount}, after: {GetTokenCount(conversationHistory.Select(d => d["content"].ToString()).Aggregate((a, b) => a + b))}.{Environment.NewLine}";
+                            chatTextRes += $"-Conversation history has been summarized. before: {preSummarizedHistoryTokenCount}, after: {tokenizer.Encode(postConversation).Count}.{Environment.NewLine}";
                         }
                         //会話が成立した時点でタイトルが空欄だったらタイトルを自動生成する
                         if (string.IsNullOrEmpty(currentTitle))
@@ -335,7 +358,7 @@ namespace TmCGPTD
                     else
                     {
                         string errorBody = await response.Content.ReadAsStringAsync();
-                        return $"Error: Response status code does not indicate success: {response.StatusCode} ({response.ReasonPhrase}). Response body: {errorBody}";
+                        throw new Exception($"Error: Response status code does not indicate success: {response.StatusCode} ({response.ReasonPhrase}). Response body: {errorBody}");
                     }
 
                 }
@@ -345,35 +368,8 @@ namespace TmCGPTD
 
             catch (Exception ex)
             {
-                return $"Error: {ex.Message + Environment.NewLine}";
+                throw new Exception($"{ex.Message + Environment.NewLine}");
             }
-        }
-
-        //トークン数計算
-        public int GetTokenCount(string text)
-        {
-            var tokenizer = new System.Text.RegularExpressions.Regex(@"\p{L}+|\p{N}+|[^\p{L}\p{N}\s]+");
-            string[] words = text.Split(' ');
-
-            int tokenCount = 0;
-            foreach (string word in words)
-            {
-                if (ContainsDoubleByteCharacter(word))
-                {
-                    tokenCount += word.Length;
-                }
-                else
-                {
-                    tokenCount += tokenizer.Matches(word).Count;
-                }
-            }
-
-            return tokenCount;
-        }
-
-        public bool ContainsDoubleByteCharacter(string text)
-        {
-            return text.Any(c => c > 0x80);
         }
 
         //文章要約圧縮メソッド--------------------------------------------------------------
@@ -391,7 +387,7 @@ namespace TmCGPTD
             { "model", api_model },
             { "messages", new List<Dictionary<string, object>>
                 {
-                    new Dictionary<string, object> { { "role", "system" }, { "content", "You are a professional editor. Please summarize the following text in about 500 tokens using the language in which the text is written. For a text that includes multiple conversations, the conversation set that appears at the beginning is the most important." } },
+                    new Dictionary<string, object> { { "role", "system" }, { "content", "You are a professional editor. Please summarize the following chat log in about 600 tokens using the language in which the text is written. For a text that includes multiple conversations, the conversation set that appears at the beginning is the most important." } },
                     new Dictionary<string, object> { { "role", "user" }, { "content", forCompMes } }
                 }
             }
@@ -412,7 +408,7 @@ namespace TmCGPTD
                 else
                 {
                     string errorBody = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error: Response status code does not indicate success: {response.StatusCode} ({response.ReasonPhrase}). Response body: {errorBody}");
+                    throw new Exception($"Summarize Error: Response status code does not indicate success: {response.StatusCode} ({response.ReasonPhrase}). Response body: {errorBody}");
                 }
             }
 
@@ -436,7 +432,7 @@ namespace TmCGPTD
             { "model", api_model },
             { "messages", new List<Dictionary<string, object>>
                 {
-                    new Dictionary<string, object> { { "role", "system" }, { "content", "あなたはプロの編集者です。これから送るチャットログにチャットタイトルをつけてそれだけを回答してください。・ログは冒頭に行くほど重要な情報です。・記号を使わないこと。・短くシンプルに、UNICODEの全角文字に換算して最大でも16文字を絶対に超えないように。これは重要な条件です。" } },
+                    new Dictionary<string, object> { { "role", "system" }, { "content", "あなたはプロの編集者です。これから送るチャットログにチャットタイトルをつけてそれだけを回答してください。・チャットで使われている言語でタイトルを考えてください。・ログは冒頭に行くほど重要な情報です。・記号を使わないこと。・短くシンプルに、UNICODEの全角文字に換算して最大でも16文字を絶対に超えないように。これは重要な条件です。" } },
                     new Dictionary<string, object> { { "role", "user" }, { "content", forTitleMes } }
                 }
             }
@@ -453,7 +449,7 @@ namespace TmCGPTD
                     string responseBody = await response.Content.ReadAsStringAsync();
                     var responseJson = JsonSerializer.Deserialize<JsonElement>(responseBody);
                     char[] charsToTrim = { ' ','\"', '\'', '[', ']', '「', '」' };
-                    summary = responseJson.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString().Trim(charsToTrim);
+                    summary = responseJson.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString().Trim();
                     //MessageBox.Show(summary);
                 }
                 else
@@ -513,7 +509,6 @@ namespace TmCGPTD
                     chatForm.ChatBox.InsertText(lastLineStartPos, thinkingText);
                 });
         }
-
 
     }
 }

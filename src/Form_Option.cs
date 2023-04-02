@@ -144,6 +144,7 @@ namespace TmCGPTD
 
             if (!(Properties.Settings.Default.conversation_history_limit == "Nothing"))
             {
+                CheckBox11.Checked = true;
                 TrackBar9.Value = Conversions.ToInteger(Properties.Settings.Default.conversation_history_limit);
             }
             else

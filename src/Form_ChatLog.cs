@@ -27,7 +27,7 @@ namespace TmCGPTD
             var mainForm = Application.OpenForms.OfType<Form1>().FirstOrDefault();
             if (!mainForm.cts.Token.IsCancellationRequested)
             {
-                Hide(); // フォームを閉じるのではなく、非表示にする
+                MainFormInst.chatLogForm.DockState = DockState.Hidden; // フォームを閉じるのではなく、非表示にする
                 e.Cancel = true; // イベントをキャンセルし、フォームが閉じないようにする
             }
             else

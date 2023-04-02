@@ -63,11 +63,14 @@ namespace TmCGPTD
             ChatLogToolStripMenuItem = new ToolStripMenuItem();
             ChatListToolStripMenuItem = new ToolStripMenuItem();
             PhraseToolStripMenuItem = new ToolStripMenuItem();
+            webChatToolStripMenuItem = new ToolStripMenuItem();
             ToolStripSeparator2 = new ToolStripSeparator();
             LayoutResetToolStripMenuItem = new ToolStripMenuItem();
             HelpToolStripMenuItem = new ToolStripMenuItem();
             KeyboardSHortcutsToolStripMenuItem = new ToolStripMenuItem();
             MenuStrip1 = new MenuStrip();
+            importWebChatLogToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator6 = new ToolStripSeparator();
             MenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -85,7 +88,7 @@ namespace TmCGPTD
             // 
             // FileToolStripMenuItem
             // 
-            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ExpotChatLogToolStripMenuItem, ExportEditorLogToolStripMenuItem, ImportChatLogToolStripMenuItem, ImportEditorLogToolStripMenuItem, ToolStripSeparator4, ExitToolStripMenuItem });
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importWebChatLogToolStripMenuItem, toolStripSeparator6, ExpotChatLogToolStripMenuItem, ExportEditorLogToolStripMenuItem, ImportChatLogToolStripMenuItem, ImportEditorLogToolStripMenuItem, ToolStripSeparator4, ExitToolStripMenuItem });
             FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             FileToolStripMenuItem.Size = new Size(62, 34);
             FileToolStripMenuItem.Text = "File";
@@ -93,40 +96,40 @@ namespace TmCGPTD
             // ExpotChatLogToolStripMenuItem
             // 
             ExpotChatLogToolStripMenuItem.Name = "ExpotChatLogToolStripMenuItem";
-            ExpotChatLogToolStripMenuItem.Size = new Size(287, 38);
+            ExpotChatLogToolStripMenuItem.Size = new Size(325, 38);
             ExpotChatLogToolStripMenuItem.Text = "Expot Chat Log";
             ExpotChatLogToolStripMenuItem.Click += ExpotChatLogToolStripMenuItem_ClickAsync;
             // 
             // ExportEditorLogToolStripMenuItem
             // 
             ExportEditorLogToolStripMenuItem.Name = "ExportEditorLogToolStripMenuItem";
-            ExportEditorLogToolStripMenuItem.Size = new Size(287, 38);
+            ExportEditorLogToolStripMenuItem.Size = new Size(325, 38);
             ExportEditorLogToolStripMenuItem.Text = "Export Editor Log";
             ExportEditorLogToolStripMenuItem.Click += ExportEditorLogToolStripMenuItem_Click;
             // 
             // ImportChatLogToolStripMenuItem
             // 
             ImportChatLogToolStripMenuItem.Name = "ImportChatLogToolStripMenuItem";
-            ImportChatLogToolStripMenuItem.Size = new Size(287, 38);
+            ImportChatLogToolStripMenuItem.Size = new Size(325, 38);
             ImportChatLogToolStripMenuItem.Text = "Import Chat Log";
             ImportChatLogToolStripMenuItem.Click += ImportChatLogToolStripMenuItem_Click;
             // 
             // ImportEditorLogToolStripMenuItem
             // 
             ImportEditorLogToolStripMenuItem.Name = "ImportEditorLogToolStripMenuItem";
-            ImportEditorLogToolStripMenuItem.Size = new Size(287, 38);
+            ImportEditorLogToolStripMenuItem.Size = new Size(325, 38);
             ImportEditorLogToolStripMenuItem.Text = "Import Editor Log";
             ImportEditorLogToolStripMenuItem.Click += ImportEditorLogToolStripMenuItem_Click;
             // 
             // ToolStripSeparator4
             // 
             ToolStripSeparator4.Name = "ToolStripSeparator4";
-            ToolStripSeparator4.Size = new Size(284, 6);
+            ToolStripSeparator4.Size = new Size(322, 6);
             // 
             // ExitToolStripMenuItem
             // 
             ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            ExitToolStripMenuItem.Size = new Size(287, 38);
+            ExitToolStripMenuItem.Size = new Size(325, 38);
             ExitToolStripMenuItem.Text = "Exit";
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             // 
@@ -218,7 +221,7 @@ namespace TmCGPTD
             // 
             // WindowToolStripMenuItem
             // 
-            WindowToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { InputToolStripMenuItem, PreviewWindowToolStripMenuItem, ChatLogToolStripMenuItem, ChatListToolStripMenuItem, PhraseToolStripMenuItem, ToolStripSeparator2, LayoutResetToolStripMenuItem });
+            WindowToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { InputToolStripMenuItem, PreviewWindowToolStripMenuItem, ChatLogToolStripMenuItem, ChatListToolStripMenuItem, PhraseToolStripMenuItem, webChatToolStripMenuItem, ToolStripSeparator2, LayoutResetToolStripMenuItem });
             WindowToolStripMenuItem.Name = "WindowToolStripMenuItem";
             WindowToolStripMenuItem.Size = new Size(109, 34);
             WindowToolStripMenuItem.Text = "Window";
@@ -258,6 +261,13 @@ namespace TmCGPTD
             PhraseToolStripMenuItem.Text = "Phrase Presets";
             PhraseToolStripMenuItem.Click += PhrasetToolStripMenuItem_Click;
             // 
+            // webChatToolStripMenuItem
+            // 
+            webChatToolStripMenuItem.Name = "webChatToolStripMenuItem";
+            webChatToolStripMenuItem.Size = new Size(255, 38);
+            webChatToolStripMenuItem.Text = "Web Chat";
+            webChatToolStripMenuItem.Click += webChatToolStripMenuItem_Click;
+            // 
             // ToolStripSeparator2
             // 
             ToolStripSeparator2.Name = "ToolStripSeparator2";
@@ -295,6 +305,18 @@ namespace TmCGPTD
             MenuStrip1.Size = new Size(1836, 40);
             MenuStrip1.TabIndex = 75;
             MenuStrip1.Text = "MenuStrip1";
+            // 
+            // importWebChatLogToolStripMenuItem
+            // 
+            importWebChatLogToolStripMenuItem.Name = "importWebChatLogToolStripMenuItem";
+            importWebChatLogToolStripMenuItem.Size = new Size(325, 38);
+            importWebChatLogToolStripMenuItem.Text = "Import Web Chat Log";
+            importWebChatLogToolStripMenuItem.Click += importWebChatLogToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            toolStripSeparator6.Size = new Size(322, 6);
             // 
             // Form1
             // 
@@ -354,5 +376,8 @@ namespace TmCGPTD
         internal ToolStripMenuItem ClearPresetsToolStripMenuItem;
         internal ToolStripMenuItem EditorLogAutoSaveToolStripMenuItem;
         internal ToolStripSeparator ToolStripSeparator5;
+        private ToolStripMenuItem webChatToolStripMenuItem;
+        private ToolStripMenuItem importWebChatLogToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator6;
     }
 }

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
 using ScintillaNET;
 using WeifenLuo.WinFormsUI.Docking;
+using Microsoft.Web.WebView2.Core;
 
 namespace TmCGPTD
 {
@@ -18,6 +19,24 @@ namespace TmCGPTD
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSetting();
+        }
+
+        public static bool buttonClicked = false; //ページ読み込み確認用フラグ
+        private async void importWebChatLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (webView2Form.webView21.CoreWebView2 != null)
+            { 
+                buttonClicked = true;
+                string readyState = await webView2Form.webView21.ExecuteScriptAsync("document.readyState");
+                if (readyState == "\"complete\"")
+                {
+                    buttonClicked = false;
+                    await webView2Form.AnalyzeWebViewContentAsync();
+                    return;
+                }
+                return;
+            }
+            MessageBox.Show("Please display chat screen.");
         }
         private async void ExpotChatLogToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
@@ -46,18 +65,6 @@ namespace TmCGPTD
             SaveSetting();
         }
 
-        public void InputToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (inputForm is null)
-            {
-                inputForm = new Form_Input();
-                inputForm.MainFormInst = this;
-                DockPanel1.Theme = new VS2015LightTheme();
-            }
-            inputForm.Show(DockPanel1, DockState.Document);
-            ChangeControlColor();
-        }
-
         public void PreviewWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (previewForm is null)
@@ -69,6 +76,7 @@ namespace TmCGPTD
             previewForm.Show(DockPanel1, DockState.DockRight);
             ChangeControlColor();
         }
+
         public void ChatLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (chatForm is null)
@@ -78,6 +86,18 @@ namespace TmCGPTD
                 DockPanel1.Theme = new VS2015LightTheme();
             }
             chatForm.Show(DockPanel1, DockState.Document);
+            ChangeControlColor();
+        }
+
+        public void InputToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (inputForm is null)
+            {
+                inputForm = new Form_Input();
+                inputForm.MainFormInst = this;
+                DockPanel1.Theme = new VS2015LightTheme();
+            }
+            inputForm.Show(DockPanel1, DockState.Document);
             ChangeControlColor();
         }
 
@@ -92,6 +112,7 @@ namespace TmCGPTD
             chatLogForm.Show(DockPanel1, DockState.DockLeft);
             ChangeControlColor();
         }
+
         public void PhrasetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (phraseForm is null)
@@ -103,6 +124,18 @@ namespace TmCGPTD
             phraseForm.Show(DockPanel1, DockState.DockBottom);
             ChangeControlColor();
         }
+        private void webChatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (webView2Form is null)
+            {
+                webView2Form = new Form_WebView2();
+                webView2Form.MainFormInst = this;
+                DockPanel1.Theme = new VS2015LightTheme();
+            }
+            webView2Form.Show(DockPanel1, DockState.Document);
+            ChangeControlColor();
+        }
+
         private void LayoutResetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadDefaultDockLayout();
@@ -519,7 +552,6 @@ namespace TmCGPTD
                 e.SuppressKeyPress = true;
             }
         }
-
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {

@@ -111,12 +111,12 @@ namespace TmCGPTD
             // 
             // TrackBar1
             // 
-            TrackBar1.Location = new Point(169, 76);
-            TrackBar1.Margin = new Padding(3, 40, 3, 3);
+            TrackBar1.Location = new Point(241, 127);
+            TrackBar1.Margin = new Padding(4, 67, 4, 5);
             TrackBar1.Maximum = 4096;
             TrackBar1.Minimum = 1;
             TrackBar1.Name = "TrackBar1";
-            TrackBar1.Size = new Size(250, 45);
+            TrackBar1.Size = new Size(357, 69);
             TrackBar1.SmallChange = 4;
             TrackBar1.TabIndex = 0;
             TrackBar1.Value = 4;
@@ -126,11 +126,11 @@ namespace TmCGPTD
             // 
             Label1.AutoSize = true;
             Label1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label1.Location = new Point(70, 80);
-            Label1.Margin = new Padding(10, 10, 10, 10);
+            Label1.Location = new Point(100, 133);
+            Label1.Margin = new Padding(14, 17, 14, 17);
             Label1.Name = "Label1";
             Label1.RightToLeft = RightToLeft.Yes;
-            Label1.Size = new Size(86, 19);
+            Label1.Size = new Size(131, 29);
             Label1.TabIndex = 1;
             Label1.Text = "max_tokens";
             // 
@@ -138,11 +138,11 @@ namespace TmCGPTD
             // 
             Label2.AutoSize = true;
             Label2.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label2.Location = new Point(67, 114);
-            Label2.Margin = new Padding(10, 10, 10, 10);
+            Label2.Location = new Point(96, 190);
+            Label2.Margin = new Padding(14, 17, 14, 17);
             Label2.Name = "Label2";
             Label2.RightToLeft = RightToLeft.Yes;
-            Label2.Size = new Size(89, 19);
+            Label2.Size = new Size(138, 29);
             Label2.TabIndex = 2;
             Label2.Text = "temperature";
             // 
@@ -150,11 +150,11 @@ namespace TmCGPTD
             // 
             Label3.AutoSize = true;
             Label3.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label3.Location = new Point(110, 154);
-            Label3.Margin = new Padding(10, 10, 10, 10);
+            Label3.Location = new Point(157, 257);
+            Label3.Margin = new Padding(14, 17, 14, 17);
             Label3.Name = "Label3";
             Label3.RightToLeft = RightToLeft.Yes;
-            Label3.Size = new Size(46, 19);
+            Label3.Size = new Size(72, 29);
             Label3.TabIndex = 3;
             Label3.Text = "top_p";
             // 
@@ -162,11 +162,11 @@ namespace TmCGPTD
             // 
             Label4.AutoSize = true;
             Label4.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label4.Location = new Point(136, 193);
-            Label4.Margin = new Padding(10, 10, 10, 10);
+            Label4.Location = new Point(194, 322);
+            Label4.Margin = new Padding(14, 17, 14, 17);
             Label4.Name = "Label4";
             Label4.RightToLeft = RightToLeft.Yes;
-            Label4.Size = new Size(17, 19);
+            Label4.Size = new Size(26, 29);
             Label4.TabIndex = 4;
             Label4.Text = "n";
             // 
@@ -175,11 +175,11 @@ namespace TmCGPTD
             Label5.AutoSize = true;
             Label5.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label5.ForeColor = SystemColors.GrayText;
-            Label5.Location = new Point(91, 231);
-            Label5.Margin = new Padding(10, 10, 10, 10);
+            Label5.Location = new Point(130, 385);
+            Label5.Margin = new Padding(14, 17, 14, 17);
             Label5.Name = "Label5";
             Label5.RightToLeft = RightToLeft.Yes;
-            Label5.Size = new Size(65, 19);
+            Label5.Size = new Size(99, 29);
             Label5.TabIndex = 5;
             Label5.Text = "logprobs";
             // 
@@ -187,31 +187,33 @@ namespace TmCGPTD
             // 
             Label6.AutoSize = true;
             Label6.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label6.Location = new Point(29, 271);
-            Label6.Margin = new Padding(10, 10, 10, 10);
+            Label6.Location = new Point(41, 452);
+            Label6.Margin = new Padding(14, 17, 14, 17);
             Label6.Name = "Label6";
             Label6.RightToLeft = RightToLeft.Yes;
-            Label6.Size = new Size(124, 19);
+            Label6.Size = new Size(189, 29);
             Label6.TabIndex = 6;
             Label6.Text = "presence_penalty";
             // 
             // TrackBar2
             // 
             TrackBar2.LargeChange = 1;
-            TrackBar2.Location = new Point(169, 115);
+            TrackBar2.Location = new Point(241, 192);
+            TrackBar2.Margin = new Padding(4, 5, 4, 5);
             TrackBar2.Maximum = 20;
             TrackBar2.Name = "TrackBar2";
-            TrackBar2.Size = new Size(250, 45);
+            TrackBar2.Size = new Size(357, 69);
             TrackBar2.TabIndex = 7;
             TrackBar2.Value = 10;
             TrackBar2.ValueChanged += TrackBar2_ValueChanged;
             // 
             // TrackBar3
             // 
-            TrackBar3.Location = new Point(169, 154);
+            TrackBar3.Location = new Point(241, 257);
+            TrackBar3.Margin = new Padding(4, 5, 4, 5);
             TrackBar3.Maximum = 100;
             TrackBar3.Name = "TrackBar3";
-            TrackBar3.Size = new Size(250, 45);
+            TrackBar3.Size = new Size(357, 69);
             TrackBar3.TabIndex = 8;
             TrackBar3.Value = 1;
             TrackBar3.ValueChanged += TrackBar3_ValueChanged;
@@ -219,11 +221,12 @@ namespace TmCGPTD
             // TrackBar4
             // 
             TrackBar4.LargeChange = 1;
-            TrackBar4.Location = new Point(169, 193);
+            TrackBar4.Location = new Point(241, 322);
+            TrackBar4.Margin = new Padding(4, 5, 4, 5);
             TrackBar4.Maximum = 128;
             TrackBar4.Minimum = 1;
             TrackBar4.Name = "TrackBar4";
-            TrackBar4.Size = new Size(250, 45);
+            TrackBar4.Size = new Size(357, 69);
             TrackBar4.TabIndex = 9;
             TrackBar4.Value = 1;
             TrackBar4.ValueChanged += TrackBar4_ValueChanged;
@@ -231,11 +234,12 @@ namespace TmCGPTD
             // TrackBar5
             // 
             TrackBar5.LargeChange = 1;
-            TrackBar5.Location = new Point(169, 232);
+            TrackBar5.Location = new Point(241, 387);
+            TrackBar5.Margin = new Padding(4, 5, 4, 5);
             TrackBar5.Maximum = 5;
             TrackBar5.Minimum = 1;
             TrackBar5.Name = "TrackBar5";
-            TrackBar5.Size = new Size(250, 45);
+            TrackBar5.Size = new Size(357, 69);
             TrackBar5.TabIndex = 10;
             TrackBar5.Value = 1;
             TrackBar5.ValueChanged += TrackBar5_ValueChanged;
@@ -243,11 +247,12 @@ namespace TmCGPTD
             // TrackBar6
             // 
             TrackBar6.LargeChange = 1;
-            TrackBar6.Location = new Point(169, 271);
+            TrackBar6.Location = new Point(241, 452);
+            TrackBar6.Margin = new Padding(4, 5, 4, 5);
             TrackBar6.Maximum = 20;
             TrackBar6.Minimum = -20;
             TrackBar6.Name = "TrackBar6";
-            TrackBar6.Size = new Size(250, 45);
+            TrackBar6.Size = new Size(357, 69);
             TrackBar6.TabIndex = 11;
             TrackBar6.Value = 1;
             TrackBar6.ValueChanged += TrackBar6_ValueChanged;
@@ -256,10 +261,10 @@ namespace TmCGPTD
             // 
             LabelN1.AutoSize = true;
             LabelN1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN1.Location = new Point(422, 76);
-            LabelN1.Margin = new Padding(6, 10, 10, 10);
+            LabelN1.Location = new Point(603, 127);
+            LabelN1.Margin = new Padding(9, 17, 14, 17);
             LabelN1.Name = "LabelN1";
-            LabelN1.Size = new Size(17, 19);
+            LabelN1.Size = new Size(25, 29);
             LabelN1.TabIndex = 12;
             LabelN1.Text = "0";
             // 
@@ -267,10 +272,10 @@ namespace TmCGPTD
             // 
             LabelN2.AutoSize = true;
             LabelN2.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN2.Location = new Point(422, 115);
-            LabelN2.Margin = new Padding(6, 10, 10, 10);
+            LabelN2.Location = new Point(603, 192);
+            LabelN2.Margin = new Padding(9, 17, 14, 17);
             LabelN2.Name = "LabelN2";
-            LabelN2.Size = new Size(17, 19);
+            LabelN2.Size = new Size(25, 29);
             LabelN2.TabIndex = 13;
             LabelN2.Text = "0";
             // 
@@ -278,10 +283,10 @@ namespace TmCGPTD
             // 
             LabelN3.AutoSize = true;
             LabelN3.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN3.Location = new Point(422, 154);
-            LabelN3.Margin = new Padding(6, 10, 10, 10);
+            LabelN3.Location = new Point(603, 257);
+            LabelN3.Margin = new Padding(9, 17, 14, 17);
             LabelN3.Name = "LabelN3";
-            LabelN3.Size = new Size(17, 19);
+            LabelN3.Size = new Size(25, 29);
             LabelN3.TabIndex = 14;
             LabelN3.Text = "0";
             // 
@@ -289,10 +294,10 @@ namespace TmCGPTD
             // 
             LabelN4.AutoSize = true;
             LabelN4.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN4.Location = new Point(422, 193);
-            LabelN4.Margin = new Padding(6, 10, 10, 10);
+            LabelN4.Location = new Point(603, 322);
+            LabelN4.Margin = new Padding(9, 17, 14, 17);
             LabelN4.Name = "LabelN4";
-            LabelN4.Size = new Size(17, 19);
+            LabelN4.Size = new Size(25, 29);
             LabelN4.TabIndex = 15;
             LabelN4.Text = "0";
             // 
@@ -300,10 +305,10 @@ namespace TmCGPTD
             // 
             LabelN5.AutoSize = true;
             LabelN5.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN5.Location = new Point(422, 232);
-            LabelN5.Margin = new Padding(6, 10, 10, 10);
+            LabelN5.Location = new Point(603, 387);
+            LabelN5.Margin = new Padding(9, 17, 14, 17);
             LabelN5.Name = "LabelN5";
-            LabelN5.Size = new Size(17, 19);
+            LabelN5.Size = new Size(25, 29);
             LabelN5.TabIndex = 16;
             LabelN5.Text = "0";
             // 
@@ -311,10 +316,10 @@ namespace TmCGPTD
             // 
             LabelN6.AutoSize = true;
             LabelN6.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN6.Location = new Point(422, 271);
-            LabelN6.Margin = new Padding(6, 10, 10, 10);
+            LabelN6.Location = new Point(603, 452);
+            LabelN6.Margin = new Padding(9, 17, 14, 17);
             LabelN6.Name = "LabelN6";
-            LabelN6.Size = new Size(17, 19);
+            LabelN6.Size = new Size(25, 29);
             LabelN6.TabIndex = 17;
             LabelN6.Text = "0";
             // 
@@ -322,10 +327,10 @@ namespace TmCGPTD
             // 
             Label7.AutoSize = true;
             Label7.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label7.Location = new Point(548, 75);
-            Label7.Margin = new Padding(20, 10, 10, 10);
+            Label7.Location = new Point(783, 125);
+            Label7.Margin = new Padding(29, 17, 14, 17);
             Label7.Name = "Label7";
-            Label7.Size = new Size(41, 19);
+            Label7.Size = new Size(61, 29);
             Label7.TabIndex = 18;
             Label7.Text = "2048";
             // 
@@ -333,10 +338,10 @@ namespace TmCGPTD
             // 
             Label8.AutoSize = true;
             Label8.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label8.Location = new Point(548, 114);
-            Label8.Margin = new Padding(6, 10, 10, 10);
+            Label8.Location = new Point(783, 190);
+            Label8.Margin = new Padding(9, 17, 14, 17);
             Label8.Name = "Label8";
-            Label8.Size = new Size(17, 19);
+            Label8.Size = new Size(25, 29);
             Label8.TabIndex = 19;
             Label8.Text = "1";
             // 
@@ -344,10 +349,10 @@ namespace TmCGPTD
             // 
             Label9.AutoSize = true;
             Label9.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label9.Location = new Point(548, 153);
-            Label9.Margin = new Padding(6, 10, 10, 10);
+            Label9.Location = new Point(783, 255);
+            Label9.Margin = new Padding(9, 17, 14, 17);
             Label9.Name = "Label9";
-            Label9.Size = new Size(17, 19);
+            Label9.Size = new Size(25, 29);
             Label9.TabIndex = 20;
             Label9.Text = "1";
             // 
@@ -355,10 +360,10 @@ namespace TmCGPTD
             // 
             Label10.AutoSize = true;
             Label10.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label10.Location = new Point(548, 192);
-            Label10.Margin = new Padding(6, 10, 10, 10);
+            Label10.Location = new Point(783, 320);
+            Label10.Margin = new Padding(9, 17, 14, 17);
             Label10.Name = "Label10";
-            Label10.Size = new Size(25, 19);
+            Label10.Size = new Size(37, 29);
             Label10.TabIndex = 21;
             Label10.Text = "20";
             // 
@@ -366,10 +371,10 @@ namespace TmCGPTD
             // 
             Label11.AutoSize = true;
             Label11.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label11.Location = new Point(548, 231);
-            Label11.Margin = new Padding(6, 10, 10, 10);
+            Label11.Location = new Point(783, 385);
+            Label11.Margin = new Padding(9, 17, 14, 17);
             Label11.Name = "Label11";
-            Label11.Size = new Size(33, 19);
+            Label11.Size = new Size(51, 29);
             Label11.TabIndex = 22;
             Label11.Text = "null";
             // 
@@ -377,10 +382,10 @@ namespace TmCGPTD
             // 
             Label12.AutoSize = true;
             Label12.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label12.Location = new Point(548, 270);
-            Label12.Margin = new Padding(6, 10, 10, 10);
+            Label12.Location = new Point(783, 450);
+            Label12.Margin = new Padding(9, 17, 14, 17);
             Label12.Name = "Label12";
-            Label12.Size = new Size(29, 19);
+            Label12.Size = new Size(43, 29);
             Label12.TabIndex = 23;
             Label12.Text = "0.0";
             // 
@@ -388,20 +393,20 @@ namespace TmCGPTD
             // 
             Label13.AutoSize = true;
             Label13.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label13.Location = new Point(534, 45);
-            Label13.Margin = new Padding(10, 10, 10, 10);
+            Label13.Location = new Point(763, 75);
+            Label13.Margin = new Padding(14, 17, 14, 17);
             Label13.Name = "Label13";
-            Label13.Size = new Size(57, 19);
+            Label13.Size = new Size(86, 29);
             Label13.TabIndex = 24;
             Label13.Text = "Default";
             // 
             // ButtonOK
             // 
             ButtonOK.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonOK.Location = new Point(184, 629);
-            ButtonOK.Margin = new Padding(15, 15, 15, 15);
+            ButtonOK.Location = new Point(263, 1048);
+            ButtonOK.Margin = new Padding(21, 25, 21, 25);
             ButtonOK.Name = "ButtonOK";
-            ButtonOK.Size = new Size(120, 40);
+            ButtonOK.Size = new Size(171, 67);
             ButtonOK.TabIndex = 25;
             ButtonOK.Text = "OK";
             ButtonOK.UseVisualStyleBackColor = true;
@@ -410,10 +415,10 @@ namespace TmCGPTD
             // ButtonCancel
             // 
             ButtonCancel.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonCancel.Location = new Point(316, 629);
-            ButtonCancel.Margin = new Padding(0, 15, 15, 15);
+            ButtonCancel.Location = new Point(451, 1048);
+            ButtonCancel.Margin = new Padding(0, 25, 21, 25);
             ButtonCancel.Name = "ButtonCancel";
-            ButtonCancel.Size = new Size(120, 40);
+            ButtonCancel.Size = new Size(171, 67);
             ButtonCancel.TabIndex = 27;
             ButtonCancel.Text = "Cancel";
             ButtonCancel.UseVisualStyleBackColor = true;
@@ -422,11 +427,12 @@ namespace TmCGPTD
             // TrackBar7
             // 
             TrackBar7.LargeChange = 1;
-            TrackBar7.Location = new Point(169, 310);
+            TrackBar7.Location = new Point(241, 517);
+            TrackBar7.Margin = new Padding(4, 5, 4, 5);
             TrackBar7.Maximum = 20;
             TrackBar7.Minimum = -20;
             TrackBar7.Name = "TrackBar7";
-            TrackBar7.Size = new Size(250, 45);
+            TrackBar7.Size = new Size(357, 69);
             TrackBar7.TabIndex = 28;
             TrackBar7.Value = 1;
             TrackBar7.ValueChanged += TrackBar7_ValueChanged;
@@ -435,11 +441,11 @@ namespace TmCGPTD
             // 
             Label14.AutoSize = true;
             Label14.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label14.Location = new Point(24, 310);
-            Label14.Margin = new Padding(10, 10, 10, 10);
+            Label14.Location = new Point(34, 517);
+            Label14.Margin = new Padding(14, 17, 14, 17);
             Label14.Name = "Label14";
             Label14.RightToLeft = RightToLeft.Yes;
-            Label14.Size = new Size(129, 19);
+            Label14.Size = new Size(199, 29);
             Label14.TabIndex = 29;
             Label14.Text = "frequency_penalty";
             // 
@@ -448,22 +454,23 @@ namespace TmCGPTD
             Label15.AutoSize = true;
             Label15.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label15.ForeColor = SystemColors.GrayText;
-            Label15.Location = new Point(95, 349);
-            Label15.Margin = new Padding(10, 10, 10, 10);
+            Label15.Location = new Point(136, 582);
+            Label15.Margin = new Padding(14, 17, 14, 17);
             Label15.Name = "Label15";
             Label15.RightToLeft = RightToLeft.Yes;
-            Label15.Size = new Size(58, 19);
+            Label15.Size = new Size(87, 29);
             Label15.TabIndex = 30;
             Label15.Text = "best_of";
             // 
             // TrackBar8
             // 
             TrackBar8.LargeChange = 1;
-            TrackBar8.Location = new Point(169, 349);
+            TrackBar8.Location = new Point(241, 582);
+            TrackBar8.Margin = new Padding(4, 5, 4, 5);
             TrackBar8.Maximum = 32;
             TrackBar8.Minimum = 1;
             TrackBar8.Name = "TrackBar8";
-            TrackBar8.Size = new Size(250, 45);
+            TrackBar8.Size = new Size(357, 69);
             TrackBar8.TabIndex = 31;
             TrackBar8.Value = 1;
             TrackBar8.ValueChanged += TrackBar8_ValueChanged;
@@ -473,11 +480,11 @@ namespace TmCGPTD
             Label16.AutoSize = true;
             Label16.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label16.ForeColor = SystemColors.ControlText;
-            Label16.Location = new Point(116, 451);
-            Label16.Margin = new Padding(10, 10, 10, 10);
+            Label16.Location = new Point(166, 752);
+            Label16.Margin = new Padding(14, 17, 14, 17);
             Label16.Name = "Label16";
             Label16.RightToLeft = RightToLeft.Yes;
-            Label16.Size = new Size(37, 19);
+            Label16.Size = new Size(56, 29);
             Label16.TabIndex = 32;
             Label16.Text = "stop";
             // 
@@ -485,10 +492,10 @@ namespace TmCGPTD
             // 
             LabelN7.AutoSize = true;
             LabelN7.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN7.Location = new Point(422, 310);
-            LabelN7.Margin = new Padding(6, 10, 10, 10);
+            LabelN7.Location = new Point(603, 517);
+            LabelN7.Margin = new Padding(9, 17, 14, 17);
             LabelN7.Name = "LabelN7";
-            LabelN7.Size = new Size(17, 19);
+            LabelN7.Size = new Size(25, 29);
             LabelN7.TabIndex = 34;
             LabelN7.Text = "0";
             // 
@@ -496,10 +503,10 @@ namespace TmCGPTD
             // 
             LabelN8.AutoSize = true;
             LabelN8.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN8.Location = new Point(422, 349);
-            LabelN8.Margin = new Padding(6, 10, 10, 10);
+            LabelN8.Location = new Point(603, 582);
+            LabelN8.Margin = new Padding(9, 17, 14, 17);
             LabelN8.Name = "LabelN8";
-            LabelN8.Size = new Size(17, 19);
+            LabelN8.Size = new Size(25, 29);
             LabelN8.TabIndex = 35;
             LabelN8.Text = "0";
             // 
@@ -507,10 +514,10 @@ namespace TmCGPTD
             // 
             Label17.AutoSize = true;
             Label17.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label17.Location = new Point(548, 309);
-            Label17.Margin = new Padding(6, 10, 10, 10);
+            Label17.Location = new Point(783, 515);
+            Label17.Margin = new Padding(9, 17, 14, 17);
             Label17.Name = "Label17";
-            Label17.Size = new Size(29, 19);
+            Label17.Size = new Size(43, 29);
             Label17.TabIndex = 37;
             Label17.Text = "0.0";
             // 
@@ -518,10 +525,10 @@ namespace TmCGPTD
             // 
             Label18.AutoSize = true;
             Label18.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label18.Location = new Point(548, 348);
-            Label18.Margin = new Padding(6, 10, 10, 10);
+            Label18.Location = new Point(783, 580);
+            Label18.Margin = new Padding(9, 17, 14, 17);
             Label18.Name = "Label18";
-            Label18.Size = new Size(17, 19);
+            Label18.Size = new Size(25, 29);
             Label18.TabIndex = 38;
             Label18.Text = "1";
             // 
@@ -529,46 +536,50 @@ namespace TmCGPTD
             // 
             Label19.AutoSize = true;
             Label19.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label19.Location = new Point(548, 450);
-            Label19.Margin = new Padding(6, 10, 10, 10);
+            Label19.Location = new Point(783, 750);
+            Label19.Margin = new Padding(9, 17, 14, 17);
             Label19.Name = "Label19";
-            Label19.Size = new Size(33, 19);
+            Label19.Size = new Size(51, 29);
             Label19.TabIndex = 39;
             Label19.Text = "null";
             // 
             // CheckBox1
             // 
             CheckBox1.AutoSize = true;
-            CheckBox1.Location = new Point(483, 80);
+            CheckBox1.Location = new Point(690, 133);
+            CheckBox1.Margin = new Padding(4, 5, 4, 5);
             CheckBox1.Name = "CheckBox1";
-            CheckBox1.Size = new Size(15, 14);
+            CheckBox1.Size = new Size(22, 21);
             CheckBox1.TabIndex = 40;
             CheckBox1.UseVisualStyleBackColor = true;
             // 
             // CheckBox2
             // 
             CheckBox2.AutoSize = true;
-            CheckBox2.Location = new Point(483, 119);
+            CheckBox2.Location = new Point(690, 198);
+            CheckBox2.Margin = new Padding(4, 5, 4, 5);
             CheckBox2.Name = "CheckBox2";
-            CheckBox2.Size = new Size(15, 14);
+            CheckBox2.Size = new Size(22, 21);
             CheckBox2.TabIndex = 41;
             CheckBox2.UseVisualStyleBackColor = true;
             // 
             // CheckBox3
             // 
             CheckBox3.AutoSize = true;
-            CheckBox3.Location = new Point(483, 158);
+            CheckBox3.Location = new Point(690, 263);
+            CheckBox3.Margin = new Padding(4, 5, 4, 5);
             CheckBox3.Name = "CheckBox3";
-            CheckBox3.Size = new Size(15, 14);
+            CheckBox3.Size = new Size(22, 21);
             CheckBox3.TabIndex = 42;
             CheckBox3.UseVisualStyleBackColor = true;
             // 
             // CheckBox4
             // 
             CheckBox4.AutoSize = true;
-            CheckBox4.Location = new Point(483, 197);
+            CheckBox4.Location = new Point(690, 328);
+            CheckBox4.Margin = new Padding(4, 5, 4, 5);
             CheckBox4.Name = "CheckBox4";
-            CheckBox4.Size = new Size(15, 14);
+            CheckBox4.Size = new Size(22, 21);
             CheckBox4.TabIndex = 43;
             CheckBox4.UseVisualStyleBackColor = true;
             // 
@@ -576,27 +587,30 @@ namespace TmCGPTD
             // 
             CheckBox5.AutoSize = true;
             CheckBox5.Enabled = false;
-            CheckBox5.Location = new Point(483, 236);
+            CheckBox5.Location = new Point(690, 393);
+            CheckBox5.Margin = new Padding(4, 5, 4, 5);
             CheckBox5.Name = "CheckBox5";
-            CheckBox5.Size = new Size(15, 14);
+            CheckBox5.Size = new Size(22, 21);
             CheckBox5.TabIndex = 44;
             CheckBox5.UseVisualStyleBackColor = true;
             // 
             // CheckBox6
             // 
             CheckBox6.AutoSize = true;
-            CheckBox6.Location = new Point(483, 275);
+            CheckBox6.Location = new Point(690, 458);
+            CheckBox6.Margin = new Padding(4, 5, 4, 5);
             CheckBox6.Name = "CheckBox6";
-            CheckBox6.Size = new Size(15, 14);
+            CheckBox6.Size = new Size(22, 21);
             CheckBox6.TabIndex = 45;
             CheckBox6.UseVisualStyleBackColor = true;
             // 
             // CheckBox7
             // 
             CheckBox7.AutoSize = true;
-            CheckBox7.Location = new Point(483, 314);
+            CheckBox7.Location = new Point(690, 523);
+            CheckBox7.Margin = new Padding(4, 5, 4, 5);
             CheckBox7.Name = "CheckBox7";
-            CheckBox7.Size = new Size(15, 14);
+            CheckBox7.Size = new Size(22, 21);
             CheckBox7.TabIndex = 46;
             CheckBox7.UseVisualStyleBackColor = true;
             // 
@@ -605,18 +619,20 @@ namespace TmCGPTD
             CheckBox8.AutoSize = true;
             CheckBox8.Enabled = false;
             CheckBox8.ForeColor = SystemColors.Control;
-            CheckBox8.Location = new Point(483, 354);
+            CheckBox8.Location = new Point(690, 590);
+            CheckBox8.Margin = new Padding(4, 5, 4, 5);
             CheckBox8.Name = "CheckBox8";
-            CheckBox8.Size = new Size(15, 14);
+            CheckBox8.Size = new Size(22, 21);
             CheckBox8.TabIndex = 47;
             CheckBox8.UseVisualStyleBackColor = true;
             // 
             // CheckBox9
             // 
             CheckBox9.AutoSize = true;
-            CheckBox9.Location = new Point(483, 455);
+            CheckBox9.Location = new Point(690, 758);
+            CheckBox9.Margin = new Padding(4, 5, 4, 5);
             CheckBox9.Name = "CheckBox9";
-            CheckBox9.Size = new Size(15, 14);
+            CheckBox9.Size = new Size(22, 21);
             CheckBox9.TabIndex = 48;
             CheckBox9.UseVisualStyleBackColor = true;
             // 
@@ -624,10 +640,10 @@ namespace TmCGPTD
             // 
             Label20.AutoSize = true;
             Label20.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label20.Location = new Point(465, 45);
-            Label20.Margin = new Padding(10, 10, 10, 10);
+            Label20.Location = new Point(664, 75);
+            Label20.Margin = new Padding(14, 17, 14, 17);
             Label20.Name = "Label20";
-            Label20.Size = new Size(53, 19);
+            Label20.Size = new Size(81, 29);
             Label20.TabIndex = 49;
             Label20.Text = "Enable";
             // 
@@ -635,9 +651,10 @@ namespace TmCGPTD
             // 
             TextBox1.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             TextBox1.ForeColor = SystemColors.GrayText;
-            TextBox1.Location = new Point(175, 446);
+            TextBox1.Location = new Point(250, 743);
+            TextBox1.Margin = new Padding(4, 5, 4, 5);
             TextBox1.Name = "TextBox1";
-            TextBox1.Size = new Size(276, 29);
+            TextBox1.Size = new Size(393, 39);
             TextBox1.TabIndex = 50;
             TextBox1.Text = "ex Cat,Dog,Apple";
             TextBox1.GotFocus += TextBox1_GotFocus;
@@ -647,11 +664,11 @@ namespace TmCGPTD
             Label21.AutoSize = true;
             Label21.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label21.ForeColor = SystemColors.ControlText;
-            Label21.Location = new Point(80, 490);
-            Label21.Margin = new Padding(10, 10, 10, 10);
+            Label21.Location = new Point(114, 817);
+            Label21.Margin = new Padding(14, 17, 14, 17);
             Label21.Name = "Label21";
             Label21.RightToLeft = RightToLeft.Yes;
-            Label21.Size = new Size(73, 19);
+            Label21.Size = new Size(109, 29);
             Label21.TabIndex = 51;
             Label21.Text = "logit_bias";
             // 
@@ -659,9 +676,10 @@ namespace TmCGPTD
             // 
             TextBox2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             TextBox2.ForeColor = SystemColors.GrayText;
-            TextBox2.Location = new Point(175, 485);
+            TextBox2.Location = new Point(250, 808);
+            TextBox2.Margin = new Padding(4, 5, 4, 5);
             TextBox2.Name = "TextBox2";
-            TextBox2.Size = new Size(276, 29);
+            TextBox2.Size = new Size(393, 39);
             TextBox2.TabIndex = 52;
             TextBox2.Text = "ex {\"50256\": -100}, {\"50257\": 50}";
             TextBox2.GotFocus += TextBox2_GotFocus;
@@ -669,9 +687,10 @@ namespace TmCGPTD
             // CheckBox10
             // 
             CheckBox10.AutoSize = true;
-            CheckBox10.Location = new Point(483, 494);
+            CheckBox10.Location = new Point(690, 823);
+            CheckBox10.Margin = new Padding(4, 5, 4, 5);
             CheckBox10.Name = "CheckBox10";
-            CheckBox10.Size = new Size(15, 14);
+            CheckBox10.Size = new Size(22, 21);
             CheckBox10.TabIndex = 53;
             CheckBox10.UseVisualStyleBackColor = true;
             // 
@@ -679,10 +698,10 @@ namespace TmCGPTD
             // 
             Label22.AutoSize = true;
             Label22.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label22.Location = new Point(548, 489);
-            Label22.Margin = new Padding(6, 10, 10, 10);
+            Label22.Location = new Point(783, 815);
+            Label22.Margin = new Padding(9, 17, 14, 17);
             Label22.Name = "Label22";
-            Label22.Size = new Size(33, 19);
+            Label22.Size = new Size(51, 29);
             Label22.TabIndex = 54;
             Label22.Text = "null";
             // 
@@ -690,10 +709,10 @@ namespace TmCGPTD
             // 
             Label23.AutoSize = true;
             Label23.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label23.Location = new Point(107, 25);
-            Label23.Margin = new Padding(10, 10, 10, 10);
+            Label23.Location = new Point(153, 42);
+            Label23.Margin = new Padding(14, 17, 14, 17);
             Label23.Name = "Label23";
-            Label23.Size = new Size(49, 19);
+            Label23.Size = new Size(76, 29);
             Label23.TabIndex = 55;
             Label23.Text = "model";
             // 
@@ -702,18 +721,20 @@ namespace TmCGPTD
             ComboBox1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ComboBox1.FormattingEnabled = true;
             ComboBox1.Items.AddRange(new object[] { "gpt-4", "gpt-4-0314", "gpt-4-32k", "gpt-4-32k-0314", "gpt-3.5-turbo", "gpt-3.5-turbo-0301" });
-            ComboBox1.Location = new Point(175, 22);
+            ComboBox1.Location = new Point(250, 37);
+            ComboBox1.Margin = new Padding(4, 5, 4, 5);
             ComboBox1.Name = "ComboBox1";
-            ComboBox1.Size = new Size(177, 27);
+            ComboBox1.Size = new Size(251, 37);
             ComboBox1.TabIndex = 56;
             // 
             // TextBox3
             // 
             TextBox3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             TextBox3.ForeColor = SystemColors.ControlText;
-            TextBox3.Location = new Point(175, 524);
+            TextBox3.Location = new Point(250, 873);
+            TextBox3.Margin = new Padding(4, 5, 4, 5);
             TextBox3.Name = "TextBox3";
-            TextBox3.Size = new Size(276, 29);
+            TextBox3.Size = new Size(393, 39);
             TextBox3.TabIndex = 57;
             // 
             // Label24
@@ -721,11 +742,11 @@ namespace TmCGPTD
             Label24.AutoSize = true;
             Label24.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label24.ForeColor = SystemColors.ControlText;
-            Label24.Location = new Point(127, 529);
-            Label24.Margin = new Padding(10, 10, 10, 10);
+            Label24.Location = new Point(181, 882);
+            Label24.Margin = new Padding(14, 17, 14, 17);
             Label24.Name = "Label24";
             Label24.RightToLeft = RightToLeft.Yes;
-            Label24.Size = new Size(26, 19);
+            Label24.Size = new Size(40, 29);
             Label24.TabIndex = 58;
             Label24.Text = "url";
             // 
@@ -733,22 +754,22 @@ namespace TmCGPTD
             // 
             Label25.AutoSize = true;
             Label25.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label25.Location = new Point(13, 388);
-            Label25.Margin = new Padding(10, 10, 10, 10);
+            Label25.Location = new Point(19, 647);
+            Label25.Margin = new Padding(14, 17, 14, 17);
             Label25.Name = "Label25";
             Label25.RightToLeft = RightToLeft.Yes;
-            Label25.Size = new Size(140, 38);
+            Label25.Size = new Size(213, 58);
             Label25.TabIndex = 59;
             Label25.Text = "conversation history\r\nlimit";
             // 
             // TrackBar9
             // 
-            TrackBar9.Location = new Point(169, 388);
-            TrackBar9.Margin = new Padding(3, 40, 3, 3);
+            TrackBar9.Location = new Point(241, 647);
+            TrackBar9.Margin = new Padding(4, 67, 4, 5);
             TrackBar9.Maximum = 4096;
             TrackBar9.Minimum = 1;
             TrackBar9.Name = "TrackBar9";
-            TrackBar9.Size = new Size(250, 45);
+            TrackBar9.Size = new Size(357, 69);
             TrackBar9.SmallChange = 4;
             TrackBar9.TabIndex = 60;
             TrackBar9.Value = 4;
@@ -758,9 +779,10 @@ namespace TmCGPTD
             // 
             CheckBox11.AutoSize = true;
             CheckBox11.ForeColor = SystemColors.Control;
-            CheckBox11.Location = new Point(483, 393);
+            CheckBox11.Location = new Point(690, 655);
+            CheckBox11.Margin = new Padding(4, 5, 4, 5);
             CheckBox11.Name = "CheckBox11";
-            CheckBox11.Size = new Size(15, 14);
+            CheckBox11.Size = new Size(22, 21);
             CheckBox11.TabIndex = 62;
             CheckBox11.UseVisualStyleBackColor = true;
             // 
@@ -768,10 +790,10 @@ namespace TmCGPTD
             // 
             LabelN9.AutoSize = true;
             LabelN9.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelN9.Location = new Point(421, 388);
-            LabelN9.Margin = new Padding(6, 10, 10, 10);
+            LabelN9.Location = new Point(601, 647);
+            LabelN9.Margin = new Padding(9, 17, 14, 17);
             LabelN9.Name = "LabelN9";
-            LabelN9.Size = new Size(17, 19);
+            LabelN9.Size = new Size(25, 29);
             LabelN9.TabIndex = 63;
             LabelN9.Text = "0";
             // 
@@ -781,30 +803,30 @@ namespace TmCGPTD
             Label26.AutoSize = true;
             Label26.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Label26.ForeColor = SystemColors.ControlText;
-            Label26.Location = new Point(122, 567);
-            Label26.Margin = new Padding(10, 10, 10, 10);
+            Label26.Location = new Point(194, 945);
+            Label26.Margin = new Padding(14, 17, 14, 17);
             Label26.Name = "Label26";
             Label26.RightToLeft = RightToLeft.No;
-            Label26.Size = new Size(376, 42);
+            Label26.Size = new Size(500, 66);
             Label26.TabIndex = 64;
-            Label26.Text = "\"conversation history limit\" is a client option, not an API parameter. \r\nWhen the set value (close to tokens) is exceeded,\r\nthe conversation history will be automatically summarized.";
+            Label26.Text = "\"conversation history limit\" is a client option, not an API parameter.\r\nWhen the set value (tokens) is exceeded,\r\nthe conversation history will be automatically summarized.";
             // 
             // Label27
             // 
             Label27.AutoSize = true;
             Label27.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Label27.Location = new Point(548, 389);
-            Label27.Margin = new Padding(6, 10, 10, 10);
+            Label27.Location = new Point(783, 648);
+            Label27.Margin = new Padding(9, 17, 14, 17);
             Label27.Name = "Label27";
-            Label27.Size = new Size(41, 19);
+            Label27.Size = new Size(61, 29);
             Label27.TabIndex = 65;
             Label27.Text = "2048";
             // 
             // Form_Option
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(622, 689);
+            ClientSize = new Size(889, 1148);
             Controls.Add(Label27);
             Controls.Add(Label26);
             Controls.Add(LabelN9);
@@ -867,6 +889,7 @@ namespace TmCGPTD
             Controls.Add(Label2);
             Controls.Add(Label1);
             Controls.Add(TrackBar1);
+            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             Name = "Form_Option";
             RightToLeft = RightToLeft.No;

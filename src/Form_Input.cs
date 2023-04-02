@@ -47,7 +47,7 @@ namespace TmCGPTD
             var mainForm = Application.OpenForms.OfType<Form1>().FirstOrDefault();
             if (!mainForm.cts.Token.IsCancellationRequested)
             {
-                Hide(); // フォームを閉じるのではなく、非表示にする
+                MainFormInst.chatLogForm.DockState = DockState.Hidden; // フォームを閉じるのではなく、非表示にする
                 e.Cancel = true; // イベントをキャンセルし、フォームが閉じないようにする
             }
             else
@@ -173,8 +173,18 @@ namespace TmCGPTD
         {
             if (!string.IsNullOrWhiteSpace(recentText))
             {
-                await MainFormInst.GoChatAsync();
-                await TextInputAllClearAsync();
+                if (MainFormInst.webView2Form.DockHandler.Pane != null && MainFormInst.webView2Form.DockHandler.Pane.ActiveContent.Equals(MainFormInst.webView2Form))
+                {
+                    // WebViewがアクティブな時はチャット欄にポスト
+                    string js = "var ta = document.getElementsByTagName('textarea')[0]; ta.value = '" + recentText + "';";
+                    await MainFormInst.MainFormWebView2Form.webView21.ExecuteScriptAsync(js);
+
+                }
+                else
+                {
+                    await MainFormInst.GoChatAsync();
+                    await TextInputAllClearAsync();
+                }
             }
         }
 

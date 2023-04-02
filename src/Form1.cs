@@ -40,6 +40,7 @@ namespace TmCGPTD
         public Form_Preview previewForm = new Form_Preview();
         public Form_ChatLog chatLogForm = new Form_ChatLog();
         public Form_Phrase phraseForm = new Form_Phrase();
+        public Form_WebView2 webView2Form = new Form_WebView2();
         // APIパラメータ初期化
         public static int? api_max_tokens = Properties.Settings.Default.max_tokens != "Nothing" ? int.Parse(Properties.Settings.Default.max_tokens) : (int?)null;
         public static double? api_temperature = Properties.Settings.Default.temperature != "Nothing" ? double.Parse(Properties.Settings.Default.temperature) : (double?)null; public static double? api_top_p = Properties.Settings.Default.top_p == "Nothing" ? new double?() : double.Parse(Properties.Settings.Default.top_p);
@@ -73,6 +74,7 @@ namespace TmCGPTD
             chatForm.MainFormInst = this;
             chatLogForm.MainFormInst = this;
             phraseForm.MainFormInst = this;
+            webView2Form.MainFormInst = this;
 
             DockPanel1.Theme = new VS2015LightTheme();
 
@@ -285,6 +287,10 @@ namespace TmCGPTD
             {
                 return phraseForm;
             }
+            else if ((persistentString ?? "") == (typeof(Form_WebView2).ToString() ?? ""))
+            {
+                return webView2Form;
+            }
 
             return null;
         }
@@ -328,5 +334,12 @@ namespace TmCGPTD
             }
         }
 
+        public Form_WebView2 MainFormWebView2Form
+        {
+            get
+            {
+                return webView2Form;
+            }
+        }
     }
 }

@@ -73,19 +73,19 @@ namespace TmCGPTD
             TableLayoutPanel2.Controls.Add(TextInput4, 0, 3);
             TableLayoutPanel2.Controls.Add(TextInput2, 0, 1);
             TableLayoutPanel2.Controls.Add(TextInput1, 0, 0);
-            TableLayoutPanel2.Location = new Point(0, 44);
+            TableLayoutPanel2.Location = new Point(0, 73);
             TableLayoutPanel2.Margin = new Padding(0);
             TableLayoutPanel2.Name = "TableLayoutPanel2";
             TableLayoutPanel2.RowCount = 5;
-            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 89F));
+            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 148F));
             TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
             TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
-            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 67F));
-            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanel2.Size = new Size(558, 317);
+            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 112F));
+            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 33F));
+            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 33F));
+            TableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 33F));
+            TableLayoutPanel2.Size = new Size(797, 528);
             TableLayoutPanel2.TabIndex = 51;
             // 
             // TextInput5
@@ -100,16 +100,15 @@ namespace TmCGPTD
             TextInput5.Dock = DockStyle.Fill;
             TextInput5.Font = new Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point);
             TextInput5.LexerName = null;
-            TextInput5.Location = new Point(0, 249);
+            TextInput5.Location = new Point(0, 415);
             TextInput5.Margin = new Padding(0);
             TextInput5.Margins.Left = 5;
             TextInput5.Margins.Right = 10;
             TextInput5.Name = "TextInput5";
             TextInput5.ScrollWidth = 110;
-            TextInput5.Size = new Size(558, 68);
+            TextInput5.Size = new Size(797, 113);
             TextInput5.TabIndents = true;
             TextInput5.TabIndex = 5;
-            TextInput5.TabStop = false;
             TextInput5.UseRightToLeftReadingLayout = false;
             TextInput5.WrapMode = ScintillaNET.WrapMode.None;
             TextInput5.TextChanged += TextInput_TextChanged;
@@ -128,16 +127,15 @@ namespace TmCGPTD
             TextInput3.Dock = DockStyle.Fill;
             TextInput3.Font = new Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point);
             TextInput3.LexerName = null;
-            TextInput3.Location = new Point(0, 153);
+            TextInput3.Location = new Point(0, 255);
             TextInput3.Margin = new Padding(0);
             TextInput3.Margins.Left = 5;
             TextInput3.Margins.Right = 10;
             TextInput3.Name = "TextInput3";
             TextInput3.ScrollWidth = 110;
-            TextInput3.Size = new Size(558, 32);
+            TextInput3.Size = new Size(797, 53);
             TextInput3.TabIndents = true;
             TextInput3.TabIndex = 3;
-            TextInput3.TabStop = false;
             TextInput3.UseRightToLeftReadingLayout = false;
             TextInput3.WrapMode = ScintillaNET.WrapMode.None;
             TextInput3.TextChanged += TextInput_TextChanged;
@@ -157,16 +155,15 @@ namespace TmCGPTD
             TextInput4.Font = new Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point);
             TextInput4.IndentationGuides = ScintillaNET.IndentView.LookBoth;
             TextInput4.LexerName = null;
-            TextInput4.Location = new Point(0, 185);
+            TextInput4.Location = new Point(0, 308);
             TextInput4.Margin = new Padding(0);
             TextInput4.Margins.Left = 5;
             TextInput4.Margins.Right = 10;
             TextInput4.Name = "TextInput4";
             TextInput4.ScrollWidth = 110;
-            TextInput4.Size = new Size(558, 64);
+            TextInput4.Size = new Size(797, 107);
             TextInput4.TabIndents = true;
             TextInput4.TabIndex = 4;
-            TextInput4.TabStop = false;
             TextInput4.UseRightToLeftReadingLayout = false;
             TextInput4.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAlways;
             TextInput4.WhitespaceSize = 2;
@@ -188,16 +185,15 @@ namespace TmCGPTD
             TextInput2.Font = new Font("Migu 1M", 11F, FontStyle.Regular, GraphicsUnit.Point);
             TextInput2.IndentationGuides = ScintillaNET.IndentView.LookBoth;
             TextInput2.LexerName = null;
-            TextInput2.Location = new Point(0, 89);
+            TextInput2.Location = new Point(0, 148);
             TextInput2.Margin = new Padding(0);
             TextInput2.Margins.Left = 5;
             TextInput2.Margins.Right = 10;
             TextInput2.Name = "TextInput2";
             TextInput2.ScrollWidth = 110;
-            TextInput2.Size = new Size(558, 64);
+            TextInput2.Size = new Size(797, 107);
             TextInput2.TabIndents = true;
             TextInput2.TabIndex = 2;
-            TextInput2.TabStop = false;
             TextInput2.UseRightToLeftReadingLayout = false;
             TextInput2.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAlways;
             TextInput2.WhitespaceSize = 2;
@@ -225,10 +221,9 @@ namespace TmCGPTD
             TextInput1.Margins.Right = 10;
             TextInput1.Name = "TextInput1";
             TextInput1.ScrollWidth = 110;
-            TextInput1.Size = new Size(558, 89);
+            TextInput1.Size = new Size(797, 148);
             TextInput1.TabIndents = true;
             TextInput1.TabIndex = 1;
-            TextInput1.TabStop = false;
             TextInput1.UseRightToLeftReadingLayout = false;
             TextInput1.WrapMode = ScintillaNET.WrapMode.None;
             TextInput1.TextChanged += TextInput_TextChanged;
@@ -242,10 +237,10 @@ namespace TmCGPTD
             ComboBoxSearch.FlatStyle = FlatStyle.Flat;
             ComboBoxSearch.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ComboBoxSearch.FormattingEnabled = true;
-            ComboBoxSearch.Location = new Point(0, 7);
+            ComboBoxSearch.Location = new Point(0, 16);
             ComboBoxSearch.Margin = new Padding(0);
             ComboBoxSearch.Name = "ComboBoxSearch";
-            ComboBoxSearch.Size = new Size(283, 30);
+            ComboBoxSearch.Size = new Size(404, 40);
             ComboBoxSearch.TabIndex = 14;
             ComboBoxSearch.Text = "Type text here and press Enter to search Editor log.";
             ComboBoxSearch.DrawItem += ComboBoxSearch_DrawItem;
@@ -257,10 +252,10 @@ namespace TmCGPTD
             // 
             ButtonPrev.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ButtonPrev.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonPrev.Location = new Point(345, 6);
-            ButtonPrev.Margin = new Padding(6, 3, 3, 3);
+            ButtonPrev.Location = new Point(493, 10);
+            ButtonPrev.Margin = new Padding(9, 5, 4, 5);
             ButtonPrev.Name = "ButtonPrev";
-            ButtonPrev.Size = new Size(29, 32);
+            ButtonPrev.Size = new Size(41, 53);
             ButtonPrev.TabIndex = 15;
             ButtonPrev.Text = "<";
             ButtonPrev.UseVisualStyleBackColor = true;
@@ -270,10 +265,10 @@ namespace TmCGPTD
             // 
             ButtonNext.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ButtonNext.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonNext.Location = new Point(377, 6);
-            ButtonNext.Margin = new Padding(0, 3, 3, 3);
+            ButtonNext.Location = new Point(539, 10);
+            ButtonNext.Margin = new Padding(0, 5, 4, 5);
             ButtonNext.Name = "ButtonNext";
-            ButtonNext.Size = new Size(29, 32);
+            ButtonNext.Size = new Size(41, 53);
             ButtonNext.TabIndex = 16;
             ButtonNext.Text = ">";
             ButtonNext.UseVisualStyleBackColor = true;
@@ -283,10 +278,10 @@ namespace TmCGPTD
             // 
             ButtonRecentLog.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ButtonRecentLog.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonRecentLog.Location = new Point(414, 6);
-            ButtonRecentLog.Margin = new Padding(5, 3, 3, 3);
+            ButtonRecentLog.Location = new Point(591, 10);
+            ButtonRecentLog.Margin = new Padding(7, 5, 4, 5);
             ButtonRecentLog.Name = "ButtonRecentLog";
-            ButtonRecentLog.Size = new Size(64, 32);
+            ButtonRecentLog.Size = new Size(91, 53);
             ButtonRecentLog.TabIndex = 17;
             ButtonRecentLog.Text = "Recent";
             ButtonRecentLog.UseVisualStyleBackColor = true;
@@ -296,9 +291,10 @@ namespace TmCGPTD
             // 
             ButtonDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ButtonDelete.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonDelete.Location = new Point(484, 6);
+            ButtonDelete.Location = new Point(691, 10);
+            ButtonDelete.Margin = new Padding(4, 5, 4, 5);
             ButtonDelete.Name = "ButtonDelete";
-            ButtonDelete.Size = new Size(64, 32);
+            ButtonDelete.Size = new Size(91, 53);
             ButtonDelete.TabIndex = 18;
             ButtonDelete.Text = "Delete";
             ButtonDelete.UseVisualStyleBackColor = true;
@@ -309,9 +305,10 @@ namespace TmCGPTD
             Label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             Label1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label1.ForeColor = SystemColors.ControlText;
-            Label1.Location = new Point(9, 376);
+            Label1.Location = new Point(13, 627);
+            Label1.Margin = new Padding(4, 0, 4, 0);
             Label1.Name = "Label1";
-            Label1.Size = new Size(47, 19);
+            Label1.Size = new Size(67, 32);
             Label1.TabIndex = 73;
             Label1.Text = "Clear:";
             Label1.TextAlign = ContentAlignment.TopRight;
@@ -320,9 +317,10 @@ namespace TmCGPTD
             // 
             ButtonClear1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonClear1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonClear1.Location = new Point(62, 369);
+            ButtonClear1.Location = new Point(89, 615);
+            ButtonClear1.Margin = new Padding(4, 5, 4, 5);
             ButtonClear1.Name = "ButtonClear1";
-            ButtonClear1.Size = new Size(40, 32);
+            ButtonClear1.Size = new Size(57, 53);
             ButtonClear1.TabIndex = 6;
             ButtonClear1.Text = "1";
             ButtonClear1.UseVisualStyleBackColor = true;
@@ -332,9 +330,10 @@ namespace TmCGPTD
             // 
             ButtonClear2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonClear2.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonClear2.Location = new Point(108, 369);
+            ButtonClear2.Location = new Point(154, 615);
+            ButtonClear2.Margin = new Padding(4, 5, 4, 5);
             ButtonClear2.Name = "ButtonClear2";
-            ButtonClear2.Size = new Size(40, 32);
+            ButtonClear2.Size = new Size(57, 53);
             ButtonClear2.TabIndex = 7;
             ButtonClear2.Text = "2";
             ButtonClear2.UseVisualStyleBackColor = true;
@@ -344,9 +343,10 @@ namespace TmCGPTD
             // 
             ButtonClear3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonClear3.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonClear3.Location = new Point(154, 369);
+            ButtonClear3.Location = new Point(220, 615);
+            ButtonClear3.Margin = new Padding(4, 5, 4, 5);
             ButtonClear3.Name = "ButtonClear3";
-            ButtonClear3.Size = new Size(40, 32);
+            ButtonClear3.Size = new Size(57, 53);
             ButtonClear3.TabIndex = 8;
             ButtonClear3.Text = "3";
             ButtonClear3.UseVisualStyleBackColor = true;
@@ -356,9 +356,10 @@ namespace TmCGPTD
             // 
             ButtonClear4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonClear4.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonClear4.Location = new Point(200, 369);
+            ButtonClear4.Location = new Point(286, 615);
+            ButtonClear4.Margin = new Padding(4, 5, 4, 5);
             ButtonClear4.Name = "ButtonClear4";
-            ButtonClear4.Size = new Size(40, 32);
+            ButtonClear4.Size = new Size(57, 53);
             ButtonClear4.TabIndex = 9;
             ButtonClear4.Text = "4";
             ButtonClear4.UseVisualStyleBackColor = true;
@@ -368,9 +369,10 @@ namespace TmCGPTD
             // 
             ButtonClear5.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonClear5.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonClear5.Location = new Point(246, 369);
+            ButtonClear5.Location = new Point(351, 615);
+            ButtonClear5.Margin = new Padding(4, 5, 4, 5);
             ButtonClear5.Name = "ButtonClear5";
-            ButtonClear5.Size = new Size(40, 32);
+            ButtonClear5.Size = new Size(57, 53);
             ButtonClear5.TabIndex = 10;
             ButtonClear5.Text = "5";
             ButtonClear5.UseVisualStyleBackColor = true;
@@ -380,9 +382,10 @@ namespace TmCGPTD
             // 
             ButtonClearAll.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonClearAll.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonClearAll.Location = new Point(292, 369);
+            ButtonClearAll.Location = new Point(417, 615);
+            ButtonClearAll.Margin = new Padding(4, 5, 4, 5);
             ButtonClearAll.Name = "ButtonClearAll";
-            ButtonClearAll.Size = new Size(80, 32);
+            ButtonClearAll.Size = new Size(114, 53);
             ButtonClearAll.TabIndex = 11;
             ButtonClearAll.Text = "All clear";
             ButtonClearAll.UseVisualStyleBackColor = true;
@@ -394,9 +397,10 @@ namespace TmCGPTD
             ButtonPost.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ButtonPost.Image = Properties.Resources.iconWriteBlack;
             ButtonPost.ImageAlign = ContentAlignment.MiddleRight;
-            ButtonPost.Location = new Point(445, 365);
+            ButtonPost.Location = new Point(636, 608);
+            ButtonPost.Margin = new Padding(4, 5, 4, 5);
             ButtonPost.Name = "ButtonPost";
-            ButtonPost.Size = new Size(100, 40);
+            ButtonPost.Size = new Size(143, 67);
             ButtonPost.TabIndex = 13;
             ButtonPost.Text = "Post";
             ButtonPost.UseVisualStyleBackColor = true;
@@ -406,9 +410,10 @@ namespace TmCGPTD
             // 
             Label3.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Label3.ForeColor = SystemColors.ControlText;
-            Label3.Location = new Point(12, 13);
+            Label3.Location = new Point(17, 22);
+            Label3.Margin = new Padding(4, 0, 4, 0);
             Label3.Name = "Label3";
-            Label3.Size = new Size(41, 19);
+            Label3.Size = new Size(59, 32);
             Label3.TabIndex = 78;
             Label3.Text = "Log:";
             // 
@@ -416,9 +421,10 @@ namespace TmCGPTD
             // 
             ButtonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             ButtonSave.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ButtonSave.Location = new Point(377, 369);
+            ButtonSave.Location = new Point(539, 615);
+            ButtonSave.Margin = new Padding(4, 5, 4, 5);
             ButtonSave.Name = "ButtonSave";
-            ButtonSave.Size = new Size(62, 32);
+            ButtonSave.Size = new Size(89, 53);
             ButtonSave.TabIndex = 12;
             ButtonSave.Text = "Save";
             ButtonSave.UseVisualStyleBackColor = true;
@@ -430,19 +436,19 @@ namespace TmCGPTD
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(ComboBoxSearch, 0, 0);
-            tableLayoutPanel1.Location = new Point(56, 0);
+            tableLayoutPanel1.Location = new Point(80, 0);
             tableLayoutPanel1.Margin = new Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(283, 44);
+            tableLayoutPanel1.Size = new Size(404, 73);
             tableLayoutPanel1.TabIndex = 79;
             // 
             // Form_Input
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(557, 411);
+            ClientSize = new Size(796, 685);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(ButtonSave);
             Controls.Add(Label3);
@@ -459,7 +465,8 @@ namespace TmCGPTD
             Controls.Add(ButtonPrev);
             Controls.Add(ButtonNext);
             Controls.Add(ButtonDelete);
-            MinimumSize = new Size(573, 393);
+            Margin = new Padding(4, 5, 4, 5);
+            MinimumSize = new Size(809, 618);
             Name = "Form_Input";
             Text = "Editor";
             FormClosing += InputForm_FormClosing;

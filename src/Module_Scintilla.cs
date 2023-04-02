@@ -15,6 +15,7 @@ namespace TmCGPTD
         // シンティラ表示初期化
         public void ScintillaInitialize(string fontFamily, int fontSize = 0, string selectedLang = "Default", string fontFamily2 = "Default", int fontSize2 = 10)
         {
+            float dpiScaleFactor = CreateGraphics().DpiX / 96.0f;
             for (int i = 1; i <= 6; i++)
             {
                 Scintilla inputBox;
@@ -22,14 +23,14 @@ namespace TmCGPTD
                 if (i == 6)
                 {
                     inputBox = chatForm.ChatBox;
-                    spacing = 5;
+                    spacing = 6 * (int)dpiScaleFactor;
                     fontFamily = fontFamily2;
                     fontSize = fontSize2;
                 }
                 else
                 {
                     inputBox = (Scintilla)Controls.Find($"TextInput{i}", true)[0];
-                    spacing = 3;
+                    spacing = 4 * (int)dpiScaleFactor;
                 }
                 inputBox.StyleResetDefault();
                 if (fontFamily == "Default")
@@ -74,13 +75,13 @@ namespace TmCGPTD
                 inputBox.Styles[Style.IndentGuide].ForeColor = Color.FromArgb(128, 128, 128);
                 if (i == 3)
                 {
-                    inputBox.Margins[0].Width = 45; // マージン0の幅を設定
-                    inputBox.Margins[1].Width = 10; // マージン1の幅を設定
+                    inputBox.Margins[0].Width = 50 * (int)dpiScaleFactor; // マージン0の幅を設定
+                    inputBox.Margins[1].Width = 20 * (int)dpiScaleFactor; // マージン1の幅を設定
                 }
                 else
                 {
-                    inputBox.Margins[0].Width = 30; // マージン0の幅を設定
-                    inputBox.Margins[1].Width = 5;
+                    inputBox.Margins[0].Width = 40 * (int)dpiScaleFactor; // マージン0の幅を設定
+                    inputBox.Margins[1].Width = 10 * (int)dpiScaleFactor;
                 } // マージン1の幅を設定
 
                 inputBox.Styles[Style.LineNumber].BackColor = Color.FromArgb(22, 23, 35); // マージン0の背景色
