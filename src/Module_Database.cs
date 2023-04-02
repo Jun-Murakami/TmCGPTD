@@ -436,7 +436,7 @@ namespace TmCGPTD
                     }
                 }
             }
-            return dT;
+            return dT;Environment.NewLine
         }
 
         // データベースからEditor日付ログを検索--------------------------------------------------------------
@@ -557,7 +557,7 @@ namespace TmCGPTD
             }
             catch (Exception ex)
             {
-                Interaction.MsgBox("Failed to export log." + Constants.vbCrLf + "Error: " + ex.Message, MsgBoxStyle.Exclamation, "Error");
+                Interaction.MsgBox("Failed to export log." + Environment.NewLine + "Error: " + ex.Message, MsgBoxStyle.Exclamation, "Error");
             }
         }
 
@@ -635,7 +635,7 @@ namespace TmCGPTD
                             catch (Exception ex)
                             {
                                 transaction.Rollback();
-                                Interaction.MsgBox("Failed to import log." + Constants.vbCrLf + "Error: " + ex.Message, MsgBoxStyle.Exclamation, "Error");
+                                Interaction.MsgBox("Failed to import log." + Environment.NewLine + "Error: " + ex.Message, MsgBoxStyle.Exclamation, "Error");
                             }
                         }
                         await con.CloseAsync();
@@ -657,7 +657,7 @@ namespace TmCGPTD
                 DateTime nowDate = DateTime.Now;
                 string jsonConversationHistory = JsonSerializer.Serialize(webConversationHistory);
 
-                using (var connection = new SQLiteConnection($"Data Source={Form1.dbPath}"))
+                using (var connection = new SQLiteConnection($"Data Source={dbPath}"))
                 {
                     connection.Open();
                     // トランザクションを開始する
@@ -670,7 +670,7 @@ namespace TmCGPTD
                             {
                                 await Task.Run(() => command.Parameters.AddWithValue("@date", nowDate));
                                 await Task.Run(() => command.Parameters.AddWithValue("@title", webChatTitle));
-                                await Task.Run(() => command.Parameters.AddWithValue("@tag", "WebChat,,"));
+                                await Task.Run(() => command.Parameters.AddWithValue("@tag", "WebChat" + Environment.NewLine + Environment.NewLine));
                                 await Task.Run(() => command.Parameters.AddWithValue("@json", jsonConversationHistory));
                                 await Task.Run(() => command.Parameters.AddWithValue("@text", webLog));
                                 await command.ExecuteNonQueryAsync();

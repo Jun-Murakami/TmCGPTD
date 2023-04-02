@@ -119,6 +119,7 @@ namespace TmCGPTD
 
                 string role;
                 string content;
+                string br = Environment.NewLine;
 
                 if (!match.Success)
                 {
@@ -149,7 +150,7 @@ namespace TmCGPTD
                         { "role", role },
                         { "content", content }
                     });
-                    webLog += $"[Web Chat] by You\r\n\r\n{content}\r\n\r\n\r\n";
+                    webLog += $"[Web Chat] by You{br}{br}{content}{br}{br}{br}";
                 }
                 else
                 {
@@ -158,15 +159,15 @@ namespace TmCGPTD
                     string htmlString = div.InnerHtml;
 
                     // 置換処理を行います。
-                    htmlString = htmlString.Replace("<pre>", "\r\n\r\n```")
-                                           .Replace("</pre>", "\r\n```\r\n\r\n")
-                                           .Replace("Copy code", "\r\n")
-                                           .Replace("<ol>", "\r\n")
-                                           .Replace("</ol>", "\r\n")
-                                           .Replace("<ul>", "\r\n")
-                                           .Replace("</ul>", "\r\n")
-                                           .Replace("<li>", "\r\n- ")
-                                           .Replace("</li>", "\r\n");
+                    htmlString = htmlString.Replace("<pre>", "{br}{br}```")
+                                           .Replace("</pre>", "{br}```{br}{br}")
+                                           .Replace("Copy code", "{br}")
+                                           .Replace("<ol>", "{br}")
+                                           .Replace("</ol>", "{br}")
+                                           .Replace("<ul>", "{br}")
+                                           .Replace("</ul>", "{br}")
+                                           .Replace("<li>", "{br}- ")
+                                           .Replace("</li>", "{br}");
 
                     // 正規表現パターンに基づいて削除します。
                     string pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
@@ -193,7 +194,7 @@ namespace TmCGPTD
                         { "role", role },
                         { "content", content }
                     });
-                    webLog += $"[Web Chat] by AI\r\n\r\n{content}\r\n\r\n\r\n";
+                    webLog += $"[Web Chat] by AI{br}{br}{content}{br}{br}{br}";
                 }
 
                 count++;
