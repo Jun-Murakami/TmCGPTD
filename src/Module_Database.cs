@@ -436,7 +436,7 @@ namespace TmCGPTD
                     }
                 }
             }
-            return dT;Environment.NewLine
+            return dT;
         }
 
         // データベースからEditor日付ログを検索--------------------------------------------------------------
