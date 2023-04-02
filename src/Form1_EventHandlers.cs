@@ -31,7 +31,7 @@ namespace TmCGPTD
                 if (readyState == "\"complete\"")
                 {
                     buttonClicked = false;
-                    await webView2Form.AnalyzeWebViewContentAsync();
+                    await AnalyzeWebViewContentAsync();
                     return;
                 }
                 return;

@@ -613,9 +613,7 @@ namespace TmCGPTD
             Controls.Add(TableLayoutPanel1);
             Name = "Form_Phrase";
             Text = "Phrase Presets";
-            DockStateChanged += MyForm_DockStateChanged;
             FormClosing += PhraseForm_FormClosing;
-            SizeChanged += MyForm_SizeChanged;
             TableLayoutPanel1.ResumeLayout(false);
             TableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

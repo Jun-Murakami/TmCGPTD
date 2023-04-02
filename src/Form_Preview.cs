@@ -1,14 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using WeifenLuo.WinFormsUI.Docking;
+﻿using WeifenLuo.WinFormsUI.Docking;
 
 namespace TmCGPTD
 {
     public partial class Form_Preview : DockContent
     {
-
         public Form1 MainFormInst { get; set; }
 
         public Form_Preview()
@@ -45,23 +40,6 @@ namespace TmCGPTD
                     // フォントサイズを変更する
                     TextOut.Font = new Font(TextOut.Font.FontFamily, TextOut.Font.Size + fontSizeChange);
                 }
-            }
-        }
-
-        private Size dockedSize;
-        private void MyForm_SizeChanged(object sender, EventArgs e)
-        {
-            if (DockState != DockState.Float)
-            {
-                dockedSize = Size;
-            }
-        }
-        private void MyForm_DockStateChanged(object sender, EventArgs e)
-        {
-            if (DockState == DockState.Float)
-            {
-                // ここで DefaultFloatWindowSize を変更する
-                Size = dockedSize;
             }
         }
 

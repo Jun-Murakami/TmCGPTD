@@ -67,8 +67,6 @@ namespace TmCGPTD
             Text = "Preview";
             Shown += new EventHandler(Form_Preview_Shown);
             FormClosing += new FormClosingEventHandler(PreviewForm_FormClosing);
-            SizeChanged += new EventHandler(MyForm_SizeChanged);
-            DockStateChanged += new EventHandler(MyForm_DockStateChanged);
             ResumeLayout(false);
             PerformLayout();
         }

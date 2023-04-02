@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using Microsoft.VisualBasic.CompilerServices;
+﻿using Microsoft.VisualBasic.CompilerServices;
 using static TmCGPTD.Form1;
 
 namespace TmCGPTD
@@ -63,7 +61,7 @@ namespace TmCGPTD
             }
             else
             {
-                TrackBar4.Value = 1;
+                TrackBar4.Value = 20;
             }
             if (!(Properties.Settings.Default.logprobs == "Nothing"))
             {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using TiktokenSharp;
@@ -462,8 +456,159 @@ namespace TmCGPTD
             return summary;
         }
 
-        //Thinkingアニメーション--------------------------------------------------------------
-        private System.Windows.Forms.Timer thinkTimer;
+        // Webログインポートメイン--------------------------------------------------------------
+        public async Task AnalyzeWebViewContentAsync()
+        {
+            string webChatTitle;
+            List<Dictionary<string, object>> webConversationHistory = new List<Dictionary<string, object>>();
+            string webLog = "";
+
+            // WebView2からHTMLソースを取得
+            string jsonHtmlSource = await webView2Form.webView21.CoreWebView2.ExecuteScriptAsync("document.documentElement.outerHTML;");
+            string htmlSource = JsonSerializer.Deserialize<string>(jsonHtmlSource);
+
+            // HtmlAgilityPackを使ってHTMLを解析
+            HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            htmlDoc.LoadHtml(htmlSource);
+
+            // h1タグをサーチ
+            var h1Tag = htmlDoc.DocumentNode.SelectSingleNode("//h1");
+            if (h1Tag.InnerText == "New chat")
+            {
+                MessageBox.Show("Please display chat screen.");
+                return;
+            }
+            webChatTitle = h1Tag?.InnerText;
+
+            // mainタグをサーチ
+            var mainTag = htmlDoc.DocumentNode.SelectSingleNode("//main");
+            if (mainTag == null)
+            {
+                MessageBox.Show("Please display chat screen.");
+                return;
+            }
+
+            // divタグを取得
+            var divTags = mainTag.SelectNodes("./*/*/*/*/div");
+            int count = 0;
+
+            // フィルタリングされたdivタグを保持するリスト
+            List<HtmlNode> filteredDivs = new List<HtmlNode>();
+
+            // divタグをフィルタリング
+            foreach (var div in divTags)
+            {
+                if (div.ChildNodes.Count == 0 || div.InnerText.Contains("Model:"))
+                {
+                    continue;
+                }
+                filteredDivs.Add(div);
+            }
+
+            foreach (var div in filteredDivs)
+            {
+                var className = div.GetAttributeValue("class", "");
+                var regex = new Regex(@".*\[#\w{6}\].*");
+                var match = regex.Match(className);
+
+                string role;
+                string content;
+                string br = Environment.NewLine;
+
+                if (!match.Success)
+                {
+                    role = "user";
+                    // 子ノードのInnerTextを取得し、文字列として結合
+                    string htmlString = div.InnerHtml;
+                    string pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
+                    htmlString = Regex.Replace(htmlString, pattern, "");
+
+                    // 置換処理が完了した後、再度HTMLドキュメントに戻します。
+                    var modifiedHtmlDoc = new HtmlAgilityPack.HtmlDocument();
+                    modifiedHtmlDoc.LoadHtml(htmlString);
+
+                    // InnerText要素を結合して、宣言済みの変数contentに文字列として代入します。
+                    StringBuilder contentBuilder = new StringBuilder();
+                    foreach (var node in modifiedHtmlDoc.DocumentNode.ChildNodes)
+                    {
+                        if (!string.IsNullOrWhiteSpace(node.InnerText))
+                        {
+                            contentBuilder.Append(node.InnerText);
+                        }
+                    }
+                    content = contentBuilder.ToString();
+                    content = content.Trim();
+
+                    webConversationHistory.Add(new Dictionary<string, object>
+                    {
+                        { "role", role },
+                        { "content", content }
+                    });
+                    webLog += $"[Web Chat] by You{br}{br}{content}{br}{br}{br}";
+                }
+                else
+                {
+                    role = "assistant";
+
+                    string htmlString = div.InnerHtml;
+
+                    // 置換処理を行います。
+                    htmlString = htmlString.Replace("<pre>", $"{br}{br}```")
+                                           .Replace("</pre>", $"{br}```{br}{br}")
+                                           .Replace("Copy code", $"{br}")
+                                           .Replace("<ol>", $"{br}")
+                                           .Replace("</ol>", $"{br}")
+                                           .Replace("<ul>", $"{br}")
+                                           .Replace("</ul>", $"{br}")
+                                           .Replace("<li>", $"{br}- ")
+                                           .Replace("</li>", $"{br}");
+
+                    // 正規表現パターンに基づいて削除します。
+                    string pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
+                    htmlString = Regex.Replace(htmlString, pattern, "");
+
+                    // 置換処理が完了した後、再度HTMLドキュメントに戻します。
+                    var modifiedHtmlDoc = new HtmlAgilityPack.HtmlDocument();
+                    modifiedHtmlDoc.LoadHtml(htmlString);
+
+                    // InnerText要素を結合して、宣言済みの変数contentに文字列として代入します。
+                    StringBuilder contentBuilder = new StringBuilder();
+                    foreach (var node in modifiedHtmlDoc.DocumentNode.ChildNodes)
+                    {
+                        if (!string.IsNullOrWhiteSpace(node.InnerText))
+                        {
+                            contentBuilder.Append(node.InnerText);
+                        }
+                    }
+                    content = contentBuilder.ToString();
+                    content = content.Trim();
+
+                    webConversationHistory.Add(new Dictionary<string, object>
+                    {
+                        { "role", role },
+                        { "content", content }
+                    });
+                    webLog += $"[Web Chat] by AI{br}{br}{content}{br}{br}{br}";
+                }
+
+                count++;
+            }
+            //MessageBox.Show(webLog);
+            await InsertDatabaseWebChatAsync(webChatTitle, webConversationHistory, webLog);
+
+
+            string query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
+            var dT = await SearchChatDatabaseAsync(query);
+            await chatLogForm.ShowChatSearchResultAsync(dT);
+
+            await UpdateChatSaysMarkerAsync();
+            await UpdateChatCodeMarkerAsync();
+
+            Interaction.MsgBox($"Successfully imported log: {webChatTitle} ({count} Messages)", MsgBoxStyle.Information, "Information");
+        }
+
+    //Thinkingアニメーション--------------------------------------------------------------
+    private System.Windows.Forms.Timer thinkTimer;
         private int thinkCounter = 0;
 
         private void StartThinkingAnimation()

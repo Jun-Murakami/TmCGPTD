@@ -1,8 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using static TmCGPTD.Form_Input;
+﻿using static TmCGPTD.Form_Input;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace TmCGPTD
@@ -58,23 +54,6 @@ namespace TmCGPTD
                     scintillaPick = true;
                     // targetScintilla.Focus()
                 }
-            }
-        }
-
-        private Size dockedSize;
-        private void MyForm_SizeChanged(object sender, EventArgs e)
-        {
-            if (DockState != DockState.Float)
-            {
-                dockedSize = Size;
-            }
-        }
-        private void MyForm_DockStateChanged(object sender, EventArgs e)
-        {
-            if (DockState == DockState.Float)
-            {
-                // ここで DefaultFloatWindowSize を変更する
-                Size = dockedSize;
             }
         }
 

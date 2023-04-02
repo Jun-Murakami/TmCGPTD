@@ -1,9 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Reflection;
 using Microsoft.VisualBasic.CompilerServices;
 using ScintillaNET;
 using WeifenLuo.WinFormsUI.Docking;
