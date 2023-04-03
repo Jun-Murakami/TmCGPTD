@@ -102,7 +102,7 @@ namespace TmCGPTD
             TextInput5.LexerName = null;
             TextInput5.Location = new Point(0, 415);
             TextInput5.Margin = new Padding(0);
-            TextInput5.Margins.Left = 5;
+            TextInput5.Margins.Left = 10;
             TextInput5.Margins.Right = 10;
             TextInput5.Name = "TextInput5";
             TextInput5.ScrollWidth = 110;
@@ -129,7 +129,7 @@ namespace TmCGPTD
             TextInput3.LexerName = null;
             TextInput3.Location = new Point(0, 255);
             TextInput3.Margin = new Padding(0);
-            TextInput3.Margins.Left = 5;
+            TextInput3.Margins.Left = 10;
             TextInput3.Margins.Right = 10;
             TextInput3.Name = "TextInput3";
             TextInput3.ScrollWidth = 110;
@@ -217,7 +217,7 @@ namespace TmCGPTD
             TextInput1.LexerName = null;
             TextInput1.Location = new Point(0, 0);
             TextInput1.Margin = new Padding(0);
-            TextInput1.Margins.Left = 5;
+            TextInput1.Margins.Left = 10;
             TextInput1.Margins.Right = 10;
             TextInput1.Name = "TextInput1";
             TextInput1.ScrollWidth = 110;

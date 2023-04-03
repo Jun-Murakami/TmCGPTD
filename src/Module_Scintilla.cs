@@ -83,12 +83,13 @@ namespace TmCGPTD
                 }
                 else
                 {
-                    inputBox.Margins[0].Width = 20 * (int)dpiScaleFactor; // マージン0の幅を設定
+                    inputBox.Margins[0].Width = 30 * (int)dpiScaleFactor; // マージン0の幅を設定
                     inputBox.Margins[1].Width = 5 * (int)dpiScaleFactor;
                 } // マージン1の幅を設定
 
                 inputBox.Styles[Style.LineNumber].BackColor = Color.FromArgb(22, 23, 35); // マージン0の背景色
                 inputBox.Styles[Style.LineNumber].ForeColor = Color.FromArgb(100, 100, 100); // マージン0の前景色
+                inputBox.Styles[Style.LineNumber].Size = 8;
                 inputBox.Margins[0].Type = MarginType.Number; // マージン0を行番号表示用に設定
                 inputBox.Margins[1].Type = MarginType.RightText; // マージン0をライトテキスト表示用に設定
                 inputBox.WhitespaceChars = "･";
