@@ -199,6 +199,7 @@ namespace TmCGPTD
 
             try
             {
+                bool isDeleteHistory = false;
                 string chatTextRes;
                 string currentTitle = (string)chatForm.Invoke((Func<string>)(() => chatForm.TextBoxTitle.Text));
                 TikToken tokenizer = TikToken.EncodingForModel("gpt-3.5-turbo");
@@ -210,7 +211,7 @@ namespace TmCGPTD
 
                     // 過去の会話履歴と現在の入力を結合する前に、過去の会話履歴に含まれるcontent文字列のトークン数を取得
                     int historyContentTokenCount = conversationHistory.Sum(d => tokenizer.Encode(d["content"].ToString()).Count);
-                    Debug.WriteLine("historyContentTokenCount: " + historyContentTokenCount);
+
                     // 要約前のトークン数を記録
                     int preSummarizedHistoryTokenCount = historyContentTokenCount;
                     // 履歴を逆順にする。
@@ -219,7 +220,7 @@ namespace TmCGPTD
 
                     if (tokenizer.Encode(chatTextPost).Count > MAX_CONTENT_LENGTH)
                     {
-                        throw new Exception($"The input text exceeds the maximum token limit ({MAX_CONTENT_LENGTH}). Please remove {tokenizer.Encode(chatTextPost).Count - MAX_CONTENT_LENGTH} tokens.{Environment.NewLine}");
+                        throw new Exception($"The input text ({tokenizer.Encode(chatTextPost).Count}) exceeds the maximum token limit ({MAX_CONTENT_LENGTH}). Please remove {tokenizer.Encode(chatTextPost).Count - MAX_CONTENT_LENGTH} tokens.{Environment.NewLine}");
                     }
 
                     // 過去の履歴＋ユーザーの新規入力が制限トークン数「MAX_CONTENT_LENGTH」を超えた場合
@@ -227,56 +228,90 @@ namespace TmCGPTD
                     {
                         int historyTokenCount = 0;
                         int messagesToSelect = 0;
+                        int messageStart = 0;
                         string forCompMes = "";
 
 
-                        // 会話履歴の最新のものから、ユーザーとアシスタントを1セットとして、1セットずつトークン数を数えて一時変数「historyTokenCount」に足していく
-                        for (int i = 0; i < reversedHistoryList.Count; i += 2)
+                        // 会話履歴の最新のものからトークン数を数えて一時変数「historyTokenCount」に足していく
+                        for (int i = 0; i < reversedHistoryList.Count; i += 1)
                         {
-                            string userMessage = reversedHistoryList[i]["content"].ToString();
-                            int userMessageTokenCount = tokenizer.Encode(userMessage).Count;
-                            historyTokenCount += userMessageTokenCount;
+                            string mes = reversedHistoryList[i]["content"].ToString();
+                            int messageTokenCount = tokenizer.Encode(mes).Count;
+                            historyTokenCount += messageTokenCount;
+
+                            if (i <= 4 && historyTokenCount < MAX_CONTENT_LENGTH / 5) //直近の会話が短ければそのまま生かす
+                            {
+                                messageStart += 1;
+                            }
 
                             if (historyTokenCount > MAX_CONTENT_LENGTH)
                             {
-                                messagesToSelect = i + 1; // 最後に処理したペアの次のインデックスを記録
+                                messagesToSelect = i + 1; // 最後に処理した次のインデックスを記録
                                 break;
                             }
+                        }
 
-                            if (i + 1 < reversedHistoryList.Count) // この行を追加
+                        foreach (var dict in reversedHistoryList)
+                        {
+                            string dictString = string.Join(", ", dict.Select(pair => $"{pair.Key}: {pair.Value}"));
+                            Debug.WriteLine("{" + dictString + "}");
+                        }
+
+                        Debug.WriteLine(messagesToSelect);
+
+                        // 会話履歴から適切な数だけをセレクトする
+                        if (messagesToSelect > 0)
+                        {
+                            forCompMes = reversedHistoryList.GetRange(messageStart, messagesToSelect).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);
+                        }
+                        else if (messagesToSelect == 0)
+                        {
+                            forCompMes = reversedHistoryList[0]["content"].ToString();
+                        }
+                        
+                        if (messagesToSelect > 0)
+                        {
+                            // 抽出したテキストを要約APIリクエストに送信
+                            try
                             {
-                                string assistantMessage = reversedHistoryList[i + 1]["content"].ToString();
-                                int assistantMessageTokenCount = tokenizer.Encode(assistantMessage).Count;
-                                historyTokenCount += assistantMessageTokenCount;
+                                string summary = await GetSummaryAsync(forCompMes);
+                                summary = currentTitle + ": " + summary;
 
-                                if (historyTokenCount > MAX_CONTENT_LENGTH)
+                                string summaryLog = "";
+                                if (messageStart > 0)
                                 {
-                                    messagesToSelect = i + 2; // 最後に処理したペアの次のインデックスを記録
-                                    break;
+                                    for (int i = 0; i < messageStart; i += 1)
+                                    {
+                                        foreach (var entry in reversedHistoryList[i])
+                                        {
+                                            string key = entry.Key;
+                                            string value = entry.Value.ToString();
+                                            summaryLog += $"{key}:{Environment.NewLine}{value}{Environment.NewLine}{Environment.NewLine}";
+                                        }
+                                    }
                                 }
+                                else
+                                {
+                                    summaryLog = summary;
+                                }
+
+                                MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summary}");
+
+                                // 返ってきた要約文で、conversationHistoryを書き換える
+                                conversationHistory.RemoveRange(messageStart, conversationHistory.Count - messageStart);
+                                conversationHistory.Add(new Dictionary<string, object>() { { "role", "assistant" }, { "content", summary } });
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception($"{ex.Message + Environment.NewLine}");
                             }
                         }
-
-
-                        // 会話履歴から適切な数のメッセージを削除し、新しい順に並べ替える
-                        forCompMes = reversedHistoryList.GetRange(0, messagesToSelect-2).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);
-
-
-                        // 抽出したテキストを要約APIリクエストに送信
-                        try
+                        else 
                         {
-                            string summary = await GetSummaryAsync(forCompMes);
-                            summary = currentTitle + ": " + summary;
-                            MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summary}");
-
-                            // 返ってきた要約文で、conversationHistoryを書き換える
                             conversationHistory.Clear();
-                            conversationHistory.Insert(0, new Dictionary<string, object>() { { "role", "assistant" }, { "content", summary } });
+                            isDeleteHistory = true;
                         }
-                        catch (Exception ex)
-                        {
-                            throw new Exception($"{ex.Message + Environment.NewLine}");
-                        }
+
                     }
 
                     // 現在のユーザーの入力を表すディクショナリ
@@ -348,6 +383,10 @@ namespace TmCGPTD
                         if (preSummarizedHistoryTokenCount > tokenizer.Encode(postConversation).Count)
                         {
                             chatTextRes += $"-Conversation history has been summarized. before: {preSummarizedHistoryTokenCount}, after: {tokenizer.Encode(postConversation).Count}.{Environment.NewLine}";
+                        }
+                        else if (isDeleteHistory)
+                        {
+                            chatTextRes += $"-Conversation history has been removed. before: {preSummarizedHistoryTokenCount}, after: {tokenizer.Encode(postConversation).Count}.{Environment.NewLine}";
                         }
                         //会話が成立した時点でタイトルが空欄だったらタイトルを自動生成する
                         if (string.IsNullOrEmpty(currentTitle))

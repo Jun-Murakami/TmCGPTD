@@ -820,7 +820,7 @@ namespace TmCGPTD
             Label27.Name = "Label27";
             Label27.Size = new Size(61, 29);
             Label27.TabIndex = 65;
-            Label27.Text = "2048";
+            Label27.Text = "3072";
             // 
             // Form_Option
             // 
