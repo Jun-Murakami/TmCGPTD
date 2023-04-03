@@ -229,21 +229,34 @@ namespace TmCGPTD
                         int messagesToSelect = 0;
                         string forCompMes = "";
 
+
                         // 会話履歴の最新のものから、ユーザーとアシスタントを1セットとして、1セットずつトークン数を数えて一時変数「historyTokenCount」に足していく
                         for (int i = 0; i < reversedHistoryList.Count; i += 2)
                         {
                             string userMessage = reversedHistoryList[i]["content"].ToString();
-                            string assistantMessage = reversedHistoryList[i + 1]["content"].ToString();
                             int userMessageTokenCount = tokenizer.Encode(userMessage).Count;
-                            int assistantMessageTokenCount = tokenizer.Encode(assistantMessage).Count;
-                            historyTokenCount += userMessageTokenCount + assistantMessageTokenCount;
+                            historyTokenCount += userMessageTokenCount;
 
                             if (historyTokenCount > MAX_CONTENT_LENGTH)
                             {
-                                messagesToSelect = i + 2; // 最後に処理したペアの次のインデックスを記録
+                                messagesToSelect = i + 1; // 最後に処理したペアの次のインデックスを記録
                                 break;
                             }
+
+                            if (i + 1 < reversedHistoryList.Count) // この行を追加
+                            {
+                                string assistantMessage = reversedHistoryList[i + 1]["content"].ToString();
+                                int assistantMessageTokenCount = tokenizer.Encode(assistantMessage).Count;
+                                historyTokenCount += assistantMessageTokenCount;
+
+                                if (historyTokenCount > MAX_CONTENT_LENGTH)
+                                {
+                                    messagesToSelect = i + 2; // 最後に処理したペアの次のインデックスを記録
+                                    break;
+                                }
+                            }
                         }
+
 
                         // 会話履歴から適切な数のメッセージを削除し、新しい順に並べ替える
                         forCompMes = reversedHistoryList.GetRange(0, messagesToSelect-2).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);
