@@ -257,18 +257,23 @@ namespace TmCGPTD
                             Debug.WriteLine("{" + dictString + "}");
                         }
 
+                        Debug.WriteLine(messageStart);
                         Debug.WriteLine(messagesToSelect);
+                        Debug.WriteLine(reversedHistoryList.Count);
 
                         // 会話履歴から適切な数だけをセレクトする
-                        if (messagesToSelect > 0)
+                        int rangeLength = Math.Min(messagesToSelect - messageStart, reversedHistoryList.Count - messageStart);
+                        Debug.WriteLine(rangeLength);
+                        if (rangeLength > 0)
                         {
-                            forCompMes = reversedHistoryList.GetRange(messageStart, messagesToSelect).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);
+                            forCompMes = reversedHistoryList.GetRange(messageStart, rangeLength).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);
                         }
                         else if (messagesToSelect == 0)
                         {
                             forCompMes = reversedHistoryList[0]["content"].ToString();
                         }
-                        
+
+
                         if (messagesToSelect > 0)
                         {
                             // 抽出したテキストを要約APIリクエストに送信
@@ -282,12 +287,7 @@ namespace TmCGPTD
                                 {
                                     for (int i = 0; i < messageStart; i += 1)
                                     {
-                                        foreach (var entry in reversedHistoryList[i])
-                                        {
-                                            string key = entry.Key;
-                                            string value = entry.Value.ToString();
-                                            summaryLog += $"{key}:{Environment.NewLine}{value}{Environment.NewLine}{Environment.NewLine}";
-                                        }
+                                            summaryLog += $"{messageStart} latest message(s) + {Environment.NewLine}{Environment.NewLine}";
                                     }
                                 }
                                 else
@@ -295,7 +295,7 @@ namespace TmCGPTD
                                     summaryLog = summary;
                                 }
 
-                                MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summary}");
+                                MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summaryLog}");
 
                                 // 返ってきた要約文で、conversationHistoryを書き換える
                                 conversationHistory.RemoveRange(messageStart, conversationHistory.Count - messageStart);
