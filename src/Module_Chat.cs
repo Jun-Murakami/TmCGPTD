@@ -285,10 +285,7 @@ namespace TmCGPTD
                                 string summaryLog = "";
                                 if (messageStart > 0)
                                 {
-                                    for (int i = 0; i < messageStart; i += 1)
-                                    {
-                                            summaryLog += $"{messageStart} latest message(s) + {Environment.NewLine}{Environment.NewLine}";
-                                    }
+                                    summaryLog += $"{messageStart} latest message(s) + {Environment.NewLine}{Environment.NewLine}{summary}";
                                 }
                                 else
                                 {
