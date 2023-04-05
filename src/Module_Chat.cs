@@ -430,7 +430,7 @@ namespace TmCGPTD
             { "model", api_model },
             { "messages", new List<Dictionary<string, object>>
                 {
-                    new Dictionary<string, object> { { "role", "system" }, { "content", "You are a professional editor. Please summarize the following chat log in about 600 tokens using the language in which the text is written. For a text that includes multiple conversations, the conversation set that appears at the beginning is the most important." } },
+                    new Dictionary<string, object> { { "role", "system" }, { "content", "You are a professional editor. Please summarize the following chat log in about 300 tokens using the language in which the text is written. For a text that includes multiple conversations, the conversation set that appears at the beginning is the most important." } },
                     new Dictionary<string, object> { { "role", "user" }, { "content", forCompMes } }
                 }
             }
