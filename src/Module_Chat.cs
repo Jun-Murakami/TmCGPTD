@@ -254,16 +254,16 @@ namespace TmCGPTD
                         foreach (var dict in reversedHistoryList)
                         {
                             string dictString = string.Join(", ", dict.Select(pair => $"{pair.Key}: {pair.Value}"));
-                            Debug.WriteLine("{" + dictString + "}");
+                            //Debug.WriteLine("{" + dictString + "}");
                         }
 
-                        Debug.WriteLine(messageStart);
-                        Debug.WriteLine(messagesToSelect);
-                        Debug.WriteLine(reversedHistoryList.Count);
+                        //Debug.WriteLine(messageStart);
+                        //Debug.WriteLine(messagesToSelect);
+                        //Debug.WriteLine(reversedHistoryList.Count);
 
                         // 会話履歴から適切な数だけをセレクトする
                         int rangeLength = Math.Min(messagesToSelect - messageStart, reversedHistoryList.Count - messageStart);
-                        Debug.WriteLine(rangeLength);
+                        //Debug.WriteLine(rangeLength);
                         if (rangeLength > 0)
                         {
                             forCompMes = reversedHistoryList.GetRange(messageStart, rangeLength).Select(message => message["content"].ToString()).Aggregate((a, b) => a + b);

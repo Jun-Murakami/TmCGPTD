@@ -2,6 +2,7 @@
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -82,7 +83,14 @@ namespace TmCGPTD
             string dockStateFilePath = Path.Combine(Application.StartupPath, "DockState.xml");
             if (File.Exists(dockStateFilePath))
             {
-                DockPanel1.LoadFromXml(dockStateFilePath, DeserializeDockContent);
+                try
+                {
+                    DockPanel1.LoadFromXml(dockStateFilePath, DeserializeDockContent);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("DockState.xml loading error :" + ex.Message);
+                }
             }
             else
             {
@@ -246,22 +254,29 @@ namespace TmCGPTD
         // Dockレイアウト--------------------------------------------------------------
         private void LoadDefaultDockLayout()
         {
-            // 現在のレイアウトをクリア
-            DockPanel1.SuspendLayout(true);
-            foreach (IDockContent window in DockPanel1.Contents.ToList())
-                window.DockHandler.DockPanel = null;
-
-            // 新しいレイアウトをロード
-            // DockPanel1.Theme = New VS2015LightTheme
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream("TmCGPTD.DefaultDockState.xml"))
+            try
             {
-                DockPanel1.LoadFromXml(stream, DeserializeDockContent);
-            }
-            DockPanel1.ResumeLayout(true, true);
+                // 現在のレイアウトをクリア
+                DockPanel1.SuspendLayout(true);
+                foreach (IDockContent window in DockPanel1.Contents.ToList())
+                    window.DockHandler.DockPanel = null;
 
-            float dpiScaleFactor = CreateGraphics().DpiX / 96.0f;
-            DockPanel1.DockBottomPortion = DockPanel1.DockBottomPortion * (double)dpiScaleFactor;
+                // 新しいレイアウトをロード
+                // DockPanel1.Theme = New VS2015LightTheme
+                var assembly = Assembly.GetExecutingAssembly();
+                using (var stream = assembly.GetManifestResourceStream("TmCGPTD.DefaultDockState.xml"))
+                {
+                    DockPanel1.LoadFromXml(stream, DeserializeDockContent);
+                }
+                DockPanel1.ResumeLayout(true, true);
+
+                float dpiScaleFactor = CreateGraphics().DpiX / 96.0f;
+                DockPanel1.DockBottomPortion = DockPanel1.DockBottomPortion * (double)dpiScaleFactor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("DockState.xml loading error :" + ex.Message);
+            }
         }
 
         // DeserializeDockContent メソッドを実装して、適切な DockContent インスタンスを返すようにします。
