@@ -97,7 +97,7 @@ namespace TmCGPTD.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C#")]
         public string Language {
             get {
                 return ((string)(this["Language"]));
