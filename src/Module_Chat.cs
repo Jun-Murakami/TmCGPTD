@@ -109,7 +109,7 @@ namespace TmCGPTD
         // チャットのコードスニペット背景色設定--------------------------------------------------------------
         public async Task UpdateChatCodeMarkerAsync(string searchKey = "")
         {
-            string pattern = @"(```)([\w-+.]*\r?\n)((?:(?!^```|\r?\n).|\r?\n)*?)(^```)";
+            string pattern = @"(```)([\w-+#.]*\r?\n)((?:(?!^```|\r?\n).|\r?\n)*?)(^```)";
             var rx = new Regex(pattern, RegexOptions.Multiline);
 
             // チャット履歴を取得
