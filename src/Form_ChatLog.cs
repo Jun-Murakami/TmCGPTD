@@ -301,35 +301,42 @@ namespace TmCGPTD
         // インクリメンタルサーチ--------------------------------------------------------------
         public async void TextBoxSearch_TextChangedAsync(object sender, EventArgs e)
         {
-            string searchKey = null;
-            await Task.Run(() => TextBoxSearch.BeginInvoke(() => searchKey = TextBoxSearch.Text.Trim()));
-            string query;
-            DataTable dT;
-            if (string.IsNullOrEmpty(searchKey))
+            try
             {
-                query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
-                dT = await MainFormInst.SearchChatDatabaseAsync(query);
-            }
-            else
-            {
-                query = "SELECT id, date, title, tag FROM chatlog WHERE LOWER(text) LIKE LOWER(@searchKey)";
-                dT = await MainFormInst.SearchChatDatabaseAsync(query, searchKey);
-            }
-            await ShowChatSearchResultAsync(dT);
-            int rowsCount = new int();
-            await Task.Run(() => DataGrid.BeginInvoke(() => rowsCount = DataGrid.Rows.Count));
-            if (rowsCount > 0)
-            {
-                int chatId = new int();
-                await Task.Run(() => DataGrid.BeginInvoke(() => chatId = Conversions.ToInteger(DataGrid.Rows[0].Cells["chatId"].Value)));
-                query = $"SELECT title, tag, json, text FROM chatlog WHERE id = {chatId}";
-                var result = await MainFormInst.PickChatDatabaseAsync(query);
-                await MainFormInst.ShowChatLogAsync(result, searchKey);
-                Form1.lastRowId = chatId;
-            }
-            else
-            {
+                string searchKey = null;
+                await Task.Run(() => TextBoxSearch.BeginInvoke(() => searchKey = TextBoxSearch.Text.Trim()));
+                string query;
+                DataTable dT;
+                if (string.IsNullOrEmpty(searchKey))
+                {
+                    query = "SELECT id, date, title, tag FROM chatlog ORDER BY date DESC;";
+                    dT = await MainFormInst.SearchChatDatabaseAsync(query);
+                }
+                else
+                {
+                    query = "SELECT id, date, title, tag FROM chatlog WHERE LOWER(text) LIKE LOWER(@searchKey)";
+                    dT = await MainFormInst.SearchChatDatabaseAsync(query, searchKey);
+                }
+                await ShowChatSearchResultAsync(dT);
+                int rowsCount = new int();
+                await Task.Run(() => DataGrid.BeginInvoke(() => rowsCount = DataGrid.Rows.Count));
+                if (rowsCount > 0)
+                {
+                    int chatId = new int();
+                    await Task.Run(() => DataGrid.BeginInvoke(() => chatId = Conversions.ToInteger(DataGrid.Rows[0].Cells["chatId"].Value)));
+                    query = $"SELECT title, tag, json, text FROM chatlog WHERE id = {chatId}";
+                    var result = await MainFormInst.PickChatDatabaseAsync(query);
+                    await MainFormInst.ShowChatLogAsync(result, searchKey);
+                    Form1.lastRowId = chatId;
+                }
+                else
+                {
 
+                }
+            }
+            catch (Exception ex)
+            {
+                Interaction.MsgBox( "Error: " + ex.Message, MsgBoxStyle.Exclamation, "Error");
             }
         }
 

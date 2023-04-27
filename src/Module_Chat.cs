@@ -154,28 +154,40 @@ namespace TmCGPTD
         // チャットまとめて表示--------------------------------------------------------------
         public async Task ShowChatLogAsync(List<string> result, string searchKey = "")
         {
-            await Task.Run(() => chatForm.TextBoxTitle.Invoke(() => chatForm.TextBoxTitle.Text = result[0])); // タイトル
-
-            string[] tags = Strings.Split(result[1], Environment.NewLine); // タグを分割して各ボックスへ
-            await Task.Run(() => chatForm.TextBoxTag1.Invoke(() => chatForm.TextBoxTag1.Text = tags[0]));
-            if (tags.Length > 1)
-                await Task.Run(() => chatForm.TextBoxTag2.Invoke(() => chatForm.TextBoxTag2.Text = tags[1]));
-            if (tags.Length > 2)
-                await Task.Run(() => chatForm.TextBoxTag3.Invoke(() => chatForm.TextBoxTag3.Text = tags[2]));
-
-            await Task.Run(() => conversationHistory = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(result[2])); // 会話履歴を格納
-
-            await Task.Run(() => chatForm.ChatBox.Invoke(() => chatForm.ChatBox.Text = result[3] + Environment.NewLine)); // 本文更新
-
-            // 背景色マーカー更新
-            await UpdateChatSaysMarkerAsync();
-            if (!string.IsNullOrEmpty(searchKey))
+            if (result == null || result.Count < 4)
             {
-                await UpdateChatCodeMarkerAsync(searchKey);
+                throw new ArgumentException("Invalid result list.");
             }
-            else
+
+            try
             {
-                await UpdateChatCodeMarkerAsync();
+                await Task.Run(() => chatForm.TextBoxTitle.Invoke(() => chatForm.TextBoxTitle.Text = result[0])); // タイトル
+
+                string[] tags = Strings.Split(result[1], Environment.NewLine); // タグを分割して各ボックスへ
+                await Task.Run(() => chatForm.TextBoxTag1.Invoke(() => chatForm.TextBoxTag1.Text = tags[0]));
+                if (tags.Length > 1)
+                    await Task.Run(() => chatForm.TextBoxTag2.Invoke(() => chatForm.TextBoxTag2.Text = tags[1]));
+                if (tags.Length > 2)
+                    await Task.Run(() => chatForm.TextBoxTag3.Invoke(() => chatForm.TextBoxTag3.Text = tags[2]));
+
+                await Task.Run(() => conversationHistory = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(result[2])); // 会話履歴を格納
+
+                await Task.Run(() => chatForm.ChatBox.Invoke(() => chatForm.ChatBox.Text = result[3] + Environment.NewLine)); // 本文更新
+
+                // 背景色マーカー更新
+                await UpdateChatSaysMarkerAsync();
+                if (!string.IsNullOrEmpty(searchKey))
+                {
+                    await UpdateChatCodeMarkerAsync(searchKey);
+                }
+                else
+                {
+                    await UpdateChatCodeMarkerAsync();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -292,7 +304,7 @@ namespace TmCGPTD
                                     summaryLog = summary;
                                 }
 
-                                MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summaryLog}");
+                                //MessageBox.Show($"Conversation history was summarized as follows:{Environment.NewLine}{Environment.NewLine}{summaryLog}");
 
                                 // 返ってきた要約文で、conversationHistoryを書き換える
                                 conversationHistory.RemoveRange(messageStart, conversationHistory.Count - messageStart);
@@ -520,14 +532,24 @@ namespace TmCGPTD
             HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
             htmlDoc.LoadHtml(htmlSource);
 
-            // h1タグをサーチ
-            var h1Tag = htmlDoc.DocumentNode.SelectSingleNode("//h1");
-            if (h1Tag.InnerText == "New chat")
+            HtmlNode titleNode = htmlDoc.DocumentNode.SelectSingleNode("//title");
+
+            if (titleNode != null)
             {
-                MessageBox.Show("Please display chat screen.");
+                string titleText = titleNode.InnerText;
+                if (titleText == "New chat")
+                {
+                    return;
+                }
+                else
+                {
+                    webChatTitle = titleText;
+                }
+            }
+            else
+            {
                 return;
             }
-            webChatTitle = h1Tag?.InnerText;
 
             // mainタグをサーチ
             var mainTag = htmlDoc.DocumentNode.SelectSingleNode("//main");
@@ -582,18 +604,21 @@ namespace TmCGPTD
                     {
                         if (!string.IsNullOrWhiteSpace(node.InnerText))
                         {
-                            contentBuilder.Append(node.InnerText);
+                            contentBuilder.Append(ReplaceEntities(node.InnerText));
                         }
                     }
                     content = contentBuilder.ToString();
                     content = content.Trim();
 
-                    webConversationHistory.Add(new Dictionary<string, object>
+                    if (!string.IsNullOrWhiteSpace(content))
                     {
-                        { "role", role },
-                        { "content", content }
-                    });
-                    webLog += $"[Web Chat] by You{br}{br}{content}{br}{br}{br}";
+                        webConversationHistory.Add(new Dictionary<string, object>
+                            {
+                                { "role", role },
+                                { "content", content }
+                            });
+                        webLog += $"[Web Chat] by You{br}{br}{content}{br}{br}{br}";
+                    }
                 }
                 else
                 {
@@ -626,7 +651,7 @@ namespace TmCGPTD
                     {
                         if (!string.IsNullOrWhiteSpace(node.InnerText))
                         {
-                            contentBuilder.Append(node.InnerText);
+                            contentBuilder.Append(ReplaceEntities(node.InnerText));
                         }
                     }
                     content = contentBuilder.ToString();
@@ -655,9 +680,26 @@ namespace TmCGPTD
 
             Interaction.MsgBox($"Successfully imported log: {webChatTitle} ({count} Messages)", MsgBoxStyle.Information, "Information");
         }
+        //htmlエンティティ変換
+        private static readonly Dictionary<string, string> EntityToCharacter = new Dictionary<string, string>
+        {
+            {"&amp;", "&"},
+            {"&quot;", "\""},
+            {"&apos;", "'"},
+            {"&lt;", "<"},
+            {"&gt;", ">"}
+        };
+        public static string ReplaceEntities(string input)
+        {
+            foreach (var kvp in EntityToCharacter)
+            {
+                input = input.Replace(kvp.Key, kvp.Value);
+            }
+            return input;
+        }
 
-    //Thinkingアニメーション--------------------------------------------------------------
-    private System.Windows.Forms.Timer thinkTimer;
+        //Thinkingアニメーション--------------------------------------------------------------
+        private System.Windows.Forms.Timer thinkTimer;
         private int thinkCounter = 0;
 
         private void StartThinkingAnimation()
