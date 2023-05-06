@@ -14,7 +14,7 @@ namespace TmCGPTD
 
     public partial class Form1
     {
-        // SQログLテーブル初期化--------------------------------------------------------------
+        // SQLログテーブル初期化--------------------------------------------------------------
         private void CreateDatabase()
         {
             using (var connection = new SQLiteConnection($"Data Source={dbPath}"))
@@ -132,7 +132,6 @@ namespace TmCGPTD
         {
             if (!string.IsNullOrEmpty(recentText))
             {
-
                 inputText.Clear();
                 await Task.Run(() => inputForm.TextInput1.Invoke(() => inputText.Add(string.Join(Environment.NewLine, inputForm.TextInput1.Text))));
                 await Task.Run(() => inputForm.TextInput2.Invoke(() => inputText.Add(string.Join(Environment.NewLine, inputForm.TextInput2.Text))));
@@ -667,7 +666,6 @@ namespace TmCGPTD
                                 await Task.Run(() => command.Parameters.AddWithValue("@text", webLog));
                                 await command.ExecuteNonQueryAsync();
                             }
-
 
                             // トランザクションをコミットする
                             await Task.Run(() => transaction.Commit());

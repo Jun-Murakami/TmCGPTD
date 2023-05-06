@@ -594,11 +594,11 @@ namespace TmCGPTD
                     string pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
                     htmlString = Regex.Replace(htmlString, pattern, "");
 
-                    // 置換処理が完了した後、再度HTMLドキュメントに戻します。
+                    // 置換処理が完了した後、再度HTMLドキュメントに戻す
                     var modifiedHtmlDoc = new HtmlAgilityPack.HtmlDocument();
                     modifiedHtmlDoc.LoadHtml(htmlString);
 
-                    // InnerText要素を結合して、宣言済みの変数contentに文字列として代入します。
+                    // InnerText要素を結合して、宣言済みの変数contentに文字列として代入
                     StringBuilder contentBuilder = new StringBuilder();
                     foreach (var node in modifiedHtmlDoc.DocumentNode.ChildNodes)
                     {
@@ -626,8 +626,18 @@ namespace TmCGPTD
 
                     string htmlString = div.InnerHtml;
 
-                    // 置換処理を行います。
-                    htmlString = htmlString.Replace("<pre>", $"{br}{br}```")
+                    // 正規表現パターンに基づいて置換・削除
+                    string pattern = "<title.*>.*</title>";
+                    htmlString = Regex.Replace(htmlString, pattern, "");
+
+                    pattern = "<text.*>.*</text>";
+                    htmlString = Regex.Replace(htmlString, pattern, "");
+
+                    pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
+                    htmlString = Regex.Replace(htmlString, pattern, "");
+
+                    // 置換処理
+                    htmlString = htmlString.Replace("<pre class=\"\">", $"{br}{br}```")
                                            .Replace("</pre>", $"{br}```{br}{br}")
                                            .Replace("Copy code", $"{br}")
                                            .Replace("<ol>", $"{br}")
@@ -637,15 +647,11 @@ namespace TmCGPTD
                                            .Replace("<li>", $"{br}- ")
                                            .Replace("</li>", $"{br}");
 
-                    // 正規表現パターンに基づいて削除します。
-                    string pattern = "<span class=.*>[0-9]+ / [0-9]+</span>";
-                    htmlString = Regex.Replace(htmlString, pattern, "");
-
-                    // 置換処理が完了した後、再度HTMLドキュメントに戻します。
+                    // 置換処理が完了した後、再度HTMLドキュメントに戻す
                     var modifiedHtmlDoc = new HtmlAgilityPack.HtmlDocument();
                     modifiedHtmlDoc.LoadHtml(htmlString);
 
-                    // InnerText要素を結合して、宣言済みの変数contentに文字列として代入します。
+                    // InnerText要素を結合して、宣言済みの変数contentに文字列として代入
                     StringBuilder contentBuilder = new StringBuilder();
                     foreach (var node in modifiedHtmlDoc.DocumentNode.ChildNodes)
                     {
@@ -658,10 +664,10 @@ namespace TmCGPTD
                     content = content.Trim();
 
                     webConversationHistory.Add(new Dictionary<string, object>
-                    {
-                        { "role", role },
-                        { "content", content }
-                    });
+                        {
+                            { "role", role },
+                            { "content", content }
+                        });
                     webLog += $"[Web Chat] by AI{br}{br}{content}{br}{br}{br}";
                 }
 

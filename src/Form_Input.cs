@@ -12,6 +12,7 @@ using Microsoft.VisualBasic.CompilerServices;
 using ScintillaNET;
 using static TmCGPTD.Form1;
 using WeifenLuo.WinFormsUI.Docking;
+using static ScintillaNET.Style;
 
 namespace TmCGPTD
 {
@@ -179,6 +180,20 @@ namespace TmCGPTD
                     string js = "var ta = document.getElementsByTagName('textarea')[0]; ta.value = '" + recentText + "';";
                     await MainFormInst.MainFormWebView2Form.webView21.ExecuteScriptAsync(js);
 
+                    js = @"const mainTag = document.querySelector('main');
+                        const formTag = mainTag.querySelector('form');
+                        const button = formTag.querySelector('button');
+                        button.removeAttribute('disabled');";
+                    await MainFormInst.MainFormWebView2Form.webView21.ExecuteScriptAsync(js);
+
+                    await Task.Delay(500);
+
+                    js = @"const mainTag = document.querySelector('main');
+                        const formTag = mainTag.querySelector('form');
+                        const button = formTag.querySelector('button');
+                        button.click();";
+                    await MainFormInst.MainFormWebView2Form.webView21.ExecuteScriptAsync(js);
+
                 }
                 else
                 {
@@ -209,12 +224,12 @@ namespace TmCGPTD
             await MainFormInst.SearchDatabaseAsync(query);
             // ドロップダウンリストを表示する
             await Task.Run(() => ComboBoxSearch.BeginInvoke(() =>
-{
-    if (!ComboBoxSearch.DroppedDown)
-        ComboBoxSearch.DroppedDown = true;
-    ComboBoxSearch.Focus();
-}));
-        }
+                                                                {
+                                                                    if (!ComboBoxSearch.DroppedDown)
+                                                                        ComboBoxSearch.DroppedDown = true;
+                                                                    ComboBoxSearch.Focus();
+                                                                }));
+                                                                        }
 
         // サーチコンボボックス選択イベント--------------------------------------------------------------
         private void ComboBoxSearch_SelectedIndexChanged(object sender, EventArgs e)
