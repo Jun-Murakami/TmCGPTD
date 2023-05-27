@@ -6,6 +6,9 @@
 
 ------------------------
 
+### This is an older version. The new version is here.
+https://github.com/Jun-Murakami/TmCGPTD-2.0
+
 This application is a developer-oriented ChatGPT API client designed to assist with program debugging. To use it, you must enter your API key in the appsettings.json file.
 
 for Windows 10.
